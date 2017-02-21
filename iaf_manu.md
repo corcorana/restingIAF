@@ -6,6 +6,7 @@ author:
 - Matthias Schlesewsky
 - Ina Bornkessel-Schlesewsky
 output: html_document
+fig_caption: true
 bibliography: ~/Dropbox/libraryAC.bib
 # csl: ~/Dropbox/apa-old-doi-prefix.csl --> can't get this (or other csl versions) to run
 ---
@@ -271,12 +272,14 @@ If no zero crossings are identified, the channel is excluded from further analys
 
 Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated through fitting a least-squares linear regression to the normalised power spectrum. 
 The PSD estimate at the zero crossing must exceed the value predicted by the regression model by more than the standard deviation of the etimated prediction error in order to register as a peak candidate. 
-This parameter thus provides a convenient threshold for the exclusion of zero crossings emanating from trivial fluctuations in the power spectrum<!--see fig contrasting 2 e.g.s-->. 
+This parameter thus provides a convenient threshold for the exclusion of zero crossings emanating from trivial fluctuations in the power spectrum (see [Figure](#minPow)).
 If more than one peak within the spectral domain defined by $W_\alpha$ is found to exceed $minP$, these candidates are rank ordered according to their normalised power estimates, and the magnitude difference between the two largest peaks is compared. 
 If the primary peak exceeds the height of its closest competitor by more than the threshold defined by $pDiff$, it is assigned as the PAF. 
-The second derivative is then examined to determine the location of the associated peak inflection points, and the $Q$ value is subsequently computed. 
+The second derivative is then examined to determine the location of the associated peak inflection points, and the $Q$ value is subsequently computed.
 Should the primary peak fail to satisfy the $pDiff$ criterion, this channel would fail to register an estimate of PAF. 
 It would however still qualify for inclusion in the CoG estimation procedure.
+
+![*Figure.* Visualisation of power spectral density (PSD) plots in which corresponding $minP$ threshold values have been superimposed (red line). *Left panel:* PSD estimates for all frequency bins above the delta band fail to exceed $minP$; no peak registered. *Centre panel:* Channel data recorded from the same participant as in the left panel. The spectral peak at approximately 10 Hz is sufficient to exceed $minP$. *Right panel:* Example of channel data from a different participant in which a relatively large alpha peak markedly exceeds the $minP$ threshold (note difference in abcissa scaling).](/Users/Andrew/Desktop/ms_figs/minPow.png){#minPow}
 
 CoG calculation follows the standard procedure described by Klimesch and colleagues [@klimesch1990], with the exception that the bounds of the alpha interval were automatically detected. 
 The programme derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum prior to and following these peaks, respectively.
