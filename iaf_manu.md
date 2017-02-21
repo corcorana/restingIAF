@@ -269,8 +269,8 @@ Channel-wise PSDs are then subjected to the SGF in order to estimate their zerot
 Next, the first derivative is searched for downward going zero crossings within $W_\alpha$. 
 If no zero crossings are identified, the channel is excluded from further analysis. 
 
-Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated by fitting a least-squares regression line to the normalised power spectrum. 
-The ordinate at the zero crossing must exceed the power value predicted by the regression fit in order to register as a potential candidate for the PAF. 
+Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated through fitting a least-squares linear regression to the normalised power spectrum. 
+The PSD estimate at the zero crossing must exceed the value predicted by the regression model by more than the standard deviation of the etimated prediction error in order to register as a peak candidate. 
 This parameter thus provides a convenient threshold for the exclusion of zero crossings emanating from trivial fluctuations in the power spectrum<!--see fig contrasting 2 e.g.s-->. 
 If more than one peak within the spectral domain defined by $W_\alpha$ is found to exceed $minP$, these candidates are rank ordered according to their normalised power estimates, and the magnitude difference between the two largest peaks is compared. 
 If the primary peak exceeds the height of its closest competitor by more than the threshold defined by $pDiff$, it is assigned as the PAF. 
@@ -316,7 +316,7 @@ Electrode impedances were maintained below 12.5 k$\Omega$.
 EEG data acquired during eyes-closed resting-state recordings were preprocessed in MATLAB version 8.3.0.532. 
 First, all EEG channels were imported into the MATLAB workspace via EEGLAB version 13.6.5b and re-referenced to linked mastoids. 
 Each dataset was then trimmed to retain only the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P3/4, POz, PO3/4, Oz, O1/2. 
-These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 0.3 Hz, -6 dB cutoff: 0.15 Hz) and lowpass (passband: 30 Hz, -6 dB cutoff: 33.75 Hz), Hamming-windowed sinc filters. 
+These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 30 Hz, -6 dB cutoff: 33.75 Hz), Hamming-windowed sinc filters. 
 Finally, all recordings exceeding 120 s in duration were trimmed to ensure standardisation of the total quantity of data analysed across participants.
 	
 Note that these data were not subjected to any artifact detection/rejection procedures beyond filtering. 
