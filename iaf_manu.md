@@ -221,7 +221,7 @@ Such measures may therefore be prone to rendering excessively liberal estimates 
 Having defined both the height and width of the putative alpha peak by means of the first and second derivative zero crossings, peak quality is quantified via the following formula:<!-- AC: I've used integration here, or more properly an approximation to integration rendered via MATLABs `trapz` function, but I wonder if it's better to use the sum of frequency bins approach as per the CoG formula in order to draw out the similarities with the CoG calculation ? -->
 
 $$ Q = \frac{\int_{i_1}^{i_2} a(f(x)) } { i_2 – i_1 } , $$
-<!-- PA: From the Mean Value Theorem, this is exactly the “mean” power on that interval, which tells you a bit about how strong the peak is – peaks have higher mean values -->
+<!-- PA: From the Mean Value Theorem, this is exactly the “mean” power on that interval, which tells you a bit about how strong the peak is – peaks have higher mean values. AC response: All I can tell from wikipedia etc is that the MVT proves there is at least one point on a differentiable function that has a tangent that is parallel to the secant through the function's endpoints - I don't see how this relates to the Q calculation -->
 where $Q$ is the scaled quantity of normalised alpha peak power, and $a$ is the estimated power at each frequency bin $f(x)$ that falls within the index of integration $i_1 - i_2$. 
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
 Given equal values of $\int_{i_1}^{i_2}f(x)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts. 
