@@ -196,7 +196,7 @@ With this concern in mind, we turn to the Savitzky-Golay filter (SGF), a least-s
 The SGF has a number of properties that make it well suited to the task of smoothing PSD functions, not least of which is its capacity to render smoothed signal curves that conserve the height, width, position, area, and centre of gravity of the underlying component structure [see @ziegler1981].
 SGFs work by centring a sampling window of length $F_w$ on a portion of the input signal and computing the least-squares fit of a specified polynomial to each $i$^th^ data point spanned by $F_w$.
 This window is then shifted one point along the signal, and the polynomial fit recalculated in accordance with the updated input.
-The centre value of the polynomial fit is taken as the filter output at each iteration of the sliding window, and these values are concatenate to render the smoothed estimate of the input function.
+The centre value of the polynomial fit is taken as the filter output at each iteration of the sliding window, and these values are concatenated to render the smoothed estimate of the input function.
 For a more detailed treatment of the SGF and its technical performance properties, the interested reader is referred to Schafer [@schafer2011].
 
 In addition to its smoothing capability, SGFs can also be applied to calculate the $n$^th^ order derivative of the input signal. 
@@ -218,17 +218,18 @@ $$ f’’(x) = \frac {\Delta f(x)’} {\Delta x’} , $$ <!-- AC: do i need the
 
 where $f’’(x)$ is the derivative of the first derivative $f’(x)$ at frequency bin $x’$.
 In other words, the second derivative is simply the rate of change of the first derivative of some function $f(x)$. 
-Second derivatives are useful for evaluating whether the curvature of a function is concave up (i.e. convex) or concave down at any given value of $x$. The transition of a curve’s direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
+Second derivatives are useful for evaluating whether the curvature of a function is concave up (i.e. convex) or concave down at any given value of $x$. 
+The transition of a curve’s direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
 
 We suggest that the inflection points $i_1$ and $i_2$ on either side of $\text{max } f(x)$ offer a convenient objective standard for evaluating the relative quality of channel peaks. 
-The basic idea here is to quantify the area under the peak in such a way that distinguishes stronger (i.e. containing a greater proportion of spectral power) and less variable (i.e. spanning fewer frequency bins) peaks from shallower, broader, or otherwise noisier peaks. 
+The basic idea here is to quantify the area under the peak in such a way that distinguishes stronger (i.e. containing a greater proportion of spectral power) and less variable (i.e. spanning fewer frequency bins) peaks from shallower, broader, or otherwise noisier components. 
 Given a set of spectral data from a variety of electrode channels, those PSDs which give rise to higher quality peaks (as operationalised above) are weighted more heavily than their less prominent counterparts, and thus contribute relatively more information to the calculation of the cross-channel PAF estimate. 
 Note that this procedure has no bearing on CoG estimation (since the CoG may be derived from spectra in which no clear evidence of a single alpha peak was detected, and thus for which no inflection point data are available).
 
 We claim $i_1$ and $i_2$ constitute a valuable marker of peak width across a variety of spectral conditions. 
 In cases where the shape of the alpha peak is sharp and narrow, $i_1$ and $i_2$ are expected to be located towards the tails of the individual alpha band, and indeed could be construed as somewhat analogous to a conservative approximation of $f_1$ and $f_2$, respectively. 
-However, in cases where secondary peaks are apparent, $i_1$ and $i_2$ will ensure that the peak evaluation procedure is constrained to that region underneath the primary peak. 
-This latter scenario helps to highlight the advantage of an approach reliant upon inflection points as opposed to common alternative measures of spectral width, such as the base width or full width at half maximum (FWHM). 
+However, in cases where secondary peaks are apparent, $i_1$ and $i_2$ will ensure that the peak evaluation procedure is constrained to the region underneath the primary peak. 
+This latter scenario helps to highlight the advantage of an approach that relies upon inflection points as opposed to common alternative measures of spectral width, such as the base width or full width at half maximum (FWHM). 
 These latter techniques are ill-equipped to distinguish the bounds of a primary peak amidst a broader spectral region comprising multiple component structures. 
 Such measures may therefore be prone to rendering excessively liberal estimates of peak area.
 
@@ -236,10 +237,10 @@ Having defined both the height and width of the putative alpha peak by means of 
 
 $$ Q = \frac{\int_{i_1}^{i_2} a(f(x)) } { i_2 – i_1 } , $$
 <!-- PA: From the Mean Value Theorem, this is exactly the “mean” power on that interval, which tells you a bit about how strong the peak is – peaks have higher mean values. AC response: All I can tell from wikipedia etc is that the MVT proves there is at least one point on a differentiable function that has a tangent that is parallel to the secant through the function's endpoints - I don't see how this relates to the Q calculation -->
-where $Q$ is the scaled quantity of normalised alpha peak power, and $a$ is the estimated power at each frequency bin $f(x)$ that falls within the index of integration $i_1 - i_2$. 
+where $Q$ is the scaled quantity of normalised alpha peak power, and $a$ is the estimated power at each frequency bin $f(x)$ that falls within the index of integration $i_1... i_2$. 
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
 Given equal values of $\int_{i_1}^{i_2}f(x)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts. 
-This formulation thus penalises ‘less peaky’ components by assigning a heavier weighting to what we claim constitute stronger evidence of the individual PAF. 
+This formulation thus penalises ‘less peaky’ components by assigning a heavier weighting to what we claim constitute stronger evidence of the PAF. 
 However, it is perhaps worth emphasising that this calculation only influences PAF estimation in cases where channel data produce divergent peak frequencies (i.e. relative $Q$ weights have no impact on the mean PAF calculated from channels that furnish identical estimates of the peak frequency).<!--AC: definitely need an example figure here to show what Q weighting does -->
 
 ### 2.2 Implementation of proposed analysis techniques
@@ -284,31 +285,50 @@ Next, the first derivative is searched for downward going zero crossings within 
 If no zero crossings are identified, the channel is excluded from further analysis. 
 
 Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated through fitting a least-squares linear regression to the normalised power spectrum. 
-The PSD estimate at the zero crossing must exceed the value predicted by the regression model by more than the standard deviation of the etimated prediction error in order to register as a peak candidate. 
+In order to register as a peak candidate, the PSD estimate at the zero crossing must exceed the corresponding value predicted by the regression model by more than the standard deviation of the estimated prediction error. 
 This parameter thus provides a convenient threshold for the exclusion of zero crossings emanating from trivial fluctuations in the power spectrum (see [Fig_minPow](#minPow)).
 If more than one peak within the spectral domain defined by $W_\alpha$ is found to exceed $minP$, these candidates are rank ordered according to their normalised power estimates, and the magnitude difference between the two largest peaks is compared. 
-If the primary peak exceeds the height of its closest competitor by more than the threshold defined by $pDiff$, it is assigned as the PAF. 
-The second derivative is then examined to determine the location of the associated peak inflection points, and the $Q$ value is subsequently computed.
-Should the primary peak fail to satisfy the $pDiff$ criterion, this channel would fail to register an estimate of PAF. 
+If the primary peak exceeds the height of its closest competitor by more than the threshold defined by $pDiff$, it is assigned as the channel PAF. 
+The second derivative is then examined to determine the location of the associated peak inflection points, and the $Q$ value subsequently computed.
+Should the primary peak fail to satisfy the $pDiff$ criterion, this channel would fail to register an estimate of the PAF. 
 It would however still qualify for inclusion in the CoG estimation procedure.
 
-![*Fig_minPow.* Visualisation of power spectral density (PSD) plots in which corresponding $minP$ threshold values have been superimposed (red line). *Left panel*: PSD estimates for all frequency bins above the delta band fail to exceed $minP$; no peak registered. *Central panel*: Channel data recorded from the same participant as in the left panel. The spectral peak at approximately 10 Hz is sufficient to exceed $minP$. *Right panel*: Data from another participant showing a relatively powerful alpha peak that markedly exceeds the $minP$ threshold for this channel (note differences in ordinate scaling).](minPow.png){#minPow}
+![*Fig_minPow.* Visualisation of power spectral density (PSD) plots with superposed $minP$ threshold (red line). *Left panel*: PSD estimates for all frequency bins above the delta band fail to exceed $minP$; no peak registered. *Central panel*: Channel data recorded from the same participant as in the left panel. The spectral peak at approximately 10 Hz is sufficient to exceed $minP$. *Right panel*: Data from another participant showing a relatively powerful alpha peak that markedly exceeds the $minP$ threshold for this channel (note differences in ordinate scaling).](minPow.png){#minPow}
 
-CoG calculation follows the standard procedure described by Klimesch and colleagues [@klimesch1990], with the exception that the bounds of the alpha interval were automatically detected. 
-The programme derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum prior to and following these peaks, respectively.
-Since some spectra show a relatively shallow roll-off away from the alpha peak, one that does not culminate in a local minimum for several Hz, we relaxed the requirement for an upward going zero crossing (i.e. evidence of a local minimum) such that the transition into a prolonged shallow function is taken as sufficient evidence of the individual alpha bounds $f_1$ or $f_2$.
-This criterion was formalised as $f’(x) < |1| \text{ for } f(x_{k-1}...x_k) \text{ for } f1$, and $f’(x) < |1| \text{ for } f(x_k...x_{k+1}) \text{ for } f_2$, where $f(x_k)$ is the first encountered frequency bin where $f’(x) < -1$, and $k\pm1$ equates to the frequency bin 1 Hz above/below $f(x_k)$. 
-$f_1$ and $f_2$ estimates are averaged across channels to yield the individualised alpha window that will define the frequency span for the CoG, which is calculated across all available channels (irrespective of whether they contributed to the estimation of the alpha interval).
+CoG calculation follows the standard procedure described by Klimesch and colleagues [@klimesch1990], with the exception that the bounds of each channel's alpha interval were detected automatically. 
+The programme derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum prior to the left-most peak ($f_1$) / following the right-most peak ($f_2$).
+Since some spectra show a relatively shallow roll-off as the edges of the alpha peak diminish, and thus do not culminate in a local minimum for several Hz, we relaxed the requirement for an upward going zero crossing (i.e. evidence of a local minimum) such that the transition into a prolonged shallow function is taken as sufficient evidence of the individual alpha bounds $f_1$ or $f_2$.
+This criterion was formalised as: 
 
-Given that resting-state EEG is frequently recorded both before and after an experimental session, we include the capability to compute repeated-measures comparisons and pooled averages across intraindividual datasets. 
-Indeed, since concerted alpha-band activity is not guaranteed to manifest during any given recording<!-- AC: ?look at pre/post papers-->, we recommend such cross-recording comparisons in order to maximise the likelihood of being able to derive reliable estimates of IAF. 
-As such, we have extended the principles of our peak quality analysis so to ensure cross-recording estimates are weighted towards the recording that manifests strongest evidence of a distinct PAF (in cases where there is a disparity between recordings). 
-The amount of information rendered by each recording is also accounted for insofar as recordings furnishing data from fewer channels will be assigned a lower weighting when pre- and post-session data are averaged.
+$$f_1 = f’(x) < |1| \text{ for } f(x_{k-1}...x_{k}),$$ 
+$$f_2 = f’(x) < |1| \text{ for } f(x_{k}...x_{k+1}),$$
+
+where $f(x_k)$ is the first encountered frequency bin where $f’(x) < -1$, and $k\pm1$ equates to the frequency bin with the centre frequency nearest to 1 Hz above/below that of $f(x_{k})$. 
+$f_1$ and $f_2$ estimates from each eligible channel are averaged to yield the individualised alpha window.
+This window is then applied across all included channels to define the index of summation (i.e. frequency band coverage) used to calculate the CoG.
+
+If a sufficient number of channels (as stipulated by $cMin$) furnish PAF and individual alpha window estimates, the mean PAF and CoG estimates are computed across channels.
+Mean PAF ($PAF_M$) is a weighted average that take into account the $Q$ values associated with each peak estimate:
+
+$$ PAF_M = \frac{\sum\limits_{c=1}^C PAF_c \times \lambda_c} {\sum\limits_{c=1}^C \lambda_c}, $$
+
+where $c$ identifies the channel drawn from the set of all available channels $C$, and $\lambda_c$ is the channel weighting derived by dividing $Q_c$ by the maximum $Q_c$ in $C$.
+In contrast to $PAF_M$, all CoG channel estimates contribute equally to the calculation of mean CoG ($CoG_M$).
+
+Given that resting-state EEG is frequently recorded both before and after an experimental session, we also include the facility to compute repeated-measures comparisons and grand averages across IAF summary statistics. 
+Indeed, since concerted alpha-band activity is not guaranteed to manifest during a given recording<!-- AC: ?look at pre/post papers-->, we recommend such cross-recording comparisons in order to maximise the likelihood of being able to derive reliable estimates of IAF. 
+Since separate EEG recordings may not be equivalent in terms of quality and/or informativeness of the data they render, grand averaged PAF and CoG estimates ($IAF_{GA}$) are weighted in accordance with the amount of channels that contributed to the estimation of IAF summary statistics:
+
+$$ IAF_{GA} = \frac{ IAF_1 \beta_1 + IAF_2 \beta_2 } {\beta_1 + \beta_2} , $$
+
+where either $PAF_M$ or $CoG_M$ are substituted into $IAF$, subscript indices indicate the identity of the EEG recording, and $\beta$ constitutes the weighting afforded to the channel means derived from each recording. 
+For PAF estimates, $\beta$ is the number of channels used to estimate $PAF_M$ divided by total number of channels included in the analysis. 
+For CoG estimates, $\beta$ is the number of channels used to estimate the mean individual alpha bandwidth divided by total number of channels included in the analysis.<!-- AC: Let me know if there are convenient ways of capturing these details in equation format, to reduce need for in-text explication -->
 
 ### 2.3 Human EEG data
 
 #### 2.3.1 Participants
-Sixty-ish right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (sex, mean age, age range) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
+Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 female, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
 All participants provided written, informed consent, and received financial remuneration for their time. 
 This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@gysin-websterinprep], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
 
@@ -337,8 +357,8 @@ Finally, all recordings exceeding 120 s in duration were trimmed to ensure stand
 	
 Note that these data were not subjected to any artifact detection/rejection procedures beyond filtering. 
 We did not anticipate any undue influence from eye movements on account of (1) the posterior location of the electrode channels, (2) the likely minimisation of blinks and eye movements due to the eyes-closed nature of the recording, and (3) the low frequency (i.e. delta and theta) characteristics of ocular artifact [@gasser1992].
-Muscular activity was likewise not expected to contaminate the spectral bandwidth of interest, on account of the relatively high frequency (i.e. ≥ 20 Hz) of electromyographic artifact [@muthukumaraswamy2013].
-<!-- PA: might be worth cutting down on the generic methods and just referring to Jess' paper -->
+Muscular activity was likewise not expected to contaminate the spectral bandwidth of interest, on account of the relatively high frequency (i.e. ≥ 20 Hz) of electromyographic artifact [@muthukumaraswamy2013].<!-- PA: might be worth cutting down on the generic methods and just referring to Jess' paper -->
+
 #### 2.3.4 IAF analysis parameters
 Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. (These data were collected as part of a separate EEG protocol).
 
