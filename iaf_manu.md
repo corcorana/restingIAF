@@ -226,13 +226,6 @@ The basic idea here is to quantify the area under the peak in such a way that di
 Given a set of spectral data from a variety of electrode channels, those PSDs which give rise to higher quality peaks (as operationalised above) are weighted more heavily than their less prominent counterparts, and thus contribute relatively more information to the calculation of the cross-channel PAF estimate. 
 Note that this procedure has no bearing on CoG estimation (since the CoG may be derived from spectra in which no clear evidence of a single alpha peak was detected, and thus for which no inflection point data are available).
 
-We claim $i_1$ and $i_2$ constitute a valuable marker of peak width across a variety of spectral conditions. 
-In cases where the shape of the alpha peak is sharp and narrow, $i_1$ and $i_2$ are expected to be located towards the tails of the individual alpha band, and indeed could be construed as somewhat analogous to a conservative approximation of $f_1$ and $f_2$, respectively. 
-However, in cases where secondary peaks are apparent, $i_1$ and $i_2$ will ensure that the peak evaluation procedure is constrained to the region underneath the primary peak. 
-This latter scenario helps to highlight the advantage of an approach that relies upon inflection points as opposed to common alternative measures of spectral width, such as the base width or full width at half maximum (FWHM). 
-These latter techniques are ill-equipped to distinguish the bounds of a primary peak amidst a broader spectral region comprising multiple component structures. 
-Such measures may therefore be prone to rendering excessively liberal estimates of peak area.
-
 Having defined both the height and width of the putative alpha peak by means of the first and second derivative zero crossings, peak quality is quantified via the following formula:<!-- AC: I've used integration here, or more properly an approximation to integration rendered via MATLABs `trapz` function, but I wonder if it's better to use the sum of frequency bins approach as per the CoG formula in order to draw out the similarities with the CoG calculation ? -->
 
 $$ Q = \frac{\int_{i_1}^{i_2} a(f(x)) } { i_2 – i_1 } , $$
@@ -241,7 +234,9 @@ where $Q$ is the scaled quantity of normalised alpha peak power, and $a$ is the 
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
 Given equal values of $\int_{i_1}^{i_2}f(x)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts. 
 This formulation thus penalises ‘less peaky’ components by assigning a heavier weighting to what we claim constitute stronger evidence of the PAF. 
-However, it is perhaps worth emphasising that this calculation only influences PAF estimation in cases where channel data produce divergent peak frequencies (i.e. relative $Q$ weights have no impact on the mean PAF calculated from channels that furnish identical estimates of the peak frequency).<!--AC: definitely need an example figure here to show what Q weighting does -->
+However, it is perhaps worth emphasising that this calculation only influences PAF estimation in cases where channel data produce divergent peak frequencies (i.e. relative $Q$ weights have no impact on the mean PAF calculated from channels that furnish identical estimates of the peak frequency).
+
+![*Fig_q_wts.* Power spectra from four individuals in which two channels from the same eyes-closed resting-state recording are superposed. Each spectrum is shaded within the region bounded by the inflection points either side of the  peak alpha frequency estimate. Respective $Q$ values are also presented. *Left column*: Blue channel peaks dominate their red counterparts, however cross-channel averages are unaffected due to the identity of peak estimates. *Right column*: Where peak estimates diverge across spectra, channels which manifest a greater concentration of power (holding peak width constant) will be assigned higher weightings compared to those with relatively less power/broader peaks. Note that secondary components are ignored on account of the inflection point delimitation of the main peak. Power values normalised within each channel according to mean spectral power.](q_wts.png){#q_wts}
 
 ### 2.2 Implementation of proposed analysis techniques
 
@@ -349,7 +344,7 @@ The online recording was digitised at a rate of 1000 Hz, bandpass filtered (pass
 Eye movements were also recorded from bipolar channels positioned above and below the left eye, and on the outer canthi of both eyes. 
 Electrode impedances were maintained below 12.5 k$\Omega$.
 
-EEG data acquired during eyes-closed resting-state recordings were preprocessed in MATLAB version 8.3.0.532. 
+EEG data acquired during eyes-closed resting-state recordings were preprocessed in MATLAB 2015a (version 8.5.0.197613). 
 First, all EEG channels were imported into the MATLAB workspace via EEGLAB version 13.6.5b and re-referenced to linked mastoids. 
 Each dataset was then trimmed to retain only the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P3/4, POz, PO3/4, Oz, O1/2. 
 These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 30 Hz, -6 dB cutoff: 33.75 Hz), Hamming-windowed sinc filters. 
