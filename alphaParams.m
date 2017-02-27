@@ -3,7 +3,8 @@ function [peakF, posZ1, posZ2, f1, f2, inf1, inf2, Q, Qf] = alphaParams(d0, d1, 
 % function savGolDiff, pump out estimates of alpha band peak & bounds.
 % Also calculate primary peak area Qf via integration between inflections.
 %
-% Last modified AC 31/01/2017.
+% Last modified AC 27/02/2017 - correct sign error on 2nd deriv inflection
+% search (should be upward not downward sign change)
 %%
 % Outputs:
 %   peakF = peak frequency estimate
@@ -371,7 +372,7 @@ else            % now for the primary peak spectra
     % look for end of alpha peak
     inf2 = zeros(1,1);                     % initialise for zero-crossing count & frequency bin
     for k = peakBin+1:length(d2)-1     % step through frequency bins in alpha band
-        if sign(d2(k)) > sign(d2(k+1))            % look for downward zero-crossing
+        if sign(d2(k)) < sign(d2(k+1))            % look for upward zero-crossing
             %if range(sign(d1sgf(k+1:k+t)))==0           % must remain downgoing for next t frequency bins (exclude noisy fluctuations about zero)
             [~, mink] = min(abs([d2(k), d2(k+1)]));    % ensure frequency bin nearest zero-crossing point picked out (find smaller of two values either side of crossing)
                 if mink == 1

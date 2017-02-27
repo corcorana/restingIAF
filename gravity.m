@@ -6,7 +6,8 @@ function [cogs, sel] = gravity(d0, f, f1, f2)
 % Developed from chanCogs, which only estimate CoG for channels rendering
 % clear f1/f2 estimates.
 %
-% Last modified AC, 31/01/2017
+% Last modified AC, 26/02/2017 - Include cog = NaN conditional output in loop to ensure output vector
+% populated with correct number of NaNs.
 %%
 % Outputs:
 %   cogs = centre of gravity derived from averaged f1/f2 frequency window
@@ -23,22 +24,23 @@ function [cogs, sel] = gravity(d0, f, f1, f2)
 trim_f1 = f1(~isnan(f1));
 trim_f2 = f2(~isnan(f2));
 
-% derive average frequency value, then look for nearest bin centre freq
+% derive average f1 & f2 values across chans, then look for nearest bin centre freq
 mean_f1 = dsearchn(f, mean(f(trim_f1)));
 mean_f2 = dsearchn(f, mean(f(trim_f2)));
 
-if isempty(trim_f1) || isempty(trim_f2)
-    cogs = NaN;
-else
-    cogs = zeros(1,size(d0,2));
-    for d = 1:length(cogs)
-        cogs(d) = nansum(d0(mean_f1:mean_f2,d).*f(mean_f1:mean_f2)) / sum(d0(mean_f1:mean_f2,d));
+% calculate CoG for each channel spectra on basis of averaged alpha window
+cogs = zeros(1,size(d0,2));
+for d = 1:length(cogs)
+    if isempty(trim_f1) || isempty(trim_f2)
+        cogs(d) = NaN;
+    else cogs(d) = nansum(d0(mean_f1:mean_f2,d).*f(mean_f1:mean_f2)) / sum(d0(mean_f1:mean_f2,d));
     end
 end
 
+% report how many channels contributed to alpha window estimation
 if isempty(trim_f1)
     sel = 0;
-else sel = length(trim_f1);      % number of selected f1 values used to esitmate IAF window
+else sel = length(trim_f1);
 end
 
 end

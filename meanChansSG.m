@@ -1,4 +1,4 @@
-function [selP, qWt, avPeak, sdPeak, cog, avSpec, rmseSpec, avSmoo ] = meanChansSG(chanCogs, selG, peaks, qf, psd, i, j, nchan, cmin)
+function [selP, qWt, sdPeak, paf, cog, avSpec, rmseSpec, avSmoo ] = meanChansSG(chanCogs, selG, peaks, qf, psd, i, j, nchan, cmin)
 % Adaptation of chanMeans.m for PSD estimates post S-G filtering.
 % Also provides information pertaining to number of viable channels which
 % contribute to mean estimates. Produces averages of both peak point 
@@ -7,7 +7,7 @@ function [selP, qWt, avPeak, sdPeak, cog, avSpec, rmseSpec, avSmoo ] = meanChans
 % estimation procedures (mean peak vs. unsmoothed spec vs. smoothed spec);
 % currently only mean peak (avPeak) is taken as the PAF estimate.
 %
-% Last modified by AC 31/01/2017.
+% Last modified by AC 26/02/2017 to correct mean peaks error in wtMean (avPeak replaced by paf)
 %%
 % Outputs:
 %   selP = number of channels contributing peak estimates to mean PAF
@@ -40,10 +40,10 @@ chanWts = qf/max(qf);       	% channel weightings scaled in proportion to Qf val
 
 % average across peaks
 if sum(selP) < cmin         	% if number of viable channels < minimal threshold, don't calculate cross-channel mean & sd
-    avPeak = NaN;
+    paf = NaN;
     sdPeak = NaN;
 else
-    avPeak = nansum(bsxfun(@times, peaks, chanWts))/nansum(chanWts);        % compute (weighted) cross-channel average peak alpha frequency estimate
+    paf = nansum(bsxfun(@times, peaks, chanWts))/nansum(chanWts);        % compute (weighted) cross-channel average peak alpha frequency estimate
     sdPeak = nanstd(peaks);                                                 % calculate std dev of mean peak estimate (i.e. variance across channels within recording)          
 end
 
