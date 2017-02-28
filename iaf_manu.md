@@ -48,7 +48,7 @@ where $\text{arg max}$ returns the frequency bin (or subset of bins) $f(x)$ cont
 Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $f(x)$ containing a power value exceeding $\phi$, where $\phi$ defines the minimal threshold differentiating a substantive spectral peak from background noise. 
 The definition of both $A$ and $\phi$ parameters pose non-trivial problems, to which we shall return shortly.
 
-![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column signifies alpha band interval, which constitutes search window for the peak frequency. *Left panel*: Linear scaled PSD ranging 1 to 25 Hz. Strong alpha band activity is evidenced by a sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of left panel PSD in which ordinate data have been base-10 log-transformed. In this case, log-transformation has the effect of accentuating the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all resolved frequency bins ranging 1 to 100 Hz. The alpha peak represents a marked deviation from the $1/f$ power law (indicated by the broken line) characteristically approximated by background EEG power spectra.](pafs.png){#pafs}
+![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear scaled PSD ranging 1 to 25 Hz. Strong alpha band activity is evidenced by a sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of left panel PSD in which ordinate data have been log-transformed into decibels. In this case, decibel-scaling has the effect of accentuating the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all resolved frequency bins ranging 1 to 100 Hz (frequencies and power estimates have been log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ power law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](pafs.png){#pafs}
 
 PAF estimates are typically extracted from parieto-occipital EEG channels while the participant relaxes with their eyes closed.
 This strategy exploits the classic observation that alpha oscillations dominate the EEG recorded over centro-posterior scalp regions when visual sensory input is suppressed [@barry2007;@sadaghiani2016]. 
@@ -159,7 +159,7 @@ First, we extract PSD estimates from preprocessed and fast Fourier transformed E
 Second, we apply a least-squares curve-fitting procedure (i.e. Savitzky-Golay filtering) to accomplish the dual task of smoothing the PSD function and estimating its first- and second-order derivatives.
 Third, these derivative functions are analysed to evaluate the quality of evidence that a distinct spectral peak (i.e. PAF) exists within the alpha frequency region.
 Finally, the first derivative of the PSD is reanalysed to delineate upper and lower bounds of the individualised alpha interval, which are taken as the index of summation required to calculate the CoG. 
-The effectiveness of this routine will first be demonstrated using human (i.e. non-simulated) EEG data. 
+The effectiveness of this routine will first be demonstrated using empirical (i.e. non-simulated) EEG data. 
 We will then turn to simulated data in order to assess how well our proposed technique performs under conditions of varied spectral composition and signal-to-noise ratio (SNR).
 
 ## 2 Method
@@ -267,7 +267,7 @@ This may be of particular concern when dealing for instance with elderly populat
 
 Additional parameters include:
 $W_\alpha$, the domain of the PSD corresponding to the putative alpha bandwidth;
-$minP$, the minimum quantity of normalised power required to qualify as a potential PAF candidate (fixed automatically according to the statistical properties of the spectrum);
+$minP$, the minimum quantity of normalised power required to qualify as a potential PAF candidate (fixed in relation to the statistical properties of the spectrum);
 $pDiff$, the minimum proportion of peak height by which the highest peak component must exceed all competitors in order to qualify as the PAF; 
 and $cMin$, the minimum number of channels necessary for the computation of cross-channel IAF estimates. 
 Examples of what we consider to be reasonable parameter values are outlined in section 2.3.4.
@@ -279,7 +279,7 @@ Channel-wise PSDs are then subjected to the SGF in order to estimate their zerot
 Next, the first derivative is searched for downward going zero crossings within $W_\alpha$. 
 If no zero crossings are identified, the channel is excluded from further analysis. 
 
-Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated through fitting a least-squares linear regression to the normalised power spectrum. 
+Identified zero crossings are first assessed as to whether they satisfy $minP$, which is calculated through fitting a least-squares linear regression to the log~10~-transformed power spectrum. 
 In order to register as a peak candidate, the PSD estimate at the zero crossing must exceed the corresponding value predicted by the regression model by more than the standard deviation of the estimated prediction error. 
 This parameter thus provides a convenient threshold for the exclusion of zero crossings emanating from trivial fluctuations in the power spectrum (see [Fig_minPow](#minPow)).
 If more than one peak within the spectral domain defined by $W_\alpha$ is found to exceed $minP$, these candidates are rank ordered according to their normalised power estimates, and the magnitude difference between the two largest peaks is compared. 
@@ -288,7 +288,7 @@ The second derivative is then examined to determine the location of the associat
 Should the primary peak fail to satisfy the $pDiff$ criterion, this channel would fail to register an estimate of the PAF. 
 It would however still qualify for inclusion in the CoG estimation procedure.
 
-![*Fig_minPow.* Visualisation of power spectral density (PSD) plots with superposed $minP$ threshold (red line). *Left panel*: PSD estimates for all frequency bins above the delta band fail to exceed $minP$; no peak registered. *Central panel*: Channel data recorded from the same participant as in the left panel. The spectral peak at approximately 10 Hz is sufficient to exceed $minP$. *Right panel*: Data from another participant showing a relatively powerful alpha peak that markedly exceeds the $minP$ threshold for this channel (note differences in ordinate scaling).](minPow.png){#minPow}
+![*Fig_minPow.* Visualisation of smoothed power spectral density (PSD) plots with corresponding $minP$ thresholds superposed (red line, inverse log~10~ transformation of the regression line). *Left panel*: PSD estimates for all frequency bins beyond the delta band fail to exceed $minP$; no peak registered for this channel. *Central panel*: Data from the same participant as in the left panel. In this channel, the spectral peak at ~10 Hz is sufficient to exceed the $minP$ threshold. *Right panel*: Data from another participant showing a marked alpha peak that comfortably exceeds $minP$. Note differences in ordinate scaling.](minPow.png){#minPow}
 
 CoG calculation follows the standard procedure described by Klimesch and colleagues [@klimesch1990], with the exception that the bounds of each channel's alpha interval were detected automatically. 
 The programme derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum prior to the left-most peak ($f_1$) / following the right-most peak ($f_2$).
@@ -320,7 +320,7 @@ where either $PAF_M$ or $CoG_M$ are substituted into $IAF$, subscript indices in
 For PAF estimates, $\beta$ is the number of channels used to estimate $PAF_M$ divided by total number of channels included in the analysis. 
 For CoG estimates, $\beta$ is the number of channels used to estimate the mean individual alpha bandwidth divided by total number of channels included in the analysis.<!-- AC: Let me know if there are convenient ways of capturing these details in equation format, to reduce need for in-text explication -->
 
-### 2.3 Human EEG data
+### 2.3 Empirical EEG data
 
 #### 2.3.1 Participants
 Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 female, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
@@ -346,8 +346,8 @@ Electrode impedances were maintained below 12.5 k$\Omega$.
 
 EEG data acquired during eyes-closed resting-state recordings were preprocessed in MATLAB 2015a (version 8.5.0.197613). 
 First, all EEG channels were imported into the MATLAB workspace via EEGLAB version 13.6.5b and re-referenced to linked mastoids. 
-Each dataset was then trimmed to retain only the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P3/4, POz, PO3/4, Oz, O1/2. 
-These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 30 Hz, -6 dB cutoff: 33.75 Hz), Hamming-windowed sinc filters. 
+Each dataset was then trimmed to retain only the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P1/2, POz, PO3/4, Oz, O1/2. 
+These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 40 Hz, -6 dB cutoff: 45 Hz), Hamming-windowed sinc filters. 
 Finally, all recordings exceeding 120 s in duration were trimmed to ensure standardisation of the total quantity of data analysed across participants.
 	
 Note that these data were not subjected to any artifact detection/rejection procedures beyond filtering. 
@@ -378,10 +378,22 @@ sample from pink noise and alpha spectrum component signals – proportion of ea
 
 
 The eyes-closed resting-state EEG was recorded while the participant sat alone in a quiet, dimly lit room. All recordings were made immediately following an analogous period of eyes-open resting-state EEG (not analysed here).
-
+-->
 
 ## 2 Results
-human eeg
+
+### 2.1 Empirical EEG data
+
+#### 2.1.1 Global performance of IAF estimation routine
+<!-- AC: following reflects analysis up to S.53 only -->One participant lacked post-experiment resting-state recordings, and thus only contributed one set of channel data to the analysis.
+This left a grand total of 945 PSDs to estimate across participants; 477 pre-experiment and 468 post-experiment spectra.
+Taking the sample as a whole, 808 PAF estimates (pre = 403, post = 405) and 866 CoG estimates (pre = 433, post = 433) were generated across all included channels.
+Two participants failed to register a sufficent number of channel estimates (i.e. $cMin = 3$) for PAF_M estimation on account of generally low alpha band activity ([Fig_no_pafs](#no_pafs)).
+One of these participants did however register sufficient estimates of the alpha band interval to enable calculation of the post-experiment CoG_M.
+
+![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of $W_\alpha$. ](no_pafs.png){#no_pafs}
+
+<!--
 grand average PSDs
 correl / shared var cog vs paf [cf @jann2010]
 histogram distribution of intersubject IAFs (? Variability of alpha range)
