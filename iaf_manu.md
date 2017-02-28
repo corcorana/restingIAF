@@ -388,26 +388,40 @@ The eyes-closed resting-state EEG was recorded while the participant sat alone i
 <!-- AC: following reflects analysis up to S.53 only -->One participant lacked post-experiment resting-state recordings, and thus only contributed one set of channel data to the analysis.
 This left a grand total of 945 PSDs to estimate across participants; 477 pre-experiment and 468 post-experiment spectra.
 Taking the sample as a whole, 808 PAF estimates (pre = 403, post = 405) and 866 CoG estimates (pre = 433, post = 433) were generated across all included channels.
-Two participants failed to register a sufficent number of channel estimates (i.e. $cMin = 3$) for PAF_M estimation on account of generally low alpha band activity ([Fig_no_pafs](#no_pafs)).
-One of these participants did however register sufficient estimates of the alpha band interval to enable calculation of the post-experiment CoG_M.
+As can be seen in [Fig_num_chan_ests](#num_chan_ests), the estimation routine derived PAF and CoG estimates from the majority (if not all) available channels for most participants within the sample.
+Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed surpass the threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
+This result indicates that these participants should be excluded from all PAF-related analyses on account of the general absence of any evident alpha band peak across the majority of channel spectra.
+Visual inspection of these spectra confirmed that both sets of channel data manifest little evidence suggestive of a clear alpha peak component (although there is some suggestion of a nominal peak centred about 11 Hz in participant #50's data; [Fig_no_pafs](#no_pafs), right panel).
+One of these participants (#29) did however register sufficient $f_1$ and $f_2$ estimates to enable calculation of the post-experiment $CoG_M$, and is therefore still eligible for inclusion in analyses involving this estimator of IAF.
 
-![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of $W_\alpha$. ](no_pafs.png){#no_pafs}
+![*Fig_num_chan_ests.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Note, only the pre-experiment recording was available for participant #26.](num_chan_ests.png){#num_chan_ests}
+
+![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings (left panel: participant #29; right panel: participant #50) in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of $W_\alpha$, red line indicates $minP$ threshold.](no_pafs.png){#no_pafs}
+
+#### 2.1.2 Estimator distributions & correlation coefficients
+Consistent with previous reports [@citations], mean IAF estimates were centred around 10 Hz, with most estimates falling within the range of 9.5 to 10.5 Hz ([Fig_est_hists](#est_hists)).
+<!-- stratify by age when have rest of sample - might add to lower range -->
+
 
 <!--
 grand average PSDs
 correl / shared var cog vs paf [cf @jann2010]
-histogram distribution of intersubject IAFs (? Variability of alpha range)
 ? some way of assessing variability of channel-wise ests per subject
 number retained/excluded chans, sims/diffs PAF/CoG
 
 ? use biosemi data to develop programme (fine tune procedure for determining f1-f2, note need for d1 range:+/-1 with consideration of neighbours), test on larger neuroscan dataset (need reasonable number if IAF ~normally distrib). 
 ? ask people to assign f1/f2 to genuine data and compare (inter-rater rel)
 
+
+### 2.2 Interim discussion
+<!-- might be good to round out some pragmatic points here. i.e. captures interind variance previously reported (both in terms of raw distribs/stat qualities, perhaps also in age diffs), retains most chans, discards appropriately, shows good stability across recordings etc. i.e. seems to measure up well in terms of performance and in relation to prior lit-->
+
+<!--
 sims
 overlay estimated PSD with simulated component 
 ? some way of quantifying distance iaf hat from iaf? 
 
-
+discussion matters
 
 Plurality of alpha rhythms (klimesch papers, also sterman 96, cf basar 12, also basar 97 - diffuse alpha system; haegens 14) – cog may be more valuable for characterising iaf in way that takes distribution into account (K97?). we provide way of estimating cog that doesn’t depend on assumptions or paradigm of ERD.
 baz 11 says hooper thinks PAF is best measure of interind var.
