@@ -386,20 +386,20 @@ The eyes-closed resting-state EEG was recorded while the participant sat alone i
 
 #### 2.1.1 Global performance of IAF estimation routine
 <!-- AC: following reflects analysis up to S.60 only -->Three participants lacked post-experiment resting-state recordings, and thus only contributed one set of channel estimates to the analysis.
-This left a grand total of 945 PSDs to estimate across participants; 477 pre-experiment and 468 post-experiment spectra.
-Taking the sample as a whole, 808 PAF estimates (pre = 403, post = 405) and 866 CoG estimates (pre = 433, post = 433) were generated across all included channels.
+This left a grand total of 1053 PSDs to estimate across participants; 540 pre-experiment and 513 post-experiment spectra.
+Taking the sample as a whole, 900 PAF estimates (pre = 459, post = 441) and 973 CoG estimates (pre = 496, post = 477) were generated from all included channels.
 As can be seen in [Fig_stacked_chans](#num_chan_ests), the estimation routine derived PAF and CoG estimates from the majority (if not all) available channels for most participants within the sample.
 Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed surpass the threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
 This result indicates that these participants should be excluded from all PAF-related analyses on account of the general absence of any evident alpha band peak across the majority of channel spectra.
-Visual inspection of these spectra confirmed that both sets of channel data manifest little evidence suggestive of a clear alpha peak component (although there is some suggestion of a nominal peak centred about 11 Hz in participant #50's data; [Fig_no_pafs](#no_pafs), right panel).
+Visual inspection of their respective spectra confirmed that both sets of channel data manifest little evidence of a clear alpha peak component (although there is some suggestion of a nominal peak centred about 11 Hz in participant #50's data; [Fig_no_pafs](#no_pafs), right panel).
 One of these participants (#29) did however register sufficient $f_1$ and $f_2$ estimates to enable calculation of the post-experiment $CoG_M$, and is therefore still eligible for inclusion in analyses involving this estimator of IAF.
 
-![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Note, only the pre-experiment recording was available for participant #26.](stacked_chans.png){#stacked_chans}
+![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Note, only the pre-experiment recording was available for participants #26, #56, and #57.](stacked_chans.png){#stacked_chans}
 
-![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings (left panel: participant #29; right panel: participant #50) in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of $W_\alpha$, red line indicates $minP$ threshold.](no_pafs.png){#no_pafs}
+![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings (left panel: participant #29; right panel: participant #50) in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of the alpha peak search window $W_\alpha$, red line indicates $minP$ threshold.](no_pafs.png){#no_pafs}
 
 #### 2.1.2 Estimator distributions & correlation coefficients
-Consistent with previous reports [@citations], mean IAF estimates were centred around 10 Hz, with most estimates falling within the range of 9 to 11 Hz ([Fig_pre_post](#pre_post)).
+Consistent with previous reports [@citations], mean estimates of IAF were centred around 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz ([Fig_pre_post](#pre_post)).
 <!-- stratify by age when have rest of sample - might add to lower range -->
 
 
