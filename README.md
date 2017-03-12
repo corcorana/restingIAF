@@ -10,15 +10,13 @@ Copyright (c) 2017 Andrew W. Corcoran.
 (Any coding errors or inelegance are solely his fault.)
 
 This software was developed in the hope that it would be of some use to the EEG research community, and is freely available for redistribution and/or modification under the terms of the GNU General Public Licence (see LICENCE.md). 
-It is distributed WITHOUT WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+It is distributed WITHOUT WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
 See the GNU General Public License for more details.
 
 Constructive criticism, corrections, and potential improvements are most welcome.
 
 If this programme was useful for your own work, help raise its profile by citing it: 
-
 Corcoran, A.W. (2017). restIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restIAF
-
 [![DOI](https://zenodo.org/badge/80904585.svg)](https://zenodo.org/badge/latestdoi/80904585)
 
 
