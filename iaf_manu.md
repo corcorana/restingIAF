@@ -347,7 +347,7 @@ Electrode impedances were maintained below 12.5 k$\Omega$.
 EEG data acquired during eyes-closed resting-state recordings were preprocessed in MATLAB 2015a (version 8.5.0.197613). 
 First, all EEG channels were imported into the MATLAB workspace via EEGLAB version 13.6.5b and re-referenced to linked mastoids. 
 Each dataset was then trimmed to retain only the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P1/2, POz, PO3/4, Oz, O1/2. 
-These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 40 Hz, -6 dB cutoff: 45 Hz), Hamming-windowed sinc filters. 
+These channels were downsampled to 250 Hz and subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 40 Hz, -6 dB cutoff: 45 Hz), Hamming-windowed sinc filters.
 Finally, all recordings exceeding 120 s in duration were trimmed to ensure standardisation of the total quantity of data analysed across participants.
 	
 Note that these data were not subjected to any artifact detection/rejection procedures beyond filtering. 
