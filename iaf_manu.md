@@ -13,7 +13,7 @@ bibliography: libraryAC.bib
 
 ## 1 Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @fries2005;@buzsaki2004].
-Neuronal oscillations reflect fluctuations between states of high and low receptivity, such that communication between individual neurons and broader neuronal populations is optimised via the establishment of oscillatory coherence [@fries2005].
+Neuronal oscillations reflect fluctuations between states of high and low receptivity, such that communication between individual neurons and broader neuronal populations is optimised via the establishment of oscillatory coherence [@fries2005;@fries2015].
 Complex cognitive tasks typically require coordination between distant brain regions and systems, thus requiring effective connectivity to be established within task-relevant neural networks at relatively short timescales [@fries2005;@palva2011].
 Task-irrelevant and potentially interfering connections must concomitantly be inhibited, i.e. task-relevant neural networks are gated by inhibition [@jensen2010].
 The alpha rhythm of the human EEG is thought be the primary carrier of this inhibitory function [@klimesch2007;@klimesch2012;@jensen2010;@jensen2012;@sadaghiani2016], with alpha synchronisation in task-irrelevant regions reflecting inhibition, and alpha desynchronisation in task-relevant regions reflecting release from inhibition [@pfurtscheller2003].
@@ -47,7 +47,7 @@ $$ \text{arg max}_{\substack{x\in A \subseteq PSD }} f(x) := \{ x \mid x  \in A 
 
 where $\text{arg max}$ returns the frequency bin (or subset of bins) $x$ containing the maximal power value $\text{max } f(x)$ registered within that subset of frequency bins $A$ constituting the alpha band, and where $PSD$ denotes the complete set of frequency bins resolved by the spectral analysis. 
 Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $x_k$ containing a power value $\geq \phi$, where $\phi$ defines the minimum threshold value differentiating a substantive spectral peak from background noise. 
-The definition of both $A$ and $\phi$ pose non-trivial problems, to which we shall return shortly.
+The definition of both $A$ and $\phi$ pose non-trivial problems (more on which shortly).
 
 ![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear scaled PSD ranging 1 to 25 Hz. Strong alpha band activity is evidenced by a sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of left panel PSD in which ordinate data have been log-transformed into decibels. In this case, decibel-scaling has the effect of accentuating the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all resolved frequency bins ranging 1 to 100 Hz (frequencies and power estimates have been log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ power law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](figs/pafs.png?raw=true){#pafs}
 
