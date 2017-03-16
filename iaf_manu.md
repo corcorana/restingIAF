@@ -139,7 +139,7 @@ While this property of the CRB method need not be a problem for ERD-type applica
 ### 1.4 Parametric curve-fitting approaches to alpha rhythm quantification
 Finally, we turn briefly to a promising line of research that attempts to quantify the spectral features of EEG data, and in particular spectral peaks, by means of statistical curve-fitting techniques. 
 Chiang and colleagues [@chiang2008] developed an algorithm (with corresponding implementation in C) that parameterises alpha-band peaks via a two-step procedure: Peaks are first identified and parameterised via the fitting of a Gaussian function, before being fine-tuned in relation to the spread of fitted estimates across multiple electrode sites. 
-Chiang and colleagues [@chiang2011] and van Albada and Robinson [@vanalbada2013] later demonstrated the potential utility of such automated routines by applying this general technique to a dataset comprising over 1400 individuals. <!-- AC: i haven't got to the end of this para yet -->
+Chiang and colleagues [@chiang2011] and van Albada and Robinson [@van_albada2013] later demonstrated the potential utility of such automated routines by applying this general technique to a dataset comprising over 1400 individuals. <!-- AC: i haven't got to the end of this para yet -->
 
 Given the manifest advantages of these analysis tools, it is somewhat puzzling that they do not yet appear to have gained widespread currency in the contemporary IAF literature [for instance, neither @goljahani2012, nor @bazanova2014, mention the development of such algorithms in their reviews of IAF methods; although cf. @haegens2014, for a notable counterexample]. 
 One possibility is that researchers are simply unaware of the existence of these methods, since the bulk of the literature in which they have been applied is concerned with broader questions of spectral modeling, rather than the quantification of IAF per se [@haegens2014's investigation of PAF variability is again the exception]. 
@@ -385,41 +385,45 @@ The eyes-closed resting-state EEG was recorded while the participant sat alone i
 ### 3.1 Empirical EEG data
 
 #### 3.1.1 Global performance of the IAF estimation routine
-<!-- AC: following reflects analysis up to S.60 only -->Post-experiment resting-state EEG recordings were missing for three participants.
-These individuals thus contributed only one set of channel estimates each leaving a grand total of 1053 PSDs to estimate across the sample (540 pre- and 513 post-experiment spectra).
-From these data, a total 900 PAF estimates (pre = 459, post = 441) and 973 CoG estimates (pre = 496, post = 477) were generated across all included channels.
+Post-experiment resting-state EEG recordings were missing for three participants.
+These individuals thus contributed only one set of channel estimates each, leaving a grand total of 1107 PSDs to estimate across the sample (567 pre- and 540 post-experiment spectra).
+From these data, a total 936 PAF estimates (pre = 477, post = 459) and 1009 CoG estimates (pre = 514, post = 495) were extracted from all included channels.
 
 [Fig_stacked_chans](#num_chan_ests) shows the relative distribution of channel estimates furnished across all participants.
 This figure indicates that the estimation routine derived PAF and CoG estimates from most (if not all) available channels in the majority of cases.
-Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
+Of those participants who registered a limited number of channel estimates, three (#29, #50, and #63) failed surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
 This result indicates that these participants should be excluded from all PAF-related analyses on account of the general lack of a clear alpha-band peak in the majority of their channel spectra.
 One of these participants (#29) did however register sufficient $f_1$ and $f_2$ estimates to enable calculation of the post-experiment $CoG_M$, and is therefore still eligible for inclusion in analyses involving this estimator of IAF.
-Visual inspection of these individuals' PSD plots confirmed that both sets of channel data demonstrated little evidence of any distinct alpha peak component (although there is perhaps some suggestion in participant #50's spectra of a nominal peak centred about 11 Hz; [Fig_no_pafs](#no_pafs), right panel).
+Participant #63 was the only individual from whom no estimate of IAF was produced.
+Visual inspection of these individuals' PSD plots confirmed that both sets of channel data demonstrated little evidence of any distinct alpha peak component (although there is perhaps some suggestion in participant #50's spectra of a nominal peak centred about 11 Hz; [Fig_no_pafs](#no_pafs), central panel).
 
-![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Note, only the pre-experiment recording was available for participants #26, #56, and #57.](figs/stacked_chans.png){#stacked_chans}
+![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Note, only the pre-experiment recording data were available for participants #26, #56, and #57.](figs/stacked_chans.png){#stacked_chans}
 
-![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from two sets of EEG recordings (left panel: participant #29; right panel: participant #50) in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of the alpha peak search window $W_\alpha$, red line indicates $minP$ threshold.](figs/no_pafs.png){#no_pafs}
+![*Fig_no_pafs.* Representative channel PSDs (three superposed spectra) from three sets of EEG recordings (left panel: participant #29; central panel: participant #50; right panel: participant #63) in which the PAF estimation routine failed to detect evidence of substantive alpha rhythm activity. Shaded areas indicate range of the alpha peak search window $W_\alpha$, red line indicates $minP$ threshold calculated for the first plotted channel (blue PSD function).](figs/no_pafs.png){#no_pafs}
 
 #### 3.1.2 Estimator distributions & correlation coefficients
-Consistent with previous reports [@citations], mean estimates of IAF were centred around 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz.
+Consistent with previous reports [@kopruner1984;@klimesch1990], mean estimates of IAF were centred about 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz.
 $PAF_M$ and $CoG_M$ were similarly distributed across both sets of recordings (see histograms, [Fig_pre_post](#pre_post)).
 Intraclass correlation coefficients ($ICC_{3,k}$: $PAF_M = .96; CoG_M = .97$) indicate that variance in $PAF_M$ and $CoG_M$ estimates can be predominantly attributed to interindividual differences across the sample, rather than intraindividual differences between recordings (see scatterplots, [Fig_pre_post](#pre_post)).
-These data are therefore in accord with previous studies that have reported evidence of the IAF's high temporal stability and interindividual variability (at least in the context of eyes-closed resting-state recordings).
+These data are therefore in accord with previous studies reporting evidence of the IAF's high temporal stability (at least within the same recording session) and interindividual variability (at least in the context of eyes-closed resting-state recordings).
 
-![*Fig_pre_post.* *Top and central rows*: Histograms displaying distribution of $PAF_M$ (left panels) and $CoG_M$ (right panels) estimates across recordings. *Bottom row*: Scatterplots showing high degree of agreement between corresponding estimators of IAF calculated from pre- and post-experiment resting-state recordings. Red line indicates least-squares best fit to data.](figs/pre_post.png){#pre_post}
+![*Fig_pre_post.* *Top and central rows*: Histograms displaying distribution of $PAF_M$ (left panel) and $CoG_M$ (right panel) estimates across recordings. *Bottom row*: Scatterplots showing high degree of agreement between corresponding estimators of IAF calculated from pre- and post-experiment resting-state recordings. Broken line indicates perfect positive correlation between pre- and post-experiment IAF estimates.](figs/pre_post.png){#pre_post}
 
-Final analysis were conducted on grand-averaged alpha peak and gravity estimates ($PAF_{GA}$ and $CoG_{GA}$, respectively).
+Final analyses were conducted on grand-averaged alpha peak and gravity estimates ($PAF_{GA}$ and $CoG_{GA}$, respectively).
 Note that, in cases where only one channel mean estimate was registered, this value was included as the participant's grand average.
 Kernal density estimation of the probability density function underlying $PAF_{GM}$ data suggested that sample estimates are well-characterised by a Gaussian distribution ([Fig_GA_distribs](#GA_distribs)).
-($CoG_{GA}$) however showed some evidence of deviation from the Gaussian distribution in both tails.
+This is in keeping with previous efforts to quantify the distribution of PAF [@klimesch1996].
+$CoG_{GA}$ however showed some evidence of deviation from the Gaussian distribution due to heavy tails.
 To the best of our knowledge, this is the first study to examine the distributional properties of the $CoG$.
 It is therefore unclear how our estimation procedure compares to previous methods of calculating alpha-band $CoG$ in this regard.
 One might however speculate that estimating IAF via the $CoG$ increases the likelihood of relatively more extreme values, on account of the latter's sensitivity to skewness within the region of the PSD defined by the individual alpha band.
+In spite of this apparent difference in distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .90$).
+This finding, which extends that reported in a smaller sample by Jann and colleagues [@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process.
 
-![*Fig_GA_distribs. *Top row*: Probability density of $PAF_{GA}$ (left panel) and $CoG_{GA}$ (right panel) following application of a Gaussian kernal density estimator. *Bottom row*: Normal probability plots indicating how well $PAF_{GA}$ and $CoG_{GA}$ estimates approximate a normal distribution (indicated by the broken red line). While $PAF_{GA}$ estimates vary in fashion consistent with an underlying normal distribution, $CoG_{GA}$ shows evidence of a somewhat heavier-tailed distribution.*](figs/GA_distribs.png){#GA_distribs}
+![*Fig_GA_distribs. *Top row*: Probability density of $PAF_{GA}$ (left panel) and $CoG_{GA}$ (right panel) following application of a Gaussian kernal density estimator. *Bottom row*: Normal probability plots indicating how well $PAF_{GA}$ and $CoG_{GA}$ estimates approximate a normal distribution (indicated by the broken red line). While $PAF_{GA}$ estimates vary in fashion consistent with an underlying normal distribution, the $CoG_{GA}$ estimator shows evidence of a somewhat heavier-tailed distribution.*](figs/GA_distribs.png){#GA_distribs}
 
 
-![*Fig_intercorrel.*](figs/intercorrel.png){#intercorrel}
+![*Fig_intercorrel.* Scatterplot displaying correlation between grand averaged PAF and CoG estimates across all participants for whom both estimators were calculated. Broken line indicates perfect positive correlation between IAF estimators.](figs/intercorrel.png){#intercorrel}
 
 
 
