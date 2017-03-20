@@ -1,16 +1,28 @@
 ---
 title: Towards a reliable, automated method of individual alpha frequency (IAF) quantification
-author:
-- Andrew W. Corcoran 
-- Phillip M. Alday
-- Matthias Schlesewsky
-- Ina Bornkessel-Schlesewsky
-output: html_document
-bibliography: libraryAC.bib
-# csl: ~/Dropbox/apa-old-doi-prefix.csl --> can't get this (or other csl versions) to run
----
-## Abstract
 
+author:
+  - Andrew W. Corcoran$^1$
+  - Phillip M. Alday$^2$
+  - Matthias Schlesewsky$^2$
+  - name: Ina Bornkessel-Schlesewsky$^2$
+    affiliation: $^1$Cognition and Philosophy Laboratory, Monash University, Melbourne, Australia. $^2$Cognitive Neuroscience Laboratory, University of South Australia, Adelaide, Australia.
+
+abstract: 
+  New IAF technique described here.
+
+keywords:   
+  Individual alpha frequency, Savitzky-Golay filter, alpha peak, alpha gravity
+
+output: 
+  html_document
+
+bibliography: 
+  libraryAC.bib
+
+csl: 
+  apa-old-doi-prefix.csl
+---
 ## 1 Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @fries2005;@buzsaki2004].
 Neuronal oscillations reflect fluctuations between states of high and low receptivity, such that communication between individual neurons and broader neuronal populations is optimised via the establishment of oscillatory coherence [@fries2005;@fries2015].
@@ -379,7 +391,7 @@ This pink noise time series was then multiplied with an alpha signal generated f
 The resulting composite signal was then subjected to PSD estimation and smoothing (see [Fig_sim_peaks](#sim_peaks) for an illustration of the signal generation procedure).
 All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above.
 
-![*Fig_sim_peaks.* Illustration of the simuation general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly selected alpha and pink noise signals, together with their respective power spectral density properties (right panel; log-scaled). *Bottom row*: Resultant signal produced by combining the two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
+![*Fig_sim_peaks.* Illustration of the simuation general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly synthesised alpha and pink noise signals, together with their respective power spectral densities (right panels; log-scaled). *Bottom row*: Time series produced by combining the above two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
 
 #### 2.4.2 Preliminary analysis: Capability to recover PAF amidst varying levels of background noise
 As an initial proof of concept, we investigated the capacity of the SGF technique to extract accurate PAF estimates from synthetic spectra in which a single alpha-band component was embedded within $1/f$ background noise.
@@ -473,16 +485,17 @@ number retained/excluded chans, sims/diffs PAF/CoG
 Results of the preliminary analysis of simulated data are summarised in Table.
 The SGF method of PAF estimation failed to extract underlying PAFs in 12, 1, and 2 cases when SNR was stipulated at 0.10, 0.15, and 0.20, respectively.
 At higher levels of SNR (i.e. 0.30, 0.40, and 0.50), a viable peak was detected within the alpha band of all simulated spectra.
-For each SNR condition, root mean squared error (RMSE) was < 0.11 Hz, while maximum absolute differences between estimated and actual PAFs were < 0.15 Hz (with the exception of 1 case in the 0.1 condition, where the PAF was underestimated by ~0.58 Hz).
-This analysis provides strong initial evidence that the SGF method furnishes highly accurate PAF estimates when a singular alpha component underlies the spectral data.
-This degree of accuracy is maintained even at relatively low levels of SNR, although reliable differentiation of low powered spectral peaks from background noise becomes more of a challenge when SNR drops below 0.15.
+For each SNR condition, root mean squared error (RMSE) was < 0.11 Hz, while maximum absolute differences between estimated and actual PAFs were < 0.2 Hz for all simulated trials save 1 case in the 0.10 condition.
+Inspection of this exceptional case, in which PAF was underestimated by ~0.58 Hz, revealed that this discrepant result issued from inaccurate determination of the the underlying alpha-band component by the `pwelch` routine (i.e. smoothing of the PSD function was not responsible for distorting the PAF estimate).
+Overall, this preliminary analysis provides strong initial evidence that the SGF method furnishes highly accurate PAF estimates when a singular alpha component is present within the PSD.
+This degree of accuracy is maintained even at relatively low levels of SNR, although reliable resolution of low powered spectral peaks amidst background noise becomes more challenging when SNR drops below 0.15 (at least when the SGF technique is implemented with the parameters used in our empirical EEG analysis).
 
 Table: Summary statistics characterising peak alpha frequency (PAF) estimation as a function of signal-to-noise ratio (SNR). 
-*n peaks*: total number of PAF estimates extracted from 100 simulated time series; *RMSE*: root mean squared error; *maxDiff*: maximum absolute difference between PAF estimates and corresponding frequency (Hz) of underlying alpha-band component.
+*n PAF*: total number of PAF estimates extracted from 100 simulated time series; *RMSE*: root mean squared error; *maxDiff*: maximum absolute difference between PAF estimates and corresponding frequency (Hz) of underlying alpha-band component.
 
 | SNR | 0.10 | 0.15 | 0.20 | 0.30 | 0.40 | 0.50 |
 | --- |:--:|:--:|:--:|:--:|:--:|:--:|
-| *n peaks* | 88 | 99 | 98 | 100 | 100 | 100 |
+| *n PAF* | 88 | 99 | 98 | 100 | 100 | 100 |
 | *RMSE* | 0.10 | 0.08 | 0.07 | 0.07 | 0.08 | 0.07 |
 | *maxDiff* | 0.58 | 0.19 | 0.13 | 0.14 | 0.13 | 0.13 |
 
