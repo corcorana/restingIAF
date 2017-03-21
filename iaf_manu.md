@@ -2,11 +2,11 @@
 title: Towards a reliable, automated method of individual alpha frequency (IAF) quantification
 
 author:
-  - Andrew W. Corcoran$^1$
-  - Phillip M. Alday$^2$
-  - Matthias Schlesewsky$^2$
-  - name: Ina Bornkessel-Schlesewsky$^2$
-    affiliation: $^1$Cognition and Philosophy Laboratory, Monash University, Melbourne, Australia. $^2$Cognitive Neuroscience Laboratory, University of South Australia, Adelaide, Australia.
+  - Andrew W. Corcoran$^a$
+  - Phillip M. Alday$^b$
+  - Matthias Schlesewsky$^b$
+  - name: Ina Bornkessel-Schlesewsky$^b$
+    affiliation: $^a$Cognition and Philosophy Lab, School of Philosophical, Historical and International Studies, Monash University, Clayton, Victoria 3800, Australia $^b$Cognitive Neuroscience Lab, School of Psychology, Social Work and Social Policy, University of South Australia, Magill 5072, Australia.
 
 abstract: 
   Great new IAF technique described here.
