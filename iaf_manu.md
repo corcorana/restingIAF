@@ -44,7 +44,7 @@ Moreover, IAF-informed brain stimulation has been shown to improve cognitive per
 Accordingly, individual differences in alpha activity appear to influence the efficiency of attentional filtering [@klimesch2012].
 This mechanism is especially important for increasing the signal-to-noise ratio when attentional demands increase, for example in cognitive processing scenarios requiring top-down control or prediction [@klimesch2011].
 Adjusting frequency band analysis in relation to IAF has also been argued to enhance sensitivity to band-specific oscillatory dynamics [@citation], and has proved useful for dissociating distinct functional properties of alpha-band sub-regions [@citation].
-Indeed, recent evidence [@vanalbada2013] supporting the idea that the canonical frequency bands display an approximately harmonic relationship to the dominant alpha rhythm [@klimesch2012] suggests that IAF may offer a valuable tool for sharpening the precision of frequency domain analysis across the entire spectrum.
+Indeed, recent evidence [@van_albada2013] supporting the idea that the canonical frequency bands display an approximately harmonic relationship to the dominant alpha rhythm [@klimesch2012] suggests that IAF may offer a valuable tool for sharpening the precision of frequency domain analysis across the entire spectrum.
 
 In spite of its promise as a marker of apparently enduring, trait-like individual differences in cognitive functioning, and its potential utility for tuning frequency band analysis to empirical properties of the PSD, no consensus currently exists as to the optimal method of quantifying IAF.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices of IAF in the literature; namely, peak alpha frequency and alpha frequency centre of gravity.
@@ -405,16 +405,20 @@ The frequency of each alpha signal was randomly assigned by sampling (with repla
 Given that the target alpha peak consisted of a singular frequency component, we expected the peak estimation routine to perform with a high degree of accuracy (within the limits of spectral resolution) when a peak could be discriminated from background spectral noise.
 We were however particularly interested in establishing the proportion of spectral peaks that would be detected across various levels of SNR.
 
-#### 2.4.3
-<!-- AC's notes. We present ?8 simulation datasets to assess how well the analysis routine performs across varied spectral conditions. summarise in table - 8.75, 11.25, mixed; narrow band, broad band; low noise, (medium?), high noise
-random variance in the amount of noise introduced – generate 9 channels each condition and calculate estimates (I.e. create single dataset each condition)
-display a random channel from each dataset – overlay genuine PSD with estimate
+#### 2.4.3 Simulation of heterogeneous alpha-band activity within multi-channel datasets
+To ascertain how the SGF method performs under more realistic conditions, we simulated datasets that comprised a random alpha peak situated amidst an approximately Gaussian-distribution of neighbouring components.
+This configuration was designed to replicate empirical observations of broader alpha peaks, which may arise on account of distributed alpha-generators oscillating at different frequencies to one another.
+To achieve this effect, we generated a matrix of alpha band oscillations from which the composite signal was drawn.
+A Gaussian window spanning 5 Hz was centred on the target PAF, and those frequencies spanned by the window were sampled in proportion to the height of the window function (such that the centre frequency contributed most sample points, followed by the neighbouring two signals, and so forth).
+The area of the Gaussian window was varied by manipulating its alpha value (the reciprocal of the standard deviation), where higher alpha values result in narrower distributions.
+We stratified our simulations into three alpha levels: 1, 2.5, and 4. 
 
-sample from pink noise and alpha spectrum component signals – proportion of each will define SNR. (Add random variance to both signals prior combining)
+Once the composite alpha signal had been constructed, it was then combined with a randomly sampled pink noise signal.
+This final step was repeated nine times for each simulated dataset, such that the alpha signal was combined with an independently sampled pink noise signal.
+Consequently, each dataset contained nine channels that differed from one another as a consequency of stochastic variance in the background characteristics of the spectrum. 
+This enabled us to examine consistency of IAF estimation in the context of random noise fluctuations, as well as providing information about rates of channel rejection as a function of alpha-band distribution.
 
-
-The eyes-closed resting-state EEG was recorded while the participant sat alone in a quiet, dimly lit room. All recordings were made immediately following an analogous period of eyes-open resting-state EEG (not analysed here).
--->
+For all simulations, SNR was set at either 0.15 or 0.30 so that performance of the estimation technique could be evaluated under relatively low vs. moderate SNR conditions.
 
 ## 3 Results
 
@@ -499,27 +503,29 @@ Table: Summary statistics characterising peak alpha frequency (PAF) estimation a
 | *maxDiff* | 1.13 | 0.78 | 0.68 | 0.40 | 0.40 | 0.15 | 0.16 | 0.15 |
 | *n shift* | 25 | 19 | 10 | 3 | 5 | 0 | 0 | 0 |
 
-Although we were interested in observing how the SGF technique performed in comparison to the `pwelch` function on which it depends, this was not a primary concern of the present analysis.
-This was because one should expect the `pwelch` routine to perform well in cases where the alpha-band consists of only one dominiant frequency component, especially if the SNR is relatively high (recall that the primary motivation for the SGF approach is to resolve IAF estimates when more ambiguous, problematic spectral conditions obtain; e.g., split-peaks).
+Although we were interested in observing how the SGF technique performed in comparison to the `pwelch` function on which it depends, this was not of primary concern to the present analysis.
+This was because one should expect the `pwelch` routine to perform well in cases where the alpha-band consists of only one dominiant frequency component, especially if the SNR is relatively high (recall that the primary motivation for the SGF approach is to resolve IAF estimates when more ambiguous - and thus problematic - spectral conditions obtain; e.g., split-peaks).
 To give a flavour of how smoothing influenced `pwelch` PSD estimates, a random selection of the PSD estimates produced by both methods is illustrated in [Fig_snr](#snr).
 We note that the SGF resulted in a distorted estimate of the true PAF in the SNR = 0.05 simulation depicted in the top left panel of [Fig_snr](#snr) (indeed, this is one case where the standard `pwelch` estimation routine would in fact be preferable in virtue of its superior PAF estimate).
 The SNR = 0.10 simulation however shows the potential advantage of the SGF technique.
-In this case, the SGF renders a veridical estimate of the underlying alpha component, which otherwise would have been falsely resolved as a split-peak by `pwelch`.
-At higher SNRs, the two techniques produce identical PAF results (although the SGF attenuates peak height, as would be expected of a smoothing procedure).
+In this case, the SGF renders a veridical estimate of the underlying alpha component, which otherwise would have been falsely resolved (and rejected) as a split-peak using `pwelch`.
+At higher SNRs, the two techniques produce identical PAF results (although the SGF attenuates peak height, as would be expected of a smoothing operation).
 
 ![*Fig_snr.* Synthetic channel spectra randomly selected from each simulated SNR condition. Blue functions represent PSD estimates generated by the standard MATLAB implementation of Welch's periodogram method (`pwelch`). Red functions signify outcome of subjecting `pwelch` estimates to the Savitzky-Golay filter (SGF) applied to the empirical data. $F\alpha$: The true frequency of the target alpha component. $PAF_{PW}$ and $PAF_{SG}$: Estimates of $F\alpha$ rendered by the `pwelch` and SGF methods, respectively.](figs/snr.png){#snr}
 
 Ten percent of the simulation data that failed to produce PAF estimates in the SNR = 0.05 condition were randomly selected for visual inspection to evaluate the source of these omissions.
-This analysis confirmed that the vast majority of sampled spectra lacked a distinct alpha peak (this was the case irrespective of which PSD estimation method was adopted).
-Five of the spectra within this subset were found to have been rejected due to the appearance of more than one spectral peak within the alpha window (none of which were clearly dominant).
+This analysis confirmed that the vast majority of sampled spectra lacked a distinct alpha peak (irrespective of the adopted PSD estimation method).
+Five of the spectra within this subset were rejected due to the appearance of more than one spectral peak within the alpha window (none of which were clearly dominant).
 Overall, it seems unlikely that any of these spectra would be considered to satisfy the criteria for PAF assignment as stipulated in section 1.1.<!-- AC: ? make plots available in supp mats -->
-Visual inspection of the most deviant 25 PAF estimates within the 0.05 SNR condition confirmed that SGF generated peaks generally tracked their corresponding `pwelch` counterparts closely.
+Visual inspection of the 25 PAF estimates that deviated most from their target frequencies within the 0.05 SNR condition confirmed that SGF estimates generally tracked their corresponding `pwelch` counterparts closely.
 Where smoothed estimates were relatively distorted (i.e. displaced into a neighbouring frequency bin due to the influence of spurious local fluctuations), the more accurate `pwelch` estimate was by the same token disadvantaged by having to compete with these nearby spectral subpeaks.
-For the most part, then, the least accurate estimates rendered via the SGF technique did not appear to be substantially worse than what would have been estimated via the `pwelch` technique alone. 
+For the most part, then, the least accurate estimates rendered via the SGF technique did not appear to be substantially worse than what would otherwise have been estimated via the `pwelch` technique. 
 
 In sum, this preliminary analysis provides strong initial evidence that the SGF method generally furnishes highly accurate estimates of the PAF when a singular alpha component is present within the PSD.
 This degree of accuracy is maintained even at relatively low levels of SNR, although reliable resolution of low powered spectral peaks amidst background noise becomes more challenging when SNR drops below 0.15 (at least when the SGF technique is implemented with the same parameters as those used in our analysis of the empirical EEG data).
 Diminished sensitivity at low levels of SNR seems to derive from a generic reduction in the capacity of the underlying `pwelch` routine to accurately extract low powered alpha components under such conditions, rather than any specific deficiency of the SGF procedure per se.
+
+#### 3.2.2 Simulated multi-channel datasets
 
 <!--
 sims
