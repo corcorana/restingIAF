@@ -25,8 +25,8 @@ Indeed, while automated methods of IAF estimation have emerged in recent years [
 We therefore sought to develop a reliable, automated method of IAF estimation that could be easily integrated within existing analysis pipelines.
 
 ### Method:
-We implemented a method of calculating two common IAF estimators (peak frequency; centre of gravity) in MATLAB and python.
-This `restingIAF` routine locates the bounds of the dominant alpha component according to the first and second derivatives of its smoothed spectral density.
+We implemented a method of calculating two common IAF estimators (peak frequency; centre of gravity) in MATLAB and Python (both available on GitHub; the Python implentation is also in the `philistine` package on PyPi).
+This `restingIAF` routine locates the bounds of the dominant alpha component according to the first and second derivatives of its Savitzky-Golay smoothed spectral density.
 We evaluated its performance characteristics in both empirical and simulated EEG datasets.
 
 ### Results:
@@ -37,7 +37,7 @@ The smoothing procedure also appears to furnish a higher proportion of estimates
 
 ### Conclusion:
 `restingIAF` is a novel method of extracting IAF estimates that can easily be applied to large datasets.
-It is fast, reliable, open source, and available in two popular programming languages.
+It is fast, reliable, open source, and available in two popular programming languages and thus easily integrated in the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python).
 Widespread adoption might significantly improve the consistency and replicability of future IAF-related research.
 
 ## Theme: *Electrophysiology methods*
