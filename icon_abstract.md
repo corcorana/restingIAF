@@ -20,9 +20,9 @@ bibliography:
 Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function [@grandy2013; @grandy2013a].
 In particular, IAF has been shown to predict performance across a variety of psychophysical and cognitive tasks [@bazanova2014; @cecere2015], and may underpin trait-like differences in information processing [@klimesch1996b] and general intelligence [@grandy2013].
 IAF has also been cited as a useful anchor point for determining individually-tailored frequency bands [@klimesch2012].
-Despite this large body of literature, however, there seems to be no clear consensus on the optimal means of estimating IAF.
-Indeed, while automated methods of IAF estimation have emerged in recent years [@chiang2008; @goljahani2012; @lodder2011], these routines have not yet found widespread application.
-We therefore sought to develop a reliable, automated method of IAF estimation that could be easily integrated within existing analysis pipelines.
+Despite this large body of literature, however, there seems to be no clear consensus on the optimal method for estimating IAF.
+Indeed, while automated methods for IAF estimation have emerged in recent years [@chiang2008; @goljahani2012; @lodder2011], these routines have not yet found widespread application.
+We therefore sought to develop a reliable, automated method for IAF estimation that could be easily integrated within existing analysis pipelines.
 
 ### Method:
 We implemented a method of calculating two common IAF estimators (peak frequency; centre of gravity) in MATLAB and Python (both available on GitHub; the Python implentation is also in the `philistine` package on PyPi).
