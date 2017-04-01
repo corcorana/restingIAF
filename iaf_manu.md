@@ -2,7 +2,7 @@
 title: Towards a reliable, automated method of individual alpha frequency (IAF) quantification
 
 author:
-  - Andrew W. Corcoran$^a$
+  - Andrew W. Corcoran$^{a,b}$
   - Phillip M. Alday$^b$
   - Matthias Schlesewsky$^b$
   - name: Ina Bornkessel-Schlesewsky$^b$
@@ -496,7 +496,7 @@ At this level of SNR, all alpha peak components were correctly estimated within 
 Table: Summary statistics characterising peak alpha frequency (PAF) estimation as a function of signal-to-noise ratio (SNR). 
 *n PAF*: total number of PAF estimates extracted from 1000 simulated time series; *RMSE*: root mean squared error of PAF estimates; *maxDiff*: maximum absolute difference between PAF estimates and corresponding frequency (Hz) of underlying alpha-band component; *n shift*: number of PAF estimates that diverged from the target alpha frequency by more than 0.24 Hz, the frequency resolution of the analysis.
 
-| SNR | 0.05 | 0.10 | 0.15 | 0.20 | 0.25| 0.30 | 0.40 | 0.50 |
+| SNR | 0.05 | 0.10 | 0.15 | 0.20 | 0.25 | 0.30 | 0.40 | 0.50 |
 |---|---|---|---|---|---|---|---|---|
 | *n PAF* | 672 | 914 | 988 | 993 | 998 | 999 | 1000 | 1000 |
 | *RMSE* | 0.12 | 0.10 | 0.09 | 0.07 | 0.08 | 0.07 | 0.07 | 0.07 |
@@ -526,6 +526,24 @@ This degree of accuracy is maintained even at relatively low levels of SNR, alth
 Diminished sensitivity at low levels of SNR seems to derive from a generic reduction in the capacity of the underlying `pwelch` routine to accurately extract low powered alpha components under such conditions, rather than any specific deficiency of the SGF procedure per se.
 
 #### 3.2.2 Simulated multi-channel datasets
+
+Table: Gaussian alpha component distrib.
+
+SNR |  | 0.30 |  |  | 0.15 |  |
+|---|---|---|---|---|---|---|
+Alpha | 4.0 | 2.5 | 1.0 | 4.0 | 2.5 | 1.0 |
+**RMSE** |  |  |  |  |  |  |
+$PW_{GA}$| 0.23 | 0.36 | 0.68 | 0.36 | 0.42 | 0.70 |
+$PAF_{GA}$| 0.10 | 0.21 | 0.51 | 0.18 | 0.29 | 0.54 |
+$CoG_{GA}$| 0.12 | 0.22 | 0.41 | 0.24 | 0.42 | 0.73 |
+**maxDiff** | | | | | | |
+$PW_{GA}$| 0.56 | 0.84 | 1.73 | 1.23 | 0.80 | 1.49 |
+$PAF_{GA}$| 0.26 | 0.43 | 1.08 | 0.36 | 0.57 | 1.43 |
+$CoG_{GA}$| 0.32 | 0.49 | 1.15 | 0.67 | 1.14 | 1.53 |
+**n chans** | | | | | | |
+$PAF_{GA}$| 8.26 | 7.08 | 5.52 | 7.42 | 5.80 | 6.42 |
+$CoG_{GA}$| 8.98 | 8.94 | 9.00 | 8.82 | 8.66 | 8.38 |
+
 
 <!--
 sims
