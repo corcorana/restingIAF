@@ -12,7 +12,7 @@ abstract:
   Great new IAF technique described here.
 
 keywords:   
-  Individual alpha frequency, Savitzky-Golay filter, alpha peak, alpha gravity
+  Individual alpha frequency, peak alpha frequency, alpha frequency centre of gravity, posterior alpha rhythm, posterior dominant rhythm, Savitzky-Golay filter
 
 output: 
   html_document
@@ -65,8 +65,9 @@ The definition of both $A$ and $\phi$ pose non-trivial problems (more on which s
 ![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear scaled PSD ranging 1 to 25 Hz. Strong alpha band activity is evidenced by a sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of left panel PSD in which ordinate data have been log-transformed into decibels. In this case, decibel-scaling has the effect of accentuating the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all resolved frequency bins ranging 1 to 100 Hz (frequencies and power estimates have been log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ inverse power-law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](figs/pafs.png?raw=true){#pafs}
 
 PAF estimates are typically extracted from parieto-occipital EEG channels while the participant relaxes with their eyes closed.
-This strategy exploits the classic observation that alpha oscillations dominate the EEG recorded over centro-posterior scalp regions when visual sensory input is suppressed [@barry2007;@sadaghiani2016]. 
-Although PAF can in many cases be rapidly ascertained upon visual inspection of the PSD function ([Fig_pafs](#pafs)), this approach to IAF extraction is inefficient and potentially impractical when dealing with large datasets [@goljahani2012]. 
+This strategy exploits the classic observation that alpha oscillations dominate the EEG recorded over centro-posterior scalp regions when visual sensory input is suppressed [@barry2007;@sadaghiani2016].
+As such, this feature of the EEG is sometimes referred to as the posterior dominant rhythm [e.g., @lodder2011].
+Although PAF can often be rapidly ascertained upon visual inspection of the PSD function ([Fig_pafs](#pafs)), this approach to IAF extraction is inefficient and potentially impractical when dealing with large datasets [@goljahani2012]. 
 Moreover, it is well documented that a sizeable proportion of individuals fail to manifest an unambiguous PAF, either on account of there being more than one prominent peak within the alpha band [e.g., so-called ‘split-peaks’; @chiang2011], or due to a general lack of rhythmic alpha activity [e.g., @anokhin1996] (see [Fig_bad_pafs](#bad_pafs)).
 Under the former circumstances, the adjudicator<!-- AC: this term has proved controversial. i deliberately wanted to underscore the tacit subjectivity involved in judging whether a given PSD manifests a (singular) peak. i'm open to alteratives but would like to retain this connotation, if possible. --> must decide whether a single, primary peak can be justifiably discerned amidst competing peak candidates; under the latter, they must decide whether the signal is too noisy to derive reliable inferences pertaining to IAF. 
 Cases such as these may be prone to biased or inconsistent assessment, pose significant challenges to the replicability of analytic procedures, and can result in the exclusion of a substantial subset of participants from IAF-related analyses [see for e.g., @bornkessel-schlesewsky2015].
@@ -149,21 +150,24 @@ ERD studies have revealed that both the qualitative profile and temporal course 
 If different paradigms do precipitate distinct patterns of ERD during the selected test interval [or indeed, *enhance* rather than attenuate the alpha rhythm; e.g., @kreitman1965; @rihs2007], then the ensuing responsiveness regions used to define the coverage of the CoG estimate will span non-identical frequency bands [cf. @haegens2014, for evidence of analogous intraindividual shifts in PAF as a function of varying task conditions]. 
 While this property of the CRB method need not be a problem for ERD-type applications (indeed, sensitivity to such selective changes in band power might prove theoretically interesting and productive in this context), it renders the approach less suited to the task of estimating the IAF as a marker of stable, trait-like differences in information processing capacities.
 
-### 1.4 Parametric curve-fitting approaches to alpha rhythm quantification
+### 1.4 Automated curve-fitting approaches to alpha rhythm quantification
 Finally, we turn briefly to a promising line of research that attempts to quantify the spectral features of EEG data, and in particular spectral peaks, by means of statistical curve-fitting techniques. 
 Chiang and colleagues [@chiang2008] developed an algorithm (with corresponding implementation in C) that parameterises alpha-band peaks via a two-step procedure: Peaks are first identified and parameterised via the fitting of a Gaussian function, before being fine-tuned in relation to the spread of fitted estimates across multiple electrode sites. 
-Chiang and colleagues [@chiang2011] and van Albada and Robinson [@van_albada2013] later demonstrated the potential utility of such automated routines by applying this general technique to a dataset comprising over 1400 individuals. <!-- AC: i haven't got to the end of this para yet -->
+Chiang and colleagues [@chiang2011] and van Albada and Robinson [@van_albada2013] later demonstrated the potential utility of such automated routines by applying this general technique to datasets comprising 1498 and 1424 individuals, respectively. 
+Another approach to automated spectral analysis involving a similar iterative curve-fitting and clustering procedure has been proposed by Lodder and van Putten [@lodder2011;@lodder2013].
+This technique has likewise been applied to a large dataset comprising resting-state EEG recordings from 1215 individuals [@lodder2011], where it produced estimates that were highly correlated with previously documented visual estimates of PAF (individual estimates differed by average of 0.52 Hz).
+Lodder and van Putten reported that higher degrees of estimate accuracy (i.e. agreement with visually identified PAFs) could be achieved by eliminating cases which manifested low quality peaks, although at its extreme this strategy resulted in a substantial rate of attrition (e.g., 41%).
 
-Given the manifest advantages of these analysis tools, it is somewhat puzzling that they do not yet appear to have gained widespread currency in the contemporary IAF literature [for instance, neither @goljahani2012, nor @bazanova2014, mention the development of such algorithms in their reviews of IAF methods; although cf. @haegens2014, for a notable counterexample]. 
+Given the obvious advantages of automated analysis tools, it is somewhat puzzling that these curve-fitting techniques do not yet appear to have gained widespread currency in the contemporary IAF literature [for instance, neither @goljahani2012, nor @bazanova2014, mention the development of such algorithms in their reviews of IAF methods; although cf. @haegens2014, for a notable counterexample]. 
 One possibility is that researchers are simply unaware of the existence of these methods, since the bulk of the literature in which they have been applied is concerned with broader questions of spectral modeling, rather than the quantification of IAF per se [@haegens2014's investigation of PAF variability is again the exception]. 
 An alternative explanation is that researchers deem these methods too complex to be a worthwhile investment of their time (especially if quantifying IAF is only an intermediary step within a broader analysis framework, rather than the main focus of the enterprise). 
-This attitude may be reinforced by the additional burden involved in obtaining and implementing an algorithm that may have been written in an unfamiliar programming language, and which may pose nontrivial challenges with respect to integration within existing analysis pipelines. 
+This attitude may be reinforced by the additional burden involved in obtaining and implementing an algorithm that may have been written in an unfamiliar programming language, and which poses nontrivial challenges with respect to integration within existing analysis pipelines. 
 We suggest then that one of the critical steps towards achieving a more widespread adoption of automated IAF estimation routines is to make these tools as openly available as possible, in formats that are easy to assimilate within popular methods of EEG analysis.
 
 ### 1.5 Aims of the present study
 In sum, common methodological approaches to IAF estimation are either (1) time-consuming and vulnerable to inconsistencies arising from qualitative interpretation, (2) at risk of producing spurious or biased estimates under certain plausible spectral conditions, (3) conflate trait-like alpha properties with variable phasic effects, or (4) show some combination of the above. 
 More recent innovations designed to address these problems via the application of sophisticated curve-fitting algorithms have so far found limited uptake within the broader IAF literature, perhaps on account of practical barriers pertaining to software access and implementation.
-Consequently, we seek to articulate an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of resting-state IAF in conjunction with EEGLAB [@delorme2004], a popular open source EEG data analysis toolbox.<!-- AC: ?mention python implementation here too-->
+Consequently, we sought to articulate an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of resting-state IAF in two major programming languages: MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and Python&trade;.
 This goal is consistent with recent proposals to make the analysis of cognitive electrophysiological data as open, transparent, and amenable to replication as possible [@cohen2017].
 
 Our approach aims to emulate Klimesch and colleagues’ [@klimesch1990] original attempt to characterise individual profiles of resting-state oscillatory activity across the entirety of the alpha band by means of a relatively simple, non-parametric curve-fitting algorithm. 
@@ -254,8 +258,8 @@ However, it is perhaps worth emphasising that this calculation only influences P
 ### 2.2 Implementation of proposed analysis techniques
 
 #### 2.2.1 Software requirements
-The afore-described approach to IAF estimation has been implemented via a set of customised functions programmed in MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and python&trade;.
-The following report focusses on the MATLAB implementation of the programme, which is dependent upon the Signal Processing Toolbox&trade; and the EEGLAB toolbox. <!-- AC: ?include comparison of techniques in supp mats -->
+The afore-described approach to IAF estimation has been implemented via a set of customised functions programmed in MATLAB and Python.
+The following report focusses on the MATLAB implementation of the programme, which is dependent upon the Signal Processing Toolbox&trade; and the EEGLAB toolbox [@delorme2004].
 EEGLAB is necessary for data importation, since our analysis programme assumes that EEG data are structured according to EEGLAB conventions. 
 Signal Processing Toolbox is required for the `pwelch` and `sgolay` functions, which are responsible for executing the PSD estimation and SGF design components of the programme, respectively. 
 `sgolay` was preferred over `sgolayfilt` on the basis that it outputs the coefficients necessary for calculating higher-order derivative functions (in addition to those for the zero-order, i.e. smoothed, PSD function). 
@@ -594,6 +598,9 @@ prevalence of split peaks (44% in chiang 11, although difficult to tell if this 
 
 note that haegens et al, who seem to be using the van albaba version of chiang’s algorithm, only get 38 out of 51 PAFs (they remark that the curve fitting method is more conservative than standard PAF approach) – can we do better (or at least, provide CoG as viable alternative)? perhaps assumption of gaussian curve is too restrictive in some cases?
 [NB: remark that noisier/ambiguous peaks omitted suggests the algorithm isn’t the same, ? seem to find Gaussian peak at expense of split subpeaks]
+
+limit: not sure how well it would perform in kids / old adults / clinical pop
+
 -->
 ## References
 
