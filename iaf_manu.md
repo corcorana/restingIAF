@@ -24,7 +24,7 @@ csl:
   apa-old-doi-prefix.csl
 ---
 ## 1 Introduction
-Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @fries2005;@buzsaki2004].
+Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanRullen2016].
 Neuronal oscillations reflect fluctuations between states of high and low receptivity, such that communication between individual neurons and broader neuronal populations is optimised via the establishment of oscillatory coherence [@fries2005;@fries2015].
 Complex cognitive tasks typically require coordination between distant brain regions and systems, thus requiring effective connectivity to be established within task-relevant neural networks at relatively short timescales [@fries2005;@palva2011].
 Task-irrelevant and potentially interfering connections must concomitantly be inhibited, i.e. task-relevant neural networks are gated by inhibition [@jensen2010].
@@ -32,7 +32,7 @@ The alpha rhythm of the human EEG is thought be the primary carrier of this inhi
 This account is gaining increasing acceptance over alternative accounts of the alpha rhythm such as the proposal that it reflects cognitive idling [@adrian1934;@pfurtscheller1996].
 
 While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger’s seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of inter-individual variability in resting alpha activity for cognitive processing [cf. @klimesch1999 for a review].
-According to this body of literature, the frequency at which alpha-generating neuronal circuits predominantly oscillate (i.e. the individual alpha frequency; IAF) while one relaxes in a state of alert wakefulness predicts performance across a variety of perceptual [e.g., @cecere2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
+According to this body of literature, the frequency at which alpha-generating neuronal circuits predominantly oscillate (i.e. the individual alpha frequency; IAF) while one relaxes in a state of alert wakefulness predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
 The IAF, which varies between approximately 9.5 and 11.5 Hz in healthy young adults [@klimesch1999], is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability, [@gasser1985;@kondacs1999;@naepflin2007] as well as being stable across cognitive training interventions [@grandy2013a].
 Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], possibly due to decreased efficiency of thalamo-cortical feedback loops [@klimesch1997;@steriade1990].
 They also show a reduced performance on memory tasks [@klimesch1999] and general intelligence measures (*g*) [@grandy2013] in comparison to their high-IAF counterparts. 
@@ -48,6 +48,7 @@ Indeed, recent evidence [@van_albada2013] supporting the idea that the canonical
 
 In spite of its promise as a marker of apparently enduring, trait-like individual differences in cognitive functioning, and its potential utility for tuning frequency band analysis to empirical properties of the PSD, no consensus currently exists as to the optimal method of quantifying IAF.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices of IAF in the literature; namely, peak alpha frequency and alpha frequency centre of gravity.
+We begin by surveying various attempts to operationalise these measures of IAF, and highlight some of their attendant limitations.
 
 ### 1.1 Peak alpha frequency
 The classical method of estimating IAF relies on delineating the peak alpha frequency (PAF); a singular, prominent peak within the alpha-band frequency range (8-13 Hz; @noachtar2004) of the power spectral density (PSD) plot ([Fig_pafs](#pafs)).
@@ -278,10 +279,12 @@ We favour higher-order polynomials (e.g., $k = 5$) due to their peak-height pres
 This may be of particular concern when dealing for instance with elderly populations, given the increased likelihood of diminished spectral power (and corresponding reductions in peak height) in older adults [e.g., @chiang2011].<!-- AC: has anyone got a good citation to the effect that older people often have less powerful/broader alpha peaks ? i thought i had, but can't seem to find it --> 
 
 Additional parameters include:
-$W_\alpha$, the domain of the PSD corresponding to the putative alpha bandwidth;
-$minP$, the minimum quantity of normalised power required to qualify as a potential PAF candidate (fixed in relation to the statistical properties of the spectrum);
-$pDiff$, the minimum proportion of peak height by which the highest peak component must exceed all competitors in order to qualify as the PAF; 
-and $cMin$, the minimum number of channels necessary for the computation of cross-channel IAF estimates. 
+
+- $W_\alpha$, the domain of the PSD corresponding to the putative alpha bandwidth;
+- $minP$, the minimum quantity of normalised power required to qualify as a potential PAF candidate (fixed in relation to the statistical properties of the spectrum);
+- $pDiff$, the minimum proportion of peak height by which the highest peak component must exceed all competitors in order to qualify as the PAF;
+- $cMin$, the minimum number of channels necessary for the computation of cross-channel IAF estimates. 
+
 Examples of what we consider to be reasonable parameter values are outlined in section 2.3.4.
 
 #### 2.2.3 Overview of analysis procedure
@@ -323,7 +326,7 @@ where $c$ identifies the channel drawn from the set of all available channels $C
 In contrast to $PAF_M$, all CoG channel estimates contribute equally to the calculation of mean CoG ($CoG_M$).
 
 Given that resting-state EEG is frequently recorded both before and after an experimental session, we also include the facility to compute repeated-measures comparisons and grand averages across IAF summary statistics. 
-Indeed, since concerted alpha-band activity is not guaranteed to manifest during a given recording<!-- AC: ?look at pre/post papers-->, we recommend such cross-recording comparisons in order to maximise the likelihood of being able to derive reliable estimates of IAF. 
+Indeed, since both the quality and quantity of intraindividual alpha-band activity may vary across recordings [see for e.g., @samaha2015], we recommend such cross-recording comparisons in order to maximise the likelihood of being able to derive reliable estimates of IAF. 
 Since separate EEG recordings may not be equivalent in terms of quality and/or informativeness of the data they render, grand averaged PAF and CoG estimates ($IAF_{GA}$) are weighted in accordance with the amount of channels that contributed to the estimation of IAF summary statistics:
 
 $$ IAF_{GA} = \frac{ IAF_1 \beta_1 + IAF_2 \beta_2 } {\beta_1 + \beta_2} , $$
