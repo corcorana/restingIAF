@@ -64,9 +64,8 @@ The definition of both $A$ and $\phi$ pose non-trivial problems (more on which s
 
 ![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear scaled PSD ranging 1 to 25 Hz. Strong alpha band activity is evidenced by a sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of left panel PSD in which ordinate data have been log-transformed into decibels. In this case, decibel-scaling has the effect of accentuating the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all resolved frequency bins ranging 1 to 100 Hz (frequencies and power estimates have been log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ inverse power-law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](figs/pafs.png?raw=true){#pafs}
 
-PAF estimates are typically extracted from parieto-occipital EEG channels while the participant relaxes with their eyes closed.
+PAF estimates are typically extracted from parieto-occipital EEG channels while the participant relaxes with their eyes closed [note that such alpha activity is sometimes referred to as the posterior dominant rhythm; e.g. @lodder2011].
 This strategy exploits the classic observation that alpha oscillations dominate the EEG recorded over centro-posterior scalp regions when visual sensory input is suppressed [@barry2007;@sadaghiani2016].
-As such, this feature of the EEG is sometimes referred to as the posterior dominant rhythm [e.g., @lodder2011].
 Although PAF can often be rapidly ascertained upon visual inspection of the PSD function ([Fig_pafs](#pafs)), this approach to IAF extraction is inefficient and potentially impractical when dealing with large datasets [@goljahani2012]. 
 Moreover, it is well documented that a sizeable proportion of individuals fail to manifest an unambiguous PAF, either on account of there being more than one prominent peak within the alpha band [e.g., so-called ‘split-peaks’; @chiang2011], or due to a general lack of rhythmic alpha activity [e.g., @anokhin1996] (see [Fig_bad_pafs](#bad_pafs)).
 Under the former circumstances, the adjudicator<!-- AC: this term has proved controversial. i deliberately wanted to underscore the tacit subjectivity involved in judging whether a given PSD manifests a (singular) peak. i'm open to alteratives but would like to retain this connotation, if possible. --> must decide whether a single, primary peak can be justifiably discerned amidst competing peak candidates; under the latter, they must decide whether the signal is too noisy to derive reliable inferences pertaining to IAF. 
@@ -84,7 +83,7 @@ Second, it fails to differentiate maximum power values at the apex of a genuine 
 Automated routines of this sort might therefore render rapid and consistent estimates of PAF, but are too liberal to guarantee convergence with those derived from visual analysis of the PSD.
 
 ### 1.2 Alpha centre of gravity and individualised frequency band intervals
-Klimesch and colleagues [@klimesch1993; @klimesch1997] proposed using alpha centre of gravity frequency (CoG), an estimator of IAF originally formulated by Klimesch, Schimke, Ladurner, and Pfurtscheller [@klimesch1990], in order to circumvent some of the difficulties posed by the absence of a clear spectral peak. 
+Klimesch and colleagues [@klimesch1993; @klimesch1997] proposed using alpha centre of gravity frequency (CoG; also referred to as the mean frequency), an estimator of IAF originally formulated by Klimesch, Schimke, Ladurner, and Pfurtscheller [@klimesch1990], in order to circumvent some of the difficulties posed by the absence of a clear spectral peak. 
 CoG furnishes a weighted sum of spectral estimates divided by total power within the selected alpha frequency window $A$, defined by the bounds $f_1$ and $f_2$:
 
 $$ CoG = \frac { \sum\limits_{f_1}^{f_2} f(x) \ x } { \sum\limits_{f_1}^{f_2} f(x) }, $$
@@ -280,7 +279,7 @@ Although some degree of exploratory analysis may be desirable to find the optima
 Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981], and hence may be desirable in cases of noisy spectral densities.
 We note however that excessively flat peaks following application of the smoothing procedure are indicative of a suboptimally large $F_w$.
 We favour higher-order polynomials (e.g., $k = 5$) due to their peak-height preserving properties, but acknowledge that they might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992]. 
-This may be of particular concern when dealing for instance with elderly populations, given the increased likelihood of diminished spectral power (and corresponding reductions in peak height) in older adults [e.g., @chiang2011].<!-- AC: has anyone got a good citation to the effect that older people often have less powerful/broader alpha peaks ? i thought i had, but can't seem to find it --> 
+This may be of particular concern for instance when dealing with elderly populations, given the increased likelihood of diminished spectral power (and corresponding reduction of peak dominance) in older adults [e.g., @chiang2011;@dustman1999].
 
 Additional parameters include:
 
@@ -599,6 +598,7 @@ prevalence of split peaks (44% in chiang 11, although difficult to tell if this 
 note that haegens et al, who seem to be using the van albaba version of chiang’s algorithm, only get 38 out of 51 PAFs (they remark that the curve fitting method is more conservative than standard PAF approach) – can we do better (or at least, provide CoG as viable alternative)? perhaps assumption of gaussian curve is too restrictive in some cases?
 [NB: remark that noisier/ambiguous peaks omitted suggests the algorithm isn’t the same, ? seem to find Gaussian peak at expense of split subpeaks]
 
+future: iterative/individualised curve smoothing where size of filter window is adaptive
 limit: not sure how well it would perform in kids / old adults / clinical pop
 
 -->
