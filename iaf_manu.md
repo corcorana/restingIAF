@@ -187,7 +187,7 @@ We then address the problem of multiple (potentially trivial) zero crossings, an
 Finally, we turn to the second-order derivative in order to arrive at a means of evaluating the quality (or ‘prototypicality’) of individual channel peak estimates.
 
 #### 2.1.1 Local extrema and first derivative zero crossings 
-<!-- AC: PA suggested deleting / relegating this section to the supp mats, as will be rather elementary for a proportion of readers. At the moment I'm inclined to keep it unless the reviewers kick up a fuss. When PA asked me to consider my target audience, I think that would be me ~6 months ago (and I would have needed this section to make sense of the method). I'm open to persuasion on this point though. -->As pointed out by Grandy and colleagues [@grandy2013; @grandy2013a], one solution to the problem of automated peak detection is to search for downward going zero crossings in the first derivative of the PSD. 
+<!-- AC: PA suggested deleting / relegating this section to the supp mats, as will be rather elementary for a proportion of readers. At the moment I'm inclined to keep it unless the reviewers kick up a fuss. When PA asked me to consider my target audience, I think that would be me ~6 months ago (and I would have needed this section to make sense of the method). I'm open to persuasion on this point though. -->As pointed out by Grandy and colleagues [-@grandy2013; -@grandy2013a], one solution to the problem of automated peak detection is to search for downward going zero crossings in the first derivative of the PSD. 
 Derivatives describe the relative rate of change in the dependent variable or function $f(x)$ given some value of independent variable $x$. 
 The first derivative of a vector of PSD estimates thus provides point estimates of the (instantaneous) rate of change in the amount of spectral power estimated for each frequency bin resolved in the analysis. 
 This relationship can be formalised as follows:
@@ -203,7 +203,7 @@ As such, positive to negative sign changes (i.e. downward going zero crossings) 
 Conversely, sign changes in the opposite direction (i.e. upward going zero crossings) can likewise be used to identify local minima.
 
 #### 2.1.2 Savitzky-Golay smoothing and differentiation
-Although Grandy and colleagues [@grandy2013;@grandy2013a] correctly assert that downward going zero crossings avoid the problem of arbitrary boundary effects in the absence of any clear alpha peak, they fail to articulate a systematic method for differentiating substantive peaks from trivial fluctuations in the PSD.
+Although Grandy and colleagues [-@grandy2013; -@grandy2013a] correctly assert that downward going zero crossings avoid the problem of arbitrary boundary effects in the absence of any clear alpha peak, they fail to articulate a systematic method for differentiating substantive peaks from trivial fluctuations in the PSD.
 We suggest that the situation in which spectral analysis is degraded by signal noise can be substantially improved via the application of a smoothing procedure. 
 The idea here is to attenuate such noisy fluctuations about the hypothesised true alpha peak so that the vast majority of zero crossings derived from these trivial variations are eliminated from the signal. 
 However, since standard filtering techniques (such as the moving average) may result in markedly distorted representations of the underlying peak structure [e.g., @press1992; @zeigler1981], the challenge is to find a smoothing operation that preserves the spectral characteristics at stake in IAF analysis.
@@ -213,7 +213,7 @@ The SGF has a number of properties that make it well suited to the task of smoot
 SGFs work by centring a sampling window of length $F_w$ on a portion of the input signal and computing the least-squares fit of a specified polynomial to each $i$^th^ data point spanned by $F_w$.
 This window is then shifted one point along the signal, and the polynomial fit recalculated in accordance with the updated input.
 The centre value of the polynomial fit is taken as the filter output at each iteration of the sliding window, and these values are concatenated to render the smoothed estimate of the input function.
-For a more detailed treatment of the SGF and its technical performance properties, the interested reader is referred to Schafer [@schafer2011].
+For a more detailed treatment of the SGF and its technical performance properties, the interested reader is referred to Schafer [-@schafer2011].
 
 In addition to its smoothing capability, SGFs can also be applied to calculate the $n$^th^ order derivative of the input signal. 
 This is of course particularly convenient in the present context. 
@@ -279,7 +279,7 @@ Although some degree of exploratory analysis may be desirable to find the optima
 Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981], and hence may be desirable in cases of noisy spectral densities.
 We note however that excessively flat peaks following application of the smoothing procedure are indicative of a suboptimally large $F_w$.
 We favour higher-order polynomials (e.g., $k = 5$) due to their peak-height preserving properties, but acknowledge that they might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992]. 
-This may be of particular concern for instance when dealing with elderly populations, given the increased likelihood of diminished spectral power (and corresponding reduction of peak dominance) in older adults [e.g., @chiang2011;@dustman1999].
+This may be of particular concern for instance when dealing with elderly populations, given the increased likelihood of diminished spectral power (and corresponding reduction of peak dominance) in older adults [e.g., @chiang2011; @dustman1999].
 
 Additional parameters include:
 
@@ -308,7 +308,7 @@ It would however still qualify for inclusion in the CoG estimation procedure.
 
 ![*Fig_minPow.* Visualisation of smoothed power spectral density (PSD) plots with corresponding $minP$ thresholds superposed (red line, inverse log~10~ transformation of the regression line). *Left panel*: PSD estimates for all frequency bins beyond the delta band fail to exceed $minP$; no peak registered for this channel. *Central panel*: Data from the same participant as in the left panel. In this channel, the spectral peak at ~10 Hz is sufficient to exceed the $minP$ threshold. *Right panel*: Data from another participant showing a marked alpha peak that comfortably exceeds $minP$. Note differences in ordinate scaling.](figs/minPow.png){#minPow}
 
-CoG calculation follows the standard procedure described by Klimesch and colleagues [@klimesch1990], with the exception that the bounds of each channel's alpha interval were detected automatically. 
+CoG calculation follows the standard procedure described by Klimesch and colleagues [-@klimesch1990], with the exception that the bounds of each channel's alpha interval were detected automatically. 
 The programme derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum prior to the left-most peak ($f_1$) / following the right-most peak ($f_2$).
 Since some spectra show a relatively shallow roll-off as the edges of the alpha peak diminish, and thus do not culminate in a local minimum for several Hz, we relaxed the requirement for an upward going zero crossing (i.e. evidence of a local minimum) such that the transition into a prolonged shallow function is taken as sufficient evidence of the individual alpha bounds $f_1$ or $f_2$.
 This criterion was formalised as: 
@@ -343,7 +343,7 @@ For CoG estimates, $\beta$ is the number of channels used to estimate the mean i
 #### 2.3.1 Participants
 Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 female, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
 All participants provided written, informed consent, and received financial remuneration for their time. 
-This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@gysin-websterinprep], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
+This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@gysin-websterInprep], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
 
 #### 2.3.2 Procedure
 Following screening and consent procedures, participants were seated in a dimly-lit, sound-attenuated room for the duration of the session. 
@@ -461,7 +461,7 @@ $CoG_{GA}$ however showed some evidence of deviation from the Gaussian distribut
 To the best of our knowledge, this is the first study to examine the distributional properties of the $CoG$.
 It is therefore unclear how our estimation procedure compares to previous methods of calculating alpha-band $CoG$ in this regard.
 In spite of this apparent difference in distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .88$).
-This finding, which extends that reported in a smaller sample by Jann and colleagues [@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process.
+This finding, which extends that reported in a smaller sample by Jann, Koenig, Dierks, Boesch, and Federspiel [-@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process.
 
 ![*Fig_GA_distribs. *Top row*: Probability density of $PAF_{GA}$ (left panel) and $CoG_{GA}$ (right panel) following application of a Gaussian kernal density estimator. *Bottom row*: Normal probability plots indicating how well $PAF_{GA}$ and $CoG_{GA}$ estimates approximate a normal distribution (indicated by the broken red line). While $PAF_{GA}$ estimates vary in a fashion broadly consistent with an underlying normal distribution, the $CoG_{GA}$ estimator shows evidence of a somewhat heavier-tailed distribution.*](figs/GA_distribs.png){#GA_distribs}
 
