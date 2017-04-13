@@ -433,7 +433,7 @@ This enabled us to examine consistency of IAF estimation in the context of rando
 #### 3.1.1 Global performance of the IAF estimation routine
 Post-experiment resting-state EEG recordings were missing for three participants.
 These individuals thus contributed only one set of channel estimates each to the following analysis.
-A further 11 channels were excluded from analysis on the basis of excessive kurtosis (note, no more than 1 channel was rejected from any one recording).
+A further 11 channels were excluded from analysis on the basis of excessive kurtosis (note, no more than 1 channel was rejected for any given recording).
 This left a grand total of 1096 PSDs to estimate across the sample (561 pre- and 535 post-experiment spectra).
 From these channel data, a total 948 PAF estimates (pre = 472, post = 476) and 1009 CoG estimates (pre = 506, post = 503) were extracted across all recordings.
 
@@ -566,13 +566,39 @@ Note, however, that while the CoG estimator was more prone to errors when SNR wa
 We have proposed a novel method for the automatic detection of the two most prevalent indices of individual alpha frequency in the literature.
 Our method pairs a common approach to the automated detection of local maxima (i.e. searching for first derivative zero crossings) with a well established method of extracting spectral peaks amidst noisy data (i.e. Savitzky-Golay filtering) to derive an estimate of peak alpha frequency (PAF).
 It also extends the logic of the first derivative analysis to estimate the bounds the alpha peak component, thus enabling estimation of the centre of gravity frequency (CoG).
-Like other automated peak detection (i.e. curve-fitting) algorithms in the literature, this method addresses key limitations of visual PSD analysis (e.g., proneness to subjective bias, inefficiency, replicability challenges), and improves upon simpler automated approaches that may be prone to various artifacts (e.g., failure to detect multiple peaks, trivial noise fluctuations).
-Unlike these more sophisticated algorithms, however, our method is easy to access and integrate within existing EEGLAB and Python analysis pipelines.
-We therefore set about implementing the technique to assess how well it performed in the context of both empirical (human) and simulated EEG data.
+Like other automated peak detection (i.e. curve-fitting) algorithms in the literature, this method addresses key limitations of visual PSD analysis (e.g., proneness to subjective bias, inefficiency, replicability challenges), and improves upon simpler automated approaches that may be prone to various artifacts (e.g., failure to differentiate multiple peaks, assigning peaks to noisy spectral fluctuations).
+Unlike these more sophisticated algorithms, however, our method is openly accessible and easy to integrate within existing EEGLAB and Python analysis pipelines.
+We therefore set about implementing the technique in the context of both empirical (human) and simulated EEG data to assess whether its performance was sufficiently reliable to warrent its adoption as a fast and convenient estimator of IAF.
 
 ### 4.1 Estimation of IAFs from an empirical EEG dataset
+Savitzky-Golay filtering of `pwelch` generated PSDs resulted in an impressive number of IAF estimates being extracted from this moderately-sized sample.
+This suggests that the technique might offer substantial benefits over traditional methods of analysis, which might be susceptible to a high proportion of attrition if dominant peaks cannot be confidently distinguished from background noise.
+Although we cannot rule out the possiblity that sampling error furnished us with a dataset comprising of a high proportion of individuals who show unambiguous alpha peaks, it is highly encouraging that the SGF technique was able to estimate such a high number of PAFs and CoGs (and that the two cases in which IAF estimation failed did not demonstrate compelling evidence of concerted alpha-band activity on visual inspection).
+It is perhaps also worth pointing out that the diverse age range of participants included within this analysis would likely have posed a robust challenge to any automated peak frequency routine, given the typically reported changes in spectral power and alpha peak distribution associated with older adulthood.
+That the automated IAF estimation technique reported here was able to extract estimates for the vast majority of cases, and do so using a fixed set of a priori-defined parameters, speaks to its capacity to derive resting-state IAF estimates across a broad spectrum of the healthy population.
+
+Although a high proportion of channel data derived across both pre- and post-experiment recordings were available for grand averaging in most cases, individuals for whom only a subset of channel estimates could be derived tended to demonstrate stronger alpha peak activity in the latter recording (see [Fig_stacked_chans](#stacked_chans)).
+This trend was by no means universal, however, thus it seems prudent for researchers to include both pre- and post-experiment resting-state recordings within their protocols wherever possible.
+As expected, pre- and post-experiment IAF estimates were highly intercorrelated; hence it seems reasonable to treat those estimates derived from singular recordings (i.e. cases in which only one recording yielded an estimate of PAF/CoG) as valid indicators of IAF.
+Additional support for this view accrues from the observation that including single-recording PAF estimates along with grand-averaged PAFs did not result in any marked deviation from the expected (approximately) Gaussian distribution.
+
+Comparison of PAF and CoG estimates again revealed high degrees of intercorrelation, despite differences in their grand-averaged distributions.
+Although this might prompt concerns of redundancy, we interpret this finding positively: the CoG seems to tap into a similar underlying neural process (or indeed, set of processes) as that indexed by PAF.
+Although not necessary in the present analysis on account of the high proportion of PAFs that were extracted, this finding suggests that the CoG might be substituted as an alternative marker of IAF in cases where the PAF cannot be determined.
+In any case, given the derth of research directly comparing these two measures (most IAF-related research involves some variant of PAF, perhaps on account of the additional complexities involved in calculating CoG), we suggest that it would be informative if future researchers were to report on both of these indices in parallel.
+Should it be the case that PAF and CoG track one another almost identically, then only one of these markers would need be selected for the remainder of the analysis [as per @jann2010].
+However, it could be the case that PAF and CoG diverge under certain circumstances, hence it may be hasty to dismiss the CoG as a redundant alternative to the PAF.
+It is of course a notable advantage of the present method that it enables researchers to rapidly derive sample-wide estimates of both PAF and CoG. 
+To the best of our knowledge, no other automated technique provides the functionality to simultaneously implement both of these IAF estimators.
 
 ### 4.2 Estimation of simulated IAFs
+
+
+### 4.3 Limitations and future developments
+
+
+## 5 Conclusion
+
 
 ## References
 
