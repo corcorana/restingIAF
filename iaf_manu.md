@@ -15,7 +15,9 @@ keywords:
   Individual alpha frequency, peak frequency, centre of gravity, alpha rhythm, posterior dominant rhythm, Savitzky-Golay filter
 
 output: 
-  html_document
+  html_document:
+    toc: true
+    toc_float: true
 
 bibliography: 
   libraryAC.bib
@@ -24,7 +26,7 @@ csl:
   apa-old-doi-prefix.csl
 ---
 ## 1 Introduction
-Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanRullen2016].
+Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
 Neuronal oscillations reflect fluctuations between states of high and low receptivity, such that communication between individual neurons and broader neuronal populations is optimised via the establishment of oscillatory coherence [@fries2005;@fries2015].
 Complex cognitive tasks typically require coordination between distant brain regions and systems, thus requiring effective connectivity to be established within task-relevant neural networks at relatively short timescales [@fries2005;@palva2011].
 Task-irrelevant and potentially interfering connections must concomitantly be inhibited, i.e. task-relevant neural networks are gated by inhibition [@jensen2010].
@@ -206,7 +208,7 @@ Conversely, sign changes in the opposite direction (i.e. upward going zero cross
 Although Grandy and colleagues [-@grandy2013; -@grandy2013a] correctly assert that downward going zero crossings avoid the problem of arbitrary boundary effects in the absence of any clear alpha peak, they fail to articulate a systematic method for differentiating substantive peaks from trivial fluctuations in the PSD.
 We suggest that the situation in which spectral analysis is degraded by signal noise can be substantially improved via the application of a smoothing procedure. 
 The idea here is to attenuate such noisy fluctuations about the hypothesised true alpha peak so that the vast majority of zero crossings derived from these trivial variations are eliminated from the signal. 
-However, since standard filtering techniques (such as the moving average) may result in markedly distorted representations of the underlying peak structure [e.g., @press1992; @zeigler1981], the challenge is to find a smoothing operation that preserves the spectral characteristics at stake in IAF analysis.
+However, since standard filtering techniques (such as the moving average) may result in markedly distorted representations of the underlying peak structure [e.g., @press1992; @ziegler1981], the challenge is to find a smoothing operation that preserves the spectral characteristics at stake in IAF analysis.
 
 With this concern in mind, we turn to the Savitzky-Golay filter (SGF), a least-squares curve-fitting procedure specifically designed to aid in the detection of spectral peaks amidst noisy conditions [@savitzky1964]. 
 The SGF has a number of properties that make it well suited to the task of smoothing PSD functions, not least of which is its capacity to render smoothed signal curves that conserve the height, width, position, area, and centre of gravity of the underlying component structure [see @ziegler1981].
@@ -353,7 +355,7 @@ As per our standard laboratory protocol, both sets of resting-state recordings c
 Participants were instructed to sit still, relax, and avoid excessive eye movements during this time. 
 In total, the entire session lasted between 2.5 and 3 hr. 
 Note, only data from the eyes-closed component of the resting-state recordings will be reported in the analyses that follow.
-Although our approach could easily be extended to the analysis of eyes-open EEG, we favour eyes-closed data on the basis that it demonstrates (1) greater interindividual variability in alpha power [@chen2008], and (2) improved within-session reliability and test-retest stability of IAF estimates [@grandy2013a; cf. @bazanova2011, as cited in @bazanova2014, p.100].
+Although our approach could easily be extended to the analysis of eyes-open EEG, we favour eyes-closed data on the basis that it demonstrates (1) greater interindividual variability in alpha power [@chen2008], and (2) improved within-session reliability and test-retest stability of IAF estimates [@grandy2013a].
 Eyes-closed recordings are also advantageous in reducing the incidence of ocular artifact.
 
 #### 2.3.3 EEG acquisition and preprocessing
@@ -468,24 +470,6 @@ This finding, which extends that reported in a smaller sample by Jann, Koenig, D
 
 ![*Fig_intercorrel.* Scatterplot displaying association between grand averaged PAF and CoG estimates across all participants for whom both estimators were calculated. Broken line indicates perfect positive correlation between IAF estimators.](figs/intercorrel.png){#intercorrel}
 
-
-
-<!-- pre/post highly correlated as expected. markers of stable feature of PSD. loss of ~10% recordings speaks to value of pre/post-->
-
-<!-- One might however speculate that estimating IAF via the $CoG$ increases the likelihood of relatively more extreme values, on account of the latter's sensitivity to skewness within the region of the PSD defined by the individual alpha band.-->
-<!--
-grand average PSDs
-correl / shared var cog vs paf [cf @jann2010]
-? some way of assessing variability of channel-wise ests per subject
-number retained/excluded chans, sims/diffs PAF/CoG
-
-? use biosemi data to develop programme (fine tune procedure for determining f1-f2, note need for d1 range:+/-1 with consideration of neighbours), test on larger neuroscan dataset (need reasonable number if IAF ~normally distrib). 
-? ask people to assign f1/f2 to genuine data and compare (inter-rater rel)
-
-
-### 2.2 Interim discussion
-<!-- might be good to round out some pragmatic points here. i.e. captures interind variance previously reported (both in terms of raw distribs/stat qualities, perhaps also in age diffs), retains most chans, discards appropriately, shows good stability across recordings etc. i.e. seems to measure up well in terms of performance and in relation to prior lit-->
-
 ### 3.2 Simulated EEG data
 
 #### 3.2.1 PAF estimation performance as a function of SNR
@@ -578,28 +562,18 @@ By contrast, the inferior performance of the CoG estimator relative to $PAF_{SG}
 This is unsurprising, since identifying the bounds of the alpha component is more challenging (and thus, more susceptible to error that biases CoG estimation) under noisy signal conditions.
 Note, however, that while the CoG estimator was more prone to errors when SNR was low, the magnitude of estimate deviations from the target frequency did not reach the extremes observed in both methods of PAF estimation (≥ 1.75 Hz) when simulated components were broadly distributed.
 
-## Discussion
+## 4 Discussion
+We have proposed a novel method for the automatic detection of the two most prevalent indices of individual alpha frequency in the literature.
+Our method pairs a common approach to the automated detection of local maxima (i.e. searching for first derivative zero crossings) with a well established method of extracting spectral peaks amidst noisy data (i.e. Savitzky-Golay filtering) to derive an estimate of peak alpha frequency (PAF).
+It also extends the logic of the first derivative analysis to estimate the bounds the alpha peak component, thus enabling estimation of the centre of gravity frequency (CoG).
+Like other automated peak detection (i.e. curve-fitting) algorithms in the literature, this method addresses key limitations of visual PSD analysis (e.g., proneness to subjective bias, inefficiency, replicability challenges), and improves upon simpler automated approaches that may be prone to various artifacts (e.g., failure to detect multiple peaks, trivial noise fluctuations).
+Unlike these more sophisticated algorithms, however, our method is easy to access and integrate within existing EEGLAB and Python analysis pipelines.
+We therefore set about implementing the technique to assess how well it performed in the context of both empirical (human) and simulated EEG data.
 
+### 4.1 Estimation of IAFs from an empirical EEG dataset
 
-<!--
+### 4.2 Estimation of simulated IAFs
 
-discussion matters
-
-Plurality of alpha rhythms (klimesch papers, also sterman 96, cf basar 12, also basar 97 - diffuse alpha system; haegens 14) – cog may be more valuable for characterising iaf in way that takes distribution into account (K97?). we provide way of estimating cog that doesn’t depend on assumptions or paradigm of ERD.
-baz 11 says hooper thinks PAF is best measure of interind var.
-
-why not eyes open ? note increased variation in EC alpha vs EO suggests former may be more sensitive to ind diffs. indeed, bazanova 11 (cited in R/Vs 12/14) found evidence of best intraind correl for posterior EC IAF. 
-also not evidence from curve fittin data is EC – est norms
-
-prevalence of split peaks (44% in chiang 11, although difficult to tell if this holds for posterior chans only – note that the upper [higher freq] peak is generally more occipital/stronger, more akin to single peak cases), plus possibility single peaks could be superposed/ ‘unresolved double peaks’ (see chiang 2011:1513) – CoG esp valuable. Even the curve-fitting programmes don’t estimate (lack means of specifying f1/f2). 
-
-note that haegens et al, who seem to be using the van albaba version of chiang’s algorithm, only get 38 out of 51 PAFs (they remark that the curve fitting method is more conservative than standard PAF approach) – can we do better (or at least, provide CoG as viable alternative)? perhaps assumption of gaussian curve is too restrictive in some cases?
-[NB: remark that noisier/ambiguous peaks omitted suggests the algorithm isn’t the same, ? seem to find Gaussian peak at expense of split subpeaks]
-
-future: iterative/individualised curve smoothing where size of filter window is adaptive
-limit: not sure how well it would perform in kids / old adults / clinical pop
-
--->
 ## References
 
 <!-- Zhivomirov, H. (2013). pinknoise [Software]. Retrieved from https://au.mathworks.com/matlabcentral/fileexchange/42919-pink--red--blue-and-violet-noise-generation-with-matlab-implementation/content/pinknoise.m (Accessed 18/03/2017) -->
