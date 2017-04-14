@@ -150,6 +150,7 @@ A related concern deriving from the CRB method’s reliance on phasic changes in
 ERD studies have revealed that both the qualitative profile and temporal course of alpha- and theta-band desynchronisation are contingent upon the particular nature of the task used to induce oscillatory power shifts [@klimesch2006; @klimesch2007]. 
 If different paradigms do precipitate distinct patterns of ERD during the selected test interval [or indeed, *enhance* rather than attenuate the alpha rhythm; e.g., @kreitman1965; @rihs2007], then the ensuing responsiveness regions used to define the coverage of the CoG estimate will span non-identical frequency bands [cf. @haegens2014, for evidence of analogous intraindividual shifts in PAF as a function of varying task conditions]. 
 While this property of the CRB method need not be a problem for ERD-type applications (indeed, sensitivity to such selective changes in band power might prove theoretically interesting and productive in this context), it renders the approach less suited to the task of estimating the IAF as a marker of stable, trait-like differences in information processing capacities.
+Finally, it has been reported that alpha-band reactivity is significantly reduced as a function of age [@gaal2010], suggesting that reactivity-dependent techniques such as the CRB and peak attenuation methods might not offer suitable approaches when studying IAF in older adults.
 
 ### 1.4 Automated curve-fitting approaches to alpha rhythm quantification
 Finally, we turn briefly to a promising line of research that attempts to quantify the spectral features of EEG data, and in particular spectral peaks, by means of statistical curve-fitting techniques. 
@@ -608,7 +609,20 @@ We acknowledge however that the estimation of sharply defined, single frequency 
 Indeed, if spectral data typically conformed to this pattern, distinguising PAF would prove rather trivial (thus obviating the need for the SGF technique).
 While it is encouraging then that the SGF technique performed well in these favourable conditions, it was necessary to demonstrate its advantages over simpler analytic methods when confronted with more complex, ecologically valid simulation data.
 
+The multichannel simulations were designed to be more faithful to most empirical situations, both in terms of comprising a range of alpha components [thus emulating the range of alpha generators supposed to underlie the dominant rhythm; @basar2012; @klimesch1999] and a variety of correlated (but nonidentical) estimates of such component distributions.
+This manipulation also enabled us to examine the accuracy of CoG estimates, which in the context of Gaussian-distributed alpha components should converge with the target PAF.
+The critical finding across all simulation conditions was that the SGF technique rendered PAF and CoG estimates that almost always improved upon PAF estimates derived from unsmoothed channel spectra.
+This finding held irrespective of whether performance deficits were quanitified in terms of the average error across simulated datasets, the magnitude of worst estimate errors, or the percentage of estimates that deviated from the ground truth by more than 0.5 Hz.
 
+IAF estimates from filtered PSDs were on the whole considerably more accurate in all but the most broadly distributed of alpha-band components.
+That the $\alpha = 1.0$ conditions precipitated a large increase in the percentage of estimates deviating from the target frequency by > 0.5 Hz might indicate that the predefined filter settings were suboptimal in the context of such widely dispersed peaks.
+In any case, the fact that the magnitude of these errors tended to be greater when relying on peak detection in unsmoothed PSDs suggests that the SGF approach ought to be favoured even when the optimality of its analysis parameters is uncertain.
+It is perhaps interesting to note that, while CoG estimates were found to be more volatile in the low SNR condition (especially for broader peaks), it was less prone to extreme deviations from the target frequency than either the smoothed or unsmoothed PAF estimate.
+This is unsurprising given that the CoG is sensitive to the overall dispersal of the alpha component, and as such may be skewed by background noise within the spectral region of interest.
+On the other hand, the CoG is less likely to be unduly influenced by spurious outlying spectral activity on account of its central tendency-like qualities.
+This may explain then why the CoG estimator results in less extreme maximal error deviations in the broadest component conditions, even in the low SNR condition where it generates the highest percentage of deviant estimates.
+This finding suggests that the CoG may constitute a preferable alternative to the PAF when spectral data are particularly noisy or comprised of poorly-defined peaks.
+We again return to our earlier argument that the extraction and analysis of both PAF and CoG estimates as standard would be beneficial for future IAF research, insofar as this would lead to a deeper understanding of the precise relationship between these two estimators (and the circumstances that predict their convergence/divergence).
 
 ### 4.3 Limitations and future developments
 We aimed to create a straightforward routine that calculates reliable PAF and CoG estimates from posterior channel EEG data recorded during a short period of relaxed, eyes-closed wakefulness.
@@ -621,7 +635,7 @@ This would involve implementing a two-stage process wherein the features of the 
 Once these parameters have been determined according to the empirical qualities of the spectral data at hand, smoothing and component parameterisation would be performed as described above.
 
 Another direction for further development would be to implement the SGF routine within a graphical user interface (GUI), in order to facilitate its use in conjunction with the EEGLAB GUI.
-Not only would this help to make the procedure practically accessible to the broadest possible range of the research community, it would also provide a convenient platform for integrating visualisations of the spectral analysis that may assist diagnosis of suboptimal parameter settings, and other troubleshooting matters.
+Not only would this help to make the procedure practically accessible to the broadest possible range of the research community, it would also provide a convenient platform for integrating visualisations of the spectral analysis that, amongst other things, may assist diagnosis of suboptimal parameter settings and guide troubleshooting.
 We intend to explore both of these possibilities in future work.
 
 ## 5 Conclusion
