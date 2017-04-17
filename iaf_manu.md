@@ -565,24 +565,24 @@ The SGF method produced very similar PAF and CoG estimates in the moderate SNR c
 Interestingly, CoG estimates resulted in mild reductions in the average error, maximum error, and proportion of substantial estimate deviation registered by $PAF_{SG}$ in the moderate SNR condition.
 This result provides encouraging evidence in favour of the SGF method's capacity to accurately localise the beginning and end of the alpha-band component (i.e. $f_1$ and $f_2$), at least when the peak is not too broadly distributed.
 By contrast, the inferior performance of the CoG estimator relative to $PAF_{SG}$ across most of the low SNR simulations suggests the routine is less reliable when the alpha component is embedded amidst a relatively noisy signal.
-This is perhaps unsurprising, since identifying the bounds of the alpha component is more challenging (and thus, more susceptible to errors that bias CoG estimation) under noisy signal conditions.
+This might be explained on account of the fact that identifying the bounds of the alpha component is more challenging (and thus, more susceptible to errors that bias CoG estimation) under noisy signal conditions.
 Note, however, that while the CoG estimator was more prone to errors when SNR was low, the magnitude of its worst estimate deviations did not reach the extremes observed in both methods of PAF estimation (≥ 1.75 Hz) when the simulated components were broadly distributed.
 The increased average error sustained by the CoG estimator when SNR is low may therefore be offset by a self-limiting tendency that curbs the discrepancy of its estimates from their corresponding estimands.
 
 ## 4 Discussion
-We have proposed a novel method for the automatic detection of the two most prevalent indices of individual alpha frequency in the literature.
-This method pairs a common approach to the automated detection of local maxima (i.e. searching for first derivative zero crossings) with a well established method of extracting spectral peaks amidst noisy data (i.e. Savitzky-Golay filtering) to derive an estimate of peak alpha frequency (PAF).
-It also extends the logic of the first derivative analysis to estimate the bounds the alpha peak component, thus enabling calculation of the alpha-band mean or centre of gravity frequency (CoG).
-Like other automated peak detection (i.e. curve-fitting) algorithms in the literature, this method addresses key limitations of visual PSD analysis (e.g., proneness to subjective bias, inefficiency, replicability challenges), and improves upon simpler automated approaches that may be prone to various artifacts (e.g., failure to differentiate multiple peaks, assigning peaks to noisy spectral fluctuations).
-Unlike these more sophisticated algorithms, however, our method is openly accessible and easy to integrate within existing EEGLAB and Python analysis pipelines.
+We have proposed a novel method for estimating the two most prevalent indices of individual alpha frequency (IAF) in the literature.
+This method pairs a common approach to the automated detection of local maxima (i.e. searching for first derivative zero crossings) with a well established method of resolving spectral peaks (i.e. Savitzky-Golay filtering) to derive an estimate of peak alpha frequency (PAF).
+It also extends the logic of the first derivative analysis to estimate the bounds of the alpha peak component, thus enabling calculation of the alpha-band mean or centre of gravity frequency (CoG).
+Like other automated peak detection algorithms reported in the literature, this method addresses key limitations of visual PSD analysis (e.g., proneness to subjective bias, inefficiency, replicability challenges), while improving upon simpler automated approaches that may be prone to various artifacts (e.g., failure to differentiate a dominant peak from multiple component structures, assigning peaks to trivial spectral fluctuations).
+Unlike more sophisticated curve-fitting algorithms that have been described [e.g., @chiang2008; @lodder2011], our method is openly accessible and easy to integrate within existing EEGLAB and Python analysis pipelines.
 
 Our results demonstrate that the SGF technique can extract a large proportion of IAF estimates from an empirical dataset, and that the general features of these estimates (intraindividual stability, interindividual variance, etc) are consistent with prior reports in the literature.
 Furthermore, application of the technique on simulated data confirmed its capacity to render accurate estimates of peak location under relatively degraded SNR conditions.
-Extended to more complex simulations, the SGF technique was shown to recover target IAF values with greater precision than were achieved by applying an automated peak detection method to non-smoothed PSDs.
-We shall begin by discussing some of the important findings of the empirical analysis, before turning our attention to the simulation results.
+When extended to more complex simulations, the SGF technique was shown to recover target IAF values with greater precision than was achieved by applying an automated peak detection method to non-smoothed PSDs.
+We shall begin by discussing some of the important findings of the empirical analysis, before turning our attention to the simulation results and some possible directions for future research.
 
 ### 4.1 Estimation of IAFs from an empirical EEG dataset
-Savitzky-Golay filtering of `pwelch` generated PSD functions resulted in the extraction of a rather impressive number of IAF estimates from a moderate-sized dataset.
+Savitzky-Golay filtering of `pwelch`-generated PSD functions resulted in the extraction of a rather impressive number of IAF estimates from a moderate-sized dataset.
 This outcome suggests the technique might offer meaningful benefits over traditional methods of analysis, which can be susceptible to substantial attrition if dominant peaks cannot be confidently distinguished from background noise [e.g. @bornkessel-schlesewsky2015].
 We note also that our SGF method resulted in a higher proportion of PAF estimates than that produced by the Gaussian curve-fitting procedure implemented by Haegens and colleagues [-@haegens2014].
 It may be the case then that our non-parametric approach, which attempts to smooth the PSD rather than fit a specified function to it, retains more data (i.e. excludes fewer individuals from IAF-related analyses) by virtue of its capacity to accommodate a broader range of alpha-band distributions.
@@ -609,19 +609,19 @@ To the best of our knowledge, no other automated technique provides the function
 ### 4.2 Estimation of simulated IAFs
 Our preliminary set of simulations showed that the SGF technique performed almost perfectly when 2 min synthetic signals contained at least 24 s of alpha-band oscillations (SNR = 0.20).
 Indeed, the peak detection routine performed reasonably well when signals contained as little as 12 s of alpha-band activity, with fewer than 2% of simulated peaks being erroneously estimated.
-This analysis served as a basic proof of concept insofar as it demonstrated that the SGF method is capable of extracting a high proportion of underlying peak frequencies without introducing systematic bias.
+This analysis served as a basic proof of concept insofar as it demonstrated the SGF method as being capable of extracting a high proportion of underlying peak frequencies without introducing systematic bias.
 We acknowledge however that the estimation of sharply defined, single frequency alpha components is unlikely to be representative of genuine electrophysiological data in the vast majority of cases.
 Indeed, if spectral data typically conformed to this pattern, distinguising the PAF would prove rather trivial (thus obviating the need for the SGF technique).
 While it is encouraging then that the SGF technique performed well in these favourable conditions, it was necessary to demonstrate its capabilities when confronted with more complex, ecologically valid simulation data.
 
-The multichannel simulations were designed to be more faithful to empirical resting-state EEG data, insofar as they comprised of a range of alpha components [thus emulating the multiple alpha generators supposed to underlie the dominant rhythm; @basar1997; @basar2012; @klimesch1999], and a variety of correlated (but nonidentical) estimates of these composite signals (i.e. multiple sources of information were available, emulating the scenario of multi-channel recordings).
+The multichannel simulations were designed to be more faithful to empirical resting-state EEG data, in as much as they were comprised of both a range of alpha components [thus emulating the multiple alpha generators supposed to underlie the dominant rhythm; @basar1997; @basar2012; @klimesch1999], and a variety of correlated (but nonidentical) spectral estimates of these composite signals.
 This manipulation also enabled us to examine the accuracy of CoG estimates, which in the context of Gaussian-distributed alpha components should ideally converge with PAF.
 The critical finding across all simulation conditions was that the SGF technique rendered PAF and CoG estimates that almost always improved upon PAF estimates derived from automated searches of averaged, unsmoothed channel spectra.
 This finding held irrespective of whether estimator performance deficits were quantified in terms of the average error across simulated datasets, the magnitude of worst (i.e. most deviant) estimate errors, or the percentage of estimates in the dataset that deviated from the ground truth by more than 0.5 Hz.
 
 IAF estimates from smoothed PSDs were on the whole considerably more accurate in all but the most broadly distributed of alpha-band components.
-That the $\alpha = 1.0$ conditions precipitated a large increase in the percentage of estimates deviating from the target frequency by > 0.5 Hz might indicate that the predefined SGF settings were suboptimal (i.e. the filter frame width too narrow relative to the width of the target peak) in the context of such widely dispersed components.
-In any case, the fact that error magnitude tended to be greater when PAF estimates were derived from unsmoothed PSDs suggests that the SGF approach is favourable even when the optimality of its analysis parameters is uncertain.
+That the $\alpha = 1.0$ conditions precipitated a large increase in the percentage of estimates deviating from the target frequency by > 0.5 Hz might indicate that the predefined SGF settings were suboptimal (i.e. the filter frame width $F_w$ may have been too narrow relative to the width of the target peak) in the context of such widely dispersed alpha components.
+In any case, the fact that error magnitude tended to be greater when PAF estimates were derived from unsmoothed PSDs suggests that the SGF approach is favourable even when the optimal settings of its analysis parameters are uncertain.
 
 It is also interesting to note that, while CoG estimates were found to be more volatile in the low SNR condition (especially for broader peaks), it was less prone to extreme deviations from the target frequency than either the smoothed or unsmoothed PAF estimator.
 This is perhaps unsurprising given that the CoG is sensitive to the overall dispersal of the alpha component, and as such may be skewed by background noise within the spectral region of interest.
@@ -632,18 +632,18 @@ We again return to our earlier argument advocating the extraction and analysis o
 This strategy would lead to a deeper understanding of the precise relationship between these two estimators (and the factors that predict their convergence/divergence), and might shed light on the circumstances in which one estimator may be preferred over the other.
 
 ### 4.3 Limitations and future developments
-We aimed to create a straightforward automated routine that calculates reliable PAF and CoG estimates from posterior channel EEG data recorded during short periods of relaxed, eyes-closed wakefulness.
+We aimed to design a straightforward automated routine that calculates reliable PAF and CoG estimates from posterior channel EEG data recorded during short periods of relaxed, eyes-closed wakefulness.
 Although limited in its scope, we believe that the programme could easily be adapted for application across a broader range of empirical contexts (e.g., quantifying spectral peaks in different frequency bands during task-related activity; quantifying peak characteristics across different topographical regions).
 It may prove more challenging, however, to accurately resolve estimates of IAF under conditions that are less conducive to the manifestation of a dominant alpha peak (or indeed, in populations that are known to manifest spectral characteristics distinct from those of neurotypical adults).
-Further research is therefore needed to examine how well the present technique performs when its application is extended beyond the rather circumscribed conditions investigated herein.
+Further research would therefore be required to establish the utility of the technique for applications beyond the rather circumscribed conditions examined herein.
 
-One aspect of performance that was not investigated in the above analyses was whether the accuracy and precision of IAF estimates depend upon the method used to estimate the PSD. 
+One aspect of performance that was not investigated in the above analyses was whether the accuracy and precision of IAF estimates depend upon the method used to derive underlying PSD estimates. 
 In its present implementation, the SGF programme relies upon Welch's modified periodogram method to first generate estimates of the PSD that are subsequently subjected to its filtering and differentiation operations.
 It may be worthwhile then to investigate whether alternative methods of PSD estimation (e.g., continuous wavelet transform) significantly alter the performance of the SGF technique.
 
-Another possible avenue for optimising the performance characteristics of the SGF would be the development of a function that automatically adapts the $F_w$ (filter width) and $k$ (polynomial degree) parameters in accordance with the approximate span of the dominant frequency component located within the initial search window.
-This would involve implementing a two-stage process wherein the features of the alpha-band (or some other band, depending on the research question at stake) component are initially parameterised, and subsequently used to scale $F_w$ and $k$ in accordance with the heuristics described in section 2.2.2 (or some other predefined ratio preferred by the researcher).
-Once these parameters have been determined according to the empirical qualities of the spectral data at hand, smoothing and component parameterisation would be performed as described above.
+Another possible avenue for optimising the performance characteristics of the SGF routine would be to develop a function that automatically adapts the $F_w$ (filter width) and $k$ (polynomial degree) parameters in accordance with the approximate span of the dominant frequency component located within the initial search window $W_\alpha$.
+This would involve implementing a two-stage process wherein the features of the alpha-band (or some other band, depending on the research question at stake) component are initially parameterised, and subsequently used to scale $F_w$ and $k$ in accordance with the heuristics described in section 2.2.2 (or some other predefined ratio specified by the researcher).
+Once these parameters have been determined according to the empirical qualities of the spectral data at hand, smoothing and component parameterisation would then be performed as described above.
 
 Finally, it would be desirable to create a package that incorporates the MATLAB implementation of the SGF routine within the EEGLAB graphical user interface.
 Not only would this help to make the procedure accessible to the broadest possible range of EEGLAB users, it would also provide a convenient platform for integrating visualisations of the spectral analysis that, amongst other things, may assist in the diagnosis of suboptimal parameter settings and guide troubleshooting.
@@ -651,7 +651,7 @@ We intend to explore a number of these possibilities in future work.
 
 ## 5 Conclusion
 We have developed a free, open source programme for automatically estimating individual alpha frequency in resting-state EEG data.
-This programme has been shown to perform more accurately than a simpler automated peak detection routine, and may return a higher proportion of empirical IAF estimates than parametric curve-fitting techniques.
+This programme has been shown to perform more accurately than a simpler automated peak detection routine, and may return a higher proportion of empirical IAF estimates than alternative techniques that rely on parametric curve-fitting procedure.
 Furthermore, this method is not dependent on alpha-band reactivity differences, which may bias IAF estimation. 
 In addition to its obvious advantages from the perspective of analytic replicability and efficiency, simulation data indicate that this method could improve the accuracy and precision of future IAF-related research.
 This technique also promises to open up new lines of methodological inquiry, insofar as it facilitates direct comparison of two popular indices of IAF that have for the most part been studied independently of one another.
