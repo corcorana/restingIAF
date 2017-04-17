@@ -349,19 +349,20 @@ For CoG estimates, $\beta$ is the number of channels used to estimate the mean i
 ### 2.3 Empirical EEG data
 
 #### 2.3.1 Participants
-Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 female, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
+Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 females, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study. 
 All participants provided written, informed consent, and received financial remuneration for their time. 
 This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@gysin-websterInprep], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
 
 #### 2.3.2 Procedure
 Following screening and consent procedures, participants were seated in a dimly-lit, sound-attenuated room for the duration of the session. 
-Two sets of resting-state EEG recordings were acquired approximately 90 min apart at the beginning and end of an experimental procedure. 
+Two sets of resting-state EEG recordings were acquired approximately 90 min apart at the beginning and end of the experimental procedure. 
 This procedure involved watching approximately 70 min of pre-recorded television programming, followed by an old/new cued recall task. 
 As per our standard laboratory protocol, both sets of resting-state recordings comprised of approximately 2 min of eyes-open EEG followed by 2 min of eyes-closed EEG. 
-Participants were instructed to sit still, relax, and avoid excessive eye movements during this time. 
-In total, the entire session lasted between 2.5 and 3 hr. 
+Participants were instructed to sit still, relax, and avoid excessive eye movements during this time.
+In total, the entire session lasted between 2.5 and 3 hr.
+
 Note, only data from the eyes-closed component of the resting-state recordings will be reported in the analyses that follow.
-Although our approach could easily be extended to the analysis of eyes-open EEG, we favour eyes-closed data on the basis that it demonstrates (1) greater interindividual variability in alpha power [@chen2008], and (2) improved within-session reliability and test-retest stability of IAF estimates [@grandy2013a].
+We favour eyes-closed resting-state data on the basis that it demonstrates (1) greater interindividual variability in alpha power [@chen2008], and (2) higher within-session reliability and test-retest stability of IAF estimates [@grandy2013a] than eyes-open data.
 Eyes-closed recordings are also advantageous in reducing the incidence of ocular artifact.
 
 #### 2.3.3 EEG acquisition and preprocessing
@@ -374,15 +375,15 @@ EEG data acquired during eyes-closed resting-state recordings were preprocessed 
 First, all EEG data channels were imported into the MATLAB workspace via EEGLAB version 13.6.5b and re-referenced to linked mastoids. 
 Each dataset was then trimmed to retain only the EOG and the nine centro-posterior electrodes that constituted the region of interest for resting-state IAF analysis: Pz, P1/2, POz, PO3/4, Oz, O1/2. 
 Trimmed datasets were subjected to zero-phase, finite impulse response (FIR) highpass (passband: 1 Hz, -6 dB cutoff: 0.5 Hz) and lowpass (passband: 40 Hz, -6 dB cutoff: 45 Hz), Hamming-windowed sinc filters.
-Automated artifact detection routines where applied to identify regions of channel data (2 s segments) containing frequency components between 15 and 40 Hz that exceeded the upper spectral threshold by 10 dB.
-Channels that exhibited improbable data distribution (kurtosis z-score > 5) were excluded from analysis.
-EOG channels were then removed, and remaining channels downsampled to 250 Hz in preparation for spectral analysis.
-If datasets exceeded 120 s following artifact rejection, they were trimmed down to this duration in order to reduce variability in the quantity of data contributed by each participant.
+Automated artifact detection routines where then applied to identify regions of channel data (segmented into 2 s epochs) that contained excessive deviations in the frequency domain (frequency range: 15-40 Hz, spectral threshold: 10 dB).
+Channels that exhibited an improbable signal distribution (kurtosis z-score > 5) were excluded from analysis.
+Following artifact rejection, EOG channels were removed from the data, and remaining channels were downsampled to 250 Hz in preparation for spectral analysis.
+Datasets exceeding 120 s were trimmed to this duration in order to reduce variability in the quantity of data analysed per participant.
 
 #### 2.3.4 IAF analysis parameters
-Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. (These data were collected as part of a separate EEG protocol).
+Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. These data were collected as part of a separate EEG protocol.
 
-The length of the Hamming window implemented in `pwelch` was set at 2048 samples (4 times the sampling rate raised to the next power of 2), which yielded a frequency resolution of ~0.24 Hz. This sliding window was applied with 50% overlap. The bounds of the alpha-band window $W_\alpha$ were set at 7 and 13 Hz. Width of the SGF sliding window $F_w$ was set at 11 samples (i.e. frequency bins), corresponding to a frequency span of ~2.44 Hz. 
+The length of the Hamming window implemented in `pwelch` was set at 1024 samples (4 times the sampling rate raised to the next power of 2), which yielded a frequency resolution of ~0.24 Hz. This sliding window was applied with 50% overlap. The bounds of the alpha-band window $W_\alpha$ were set at 7 and 13 Hz. Width of the SGF sliding window $F_w$ was set at 11 samples (i.e. frequency bins), corresponding to a frequency span of ~2.69 Hz. 
 A fifth-degree polynomial was selected as the curve-fitting parameter $k$.
 
 The minimum power difference parameter was set at $pDiff = .20$. This meant that the largest peak detected within $W_\alpha$ had to register a PSD value at least 20% greater than that of the next largest peak to qualify as the PAF estimate for that channel. 
@@ -397,40 +398,39 @@ From a methodological perspective, we were interested to observe how many cases 
 ### 2.4 Simulated EEG data
 
 #### 2.4.1 Overview of generic simulation procedure
-Synthetic resting-state EEG data were generated by combining a sine wave time series oscillating at some alpha band frequency with a time series whose frequency distribution broadly conformed to the $1/f$ inverse power-law scaling characteristic of lower frequency resting-state M/EEG activity [@novikov1997;@pritchard1992].
+Synthetic resting-state EEG data were generated by combining a sine wave time series oscillating at some alpha-band frequency with a time series whose frequency distribution broadly conformed to the $1/f$ inverse power-law scaling characteristic of resting-state M/EEG activity [@novikov1997;@pritchard1992].
 This latter background or pink noise series was produced using the `pinknoise` MATLAB function (Zhivomirov, 2013).
 This programme works by generating a vector of Gaussian-distributed random values, transforming this series into the frequency domain in order to rescale these samples according to the inverse power-law, and then converting back into the time domain after mean-centring and unity-based normalisation.
-This pink noise time series was then multiplied with an alpha signal generated from sine waves oscillating at a specified centre frequency $f_c$.
-The resulting composite signal was then subjected to PSD estimation and smoothing (see [Fig_sim_peaks](#sim_peaks) for an illustration of the signal generation procedure).
+The fabricated pink noise time series was multiplied with the target alpha signal to generate a composite signal, which was then subjected to PSD estimation and smoothing (see [Fig_sim_peaks](#sim_peaks) for an illustration of the signal generation procedure).
 All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above.
 
-![*Fig_sim_peaks.* Illustration of the simuation general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly synthesised alpha and pink noise signals, together with their respective power spectral densities (right panels; log-scaled). *Bottom row*: Time series produced by combining the above two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
+![*Fig_sim_peaks.* Illustration of the general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly synthesised alpha and pink noise signals, together with their respective power spectral densities (right panels; log-scaled). *Bottom row*: Time series produced by combining the above two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
 
-#### 2.4.2 Preliminary analysis: Capability to recover PAF amidst varying levels of background noise
+#### 2.4.2 Preliminary simulation analysis: Capability to recover PAF amidst varying levels of background noise
 As an initial proof of concept, we investigated the capacity of the SGF technique to extract accurate PAF estimates from synthetic spectra.
 These spectra were comprised of a single alpha-band component embedded within a time series whose frequency properties were scaled to approximate the $1/f$ inverse power-law.
-We systematically varied the SNR of the target alpha component relative to the pink noise signal in order to assess how well the PAF estimation routine performed as a function of relative alpha peak power.
+We systematically varied the strength of the target alpha component relative to the pink noise signal in order to assess how well the PAF estimation routine performed as a function of SNR.
 SNR was operationalised as the proportion of the composite (alpha plus pink noise) signal containing information from the alpha-band time series.
 Hence, for an SNR of 1, each sample point of the composite signal was the product of the corresponding sample points in the alpha and pink noise time series; whereas only half of the alpha time series contributed to the composite signal when SNR was set to 0.5.
 
 We examined PAF estimation at SNR = 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, and 0.50.
 For each set of simulations, 1000 PSD estimates were generated using the afore-described method of embedding a singular alpha component within a pink noise signal.
 The frequency of each alpha signal was randomly assigned by sampling (with replacement) a vector of frequency values ranging from 7.5 to 12.5 Hz in 0.1 Hz interations.
-Given that the target alpha peak consisted of a singular frequency component, we expected the peak estimation routine to perform with a high degree of accuracy (within the limits of spectral resolution) when a peak could be discriminated from background spectral noise.
+Given that the target alpha peak consisted of a single frequency component, we expected the peak estimation routine to perform with a high degree of accuracy (within the limits of spectral resolution) when a peak could be discriminated from background spectral noise.
 We were however particularly interested in establishing the proportion of spectral peaks that would be detected across various levels of SNR.
 
 #### 2.4.3 Simulation of heterogeneous alpha-band activity within multi-channel datasets
-To ascertain how the SGF method performs under more realistic conditions, we simulated datasets that comprised a randomly selected alpha peak situated at the centre of an approximately Gaussian-distributed set of neighbouring components.
-This configuration was designed to replicate empirical observations of broader alpha peaks, which may arise on account of distributed alpha-generators oscillating at different frequencies to one another.
-To achieve this effect, we generated a matrix of alpha-band oscillations from which the composite signal was drawn.
-A Gaussian window spanning 5 Hz was centred on the target PAF, and those frequencies spanned by the window were sampled in proportion to the height of the window function (such that the centre frequency contributed most sample points, followed by the two adjacent signals, and so forth).
+To ascertain how the SGF method performs when the target alpha peak is more broadly dispersed, we simulated datasets that were comprised of a randomly selected alpha peak situated at the centre of an approximately Gaussian-distributed set of neighbouring frequency components.
+This configuration was designed to replicate empirical evidence suggesting that alpha peaks are the product of a distributed network of alpha-generators that oscillate at different frequencies to one another [@basar1997; @basar2012; @klimesch1999].
+To achieve this effect, we generated a matrix of alpha-band oscillations from which the alpha signal was drawn.
+A Gaussian window spanning 5 Hz was centred on the target peak frequency, and those frequencies spanned by the window were sampled in proportion to the height of the window function (such that the centre frequency contributed most sample points, followed by the two adjacent frequencies, and so forth).
 The area of the Gaussian window was varied by manipulating its $\alpha$ value (the reciprocal of the standard deviation), where higher $\alpha$ corresponds to a narrower distribution.
 We stratified our simulations into three $\alpha$ levels: 4.0, 2.5, and 1.0. 
 
-Once the composite alpha signal had been constructed, it was then combined with a randomly sampled pink noise signal at a given SNR.
+After the composite alpha signal had been constructed, it was combined with a randomly sampled pink noise signal at a given SNR.
 This final step was repeated nine times for each simulated dataset, such that the alpha signal was replicated and combined with an independently sampled pink noise signal.
-Consequently, each dataset contained nine synthetic 'channels' that differed from one another as a consequence of stochastic variance in the background characteristics of the spectrum (while comprising the same alpha component signal).
-This enabled us to examine consistency of IAF estimation in the context of random noise fluctuations, as well as providing information about rates of channel rejection as a function of alpha-band distribution at differing levels of SNR.
+Consequently, each dataset contained nine synthetic 'channels' that differed from one another as a consequence of stochastic variation in the background characteristics of the spectrum (while comprising the same alpha component signal).
+This enabled us to examine the consistency of both PAF and CoG estimates in the context of random noise fluctuations, as well as providing information about rates of channel rejection as a function of alpha-band distribution at differing levels of SNR.
 
 ## 3 Results
 
@@ -439,19 +439,19 @@ This enabled us to examine consistency of IAF estimation in the context of rando
 #### 3.1.1 Global performance of the IAF estimation routine
 Post-experiment resting-state EEG recordings were missing for three participants.
 These individuals thus contributed only one set of channel estimates each to the following analysis.
-A further 11 channels were excluded from analysis on the basis of excessive kurtosis (note, no more than 1 channel was rejected for any given recording).
+A further 11 channels were excluded from analysis on the basis of excessive kurtosis (note, no more than 1 channel was rejected from any given recording).
 This left a grand total of 1096 PSDs to estimate across the sample (561 pre- and 535 post-experiment spectra).
 From these channel data, a total 948 PAF estimates (pre = 472, post = 476) and 1009 CoG estimates (pre = 506, post = 503) were extracted across all recordings.
 
 [Fig_stacked_chans](#stacked_chans) shows the relative distribution of channel estimates derived from all participants.
 This figure indicates that the estimation routine derived PAF and CoG estimates from most (if not all) available channels in the majority of cases.
-Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
+Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed to surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ and $CoG_M$ estimation. 
 This result indicates that these participants should be excluded from IAF-related analyses on account of the general lack of alpha-band activity in the majority of their channel spectra.
 Visual inspection of these individuals' PSD plots confirmed that neither participant's data demonstrated compelling evidence of a distinct alpha peak component ([Fig_no_pafs](#no_pafs)).
 
-![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (lower half) and CoG (upper half) estimates were derived across participants. PAF and CoG estimates are further divided according to order of EEG recording. Totals normalised to take into account excluded channels. Note, post-experiment data where unavailable for participants #26, 56, and #57.](figs/stacked_chans.png){#stacked_chans}
+![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (purple and blue segments) and CoG (green and yellow segments) estimates were derived across participants. PAF and CoG estimates are further divided according to EEG recording (purple/green = pre-experiment, blue/yellow = post-experiment). Totals normalised to take into account excluded channels. Note, post-experiment data were unavailable for participants #26, #56, and #57.](figs/stacked_chans.png){#stacked_chans}
 
-![*Fig_no_pafs.* Representative channel PSDs (three superposed channel spectra) from two sets of EEG recordings in which the IAF estimation routine failed to detect evidence of substantive alpha rhythm activity (top row: participant #29; bottom row: participant #50). Shaded areas indicate range of the alpha peak search window $W_\alpha$; red line indicates representative $minP$ threshold.](figs/no_pafs.png){#no_pafs}
+![*Fig_no_pafs.* Representative channel PSDs (three superposed channel spectra) from two sets of EEG recordings in which the IAF estimation routine failed to detect evidence of substantive alpha rhythm activity (top row: participant #29; bottom row: participant #50). Shaded areas indicate range of the alpha peak search window $W_\alpha$; red curve indicates a representative $minP$ threshold.](figs/no_pafs.png){#no_pafs}
 
 #### 3.1.2 Estimator distributions & correlation coefficients
 Consistent with previous reports [@kopruner1984;@klimesch1990], mean estimates of IAF were centred about 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz.
@@ -459,17 +459,17 @@ $PAF_M$ and $CoG_M$ were similarly distributed across both sets of recordings (s
 Intraclass correlation coefficients ($ICC_{3,k}$: $PAF_M = .97; CoG_M = .94$) indicated that variance in $PAF_M$ and $CoG_M$ estimates can be predominantly attributed to interindividual differences across the sample, rather than intraindividual differences between recordings (see scatterplots, [Fig_pre_post](#pre_post)).
 These data are therefore in accord with previous studies reporting evidence of the IAF's high temporal stability (at least within the same recording session) and interindividual variability (at least in the context of eyes-closed resting-state recordings).
 
-![*Fig_pre_post.* *Top and central rows*: Histograms displaying distribution of $PAF_M$ (left panel) and $CoG_M$ (right panel) estimates across recordings. *Bottom row*: Scatterplots showing high degree of agreement between corresponding estimators of IAF calculated from pre- and post-experiment resting-state recordings. Broken line indicates perfect positive correlation between pre- and post-experiment IAF estimates.](figs/pre_post.png){#pre_post}
+![*Fig_pre_post.* *Top and central rows*: Histograms displaying distribution of $PAF_M$ (left column) and $CoG_M$ (right column) estimates across recordings. *Bottom row*: Scatterplots showing high degree of agreement between corresponding estimators of IAF calculated from pre- and post-experiment resting-state recordings. Broken line indicates perfect positive correlation between pre- and post-experiment IAF estimates.](figs/pre_post.png){#pre_post}
 
 Final analyses were conducted on grand-averaged alpha peak and gravity estimates ($PAF_{GA}$ and $CoG_{GA}$, respectively).
 Note that, in cases where only one channel mean estimate was registered, this value was included as the participant's grand average.
 Kernal density estimation of the probability density function underlying $PAF_{GM}$ data suggested that sample estimates are well-characterised by a Gaussian distribution ([Fig_GA_distribs](#GA_distribs)).
-This is in keeping with previous efforts to quantify the distribution of PAF [@klimesch1996].
-$CoG_{GA}$ however showed some evidence of deviation from the Gaussian distribution on account of its somewhat heavier tails.
-To the best of our knowledge, this is the first study to examine the distributional properties of the $CoG$.
-It is therefore unclear how our estimation procedure compares to previous methods of calculating alpha-band $CoG$ in this regard.
-In spite of this apparent difference in distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .88$).
-This finding, which extends that reported in a smaller sample by Jann, Koenig, Dierks, Boesch, and Federspiel [-@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process.
+This is in keeping with previous reports of PAF distribution [@klimesch1996].
+$CoG_{GA}$ showed some evidence of deviation from the Gaussian distribution on account of a higher incidence of more extreme estimates.
+To the best of our knowledge, this is the first study to examine the distributional properties of the alpha-band $CoG$.
+It is therefore unclear how our estimation procedure compares to previous methods of $CoG$ calculation in this regard.
+Despite the apparent difference in their distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .88$; [Fig_intercorrel](#intercorrel)).
+This finding, which extends that reported in a smaller sample by Jann, Koenig, Dierks, Boesch, and Federspiel [-@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process(es).
 
 ![*Fig_GA_distribs. *Top row*: Probability density of $PAF_{GA}$ (left panel) and $CoG_{GA}$ (right panel) following application of a Gaussian kernal density estimator. *Bottom row*: Normal probability plots indicating how well $PAF_{GA}$ and $CoG_{GA}$ estimates approximate a normal distribution (indicated by the broken red line). While $PAF_{GA}$ estimates vary in a fashion broadly consistent with an underlying normal distribution, the $CoG_{GA}$ estimator shows evidence of a somewhat heavier-tailed distribution.*](figs/GA_distribs.png){#GA_distribs}
 
@@ -479,7 +479,7 @@ This finding, which extends that reported in a smaller sample by Jann, Koenig, D
 ### 3.2 Simulated EEG data
 
 #### 3.2.1 PAF estimation performance as a function of SNR
-Preliminary analysis of synthetic channel data focused on the number of PAF estimates extracted for each level of SNR, and the extent to which these estimates approximated the ground truth as stipulated by the alpha frequency sine wave component of the simulated signal [see Table for summary statistics across SNR conditions].
+Preliminary analysis of synthetic channel data focused on the number of PAF estimates extracted for each level of SNR, and how well these estimates approximated the ground truth as stipulated by the alpha frequency sine wave component of the simulated signal (see Table for summary statistics across SNR conditions).
 While the SGF technique failed to extract PAF estimates from almost one-third of simulations when SNR = 0.05, the proportion of estimated alpha peaks rapidly approached ceiling as SNR increased beyond 0.10.
 RMSE was generally low for all levels of SNR, suggesting that alpha peaks were on average estimated with a high degree of accuracy when detected by the analysis routine.
 The SGF technique approached near-optimal performance at SNR = 0.20, in which 1% of simulated spectral peaks were either undetected or located within an adjacent frequency bin.
@@ -496,18 +496,18 @@ Table: Summary statistics characterising peak alpha frequency (PAF) estimation a
 | *maxDiff* | 1.13 | 0.78 | 0.68 | 0.40 | 0.40 | 0.15 | 0.16 | 0.15 |
 | *n shift* | 25 | 19 | 10 | 3 | 5 | 0 | 0 | 0 |
 
-Although we were interested in observing how the SGF technique performed in comparison to the `pwelch` function on which it depends, this was not of primary concern to the present analysis.
-This was because one should expect the `pwelch` routine to perform well in cases where the alpha-band consists of only one dominiant frequency component, especially if the SNR is relatively high (recall that the primary motivation for the SGF approach is to resolve IAF estimates when more ambiguous - and thus problematic - spectral conditions obtain; e.g., split-peaks).
-To give a flavour of how smoothing influenced `pwelch` PSD estimates, a random selection of the PSD estimates produced by both methods is illustrated in [Fig_snr](#snr).
+Although we were generally interested in observing how the SGF technique performed in comparison to the `pwelch` function on which it depends, this was not of primary concern to the present analysis.
+This was because one should expect the `pwelch` routine to perform well in cases where the alpha-band consists of only one dominiant frequency component, especially if SNR is relatively high (recall that the primary motivation for the SGF approach is to resolve IAF estimates when more ambiguous - and thus problematic - spectral conditions obtain; e.g., split-peaks).
+To give a flavour of how smoothing influenced `pwelch` PSD estimates, a random selection of the PSD functions produced by both methods is illustrated in [Fig_snr](#snr).
 We note that the SGF resulted in a distorted estimate of the true PAF in the SNR = 0.05 simulation depicted in the top left panel of [Fig_snr](#snr) (indeed, this is one case where the standard `pwelch` estimation routine would in fact be preferable in virtue of its superior PAF estimate).
-The SNR = 0.10 simulation however shows the potential advantage of the SGF technique.
-In this case, the SGF renders a veridical estimate of the underlying alpha component, which otherwise would have been falsely resolved (and rejected) as a split-peak using `pwelch`.
-At higher SNRs, the two techniques produce identical PAF results (although the SGF attenuates peak height, as would be expected of a smoothing operation).
+However, the SNR = 0.10 simulation shows one potential advantage of the SGF technique.
+In this case, the SGF renders a veridical estimate of the underlying alpha component, which otherwise would have been falsely resolved (and rejected) as a split-peak if relying upon `pwelch` estimation.
+At higher SNRs, the two techniques produce identical PAF results (although the SGF attenuates peak height, as would be expected of a smoothing procedure).
 
-![*Fig_snr.* Synthetic channel spectra randomly selected from each simulated SNR condition. Blue functions represent PSD estimates generated by the standard MATLAB implementation of Welch's periodogram method (`pwelch`). Red functions signify outcome of subjecting `pwelch` estimates to the Savitzky-Golay filter (SGF) applied to the empirical data. $F\alpha$: The true frequency of the target alpha component. $PAF_{PW}$ and $PAF_{SG}$: Estimates of $F\alpha$ rendered by the `pwelch` and SGF methods, respectively.](figs/snr.png){#snr}
+![*Fig_snr.* Synthetic channel spectra randomly selected from each simulated SNR condition. Blue functions represent PSD estimates generated by the standard MATLAB implementation of Welch's modified periodogram method  `pwelch`. Red functions signify the outcome when `pwelch` estimates are subjected to the Savitzky-Golay filter (SGF) technique. $F\alpha$: Target alpha component frequency. $PAF_{PW}$ and $PAF_{SG}$: Estimates of $F\alpha$ rendered by the `pwelch` and SGF methods, respectively. NaN: No estimate returned.](figs/snr.png){#snr}
 
-Ten percent of the simulation data that failed to produce PAF estimates in the SNR = 0.05 condition were randomly selected for visual inspection to evaluate the source of these omissions.
-This analysis confirmed that the vast majority of sampled spectra lacked a distinct alpha peak (irrespective of the adopted PSD estimation method).
+Ten percent of the simulation data that failed to produce PAF estimates in the SNR = 0.05 condition were randomly selected for visual inspection to evaluate the cause of these omissions.
+This analysis confirmed that the vast majority of these spectra lacked a distinct alpha peak (irrespective of the PSD estimation method adopted).
 Five of the spectra within this subset were rejected due to the appearance of more than one spectral peak within the alpha window (none of which were clearly dominant).
 Overall, it seems unlikely that any of these spectra would be considered to satisfy the criteria for PAF assignment as stipulated in section 1.1.<!-- AC: ? make plots available in supp mats -->
 Visual inspection of the 25 PAF estimates that deviated most from their target frequencies within the 0.05 SNR condition confirmed that SGF estimates generally tracked their corresponding `pwelch` counterparts closely.
@@ -516,13 +516,13 @@ For the most part, then, the least accurate estimates rendered via the SGF techn
 
 In sum, this preliminary analysis provides strong initial evidence that the SGF method generally furnishes highly accurate estimates of the PAF when a singular alpha component is present within the PSD.
 This degree of accuracy is maintained even at relatively low levels of SNR, although reliable resolution of low powered spectral peaks amidst background noise becomes more challenging when SNR drops below 0.15 (at least when the SGF technique is implemented with the same parameters as those used in our analysis of the empirical EEG data).
-Diminished sensitivity at low levels of SNR seems to derive from a generic reduction in the capacity of the underlying `pwelch` routine to accurately extract low powered alpha components under such conditions, rather than any specific deficiency of the SGF procedure per se.
+Diminished sensitivity at low levels of SNR seems to derive from a generic reduction in the capacity of the underlying `pwelch` routine to accurately extract low powered alpha components under such conditions, rather than any specific deficiency inherent to the SGF procedure per se.
 
 #### 3.2.2 Multi-channel dataset simulations
 Given that PAF estimation approached ceiling performance at moderate levels of SNR in the previous analysis, we limited our analysis of multi-channel simulaton data to a low (0.15) and a moderate (0.40) SNR condition. 100 datasets, each comprising 9 synthetic EEG channels, were simulated for each of the three levels of alpha component dispersal in both SNR conditions (resulting in a total 5400 PSD estimates).
-The results of this analysis are summarised in Table.
+The results of this analysis are summarised in Table 2.
 
-Table: PAF and CoG estimation performance as a function of SNR (0.40 vs. 0.15) and alpha component distribution. Synthetic alpha peak sampled using a Gaussian windowing function whose inverse standard deviation was parametrically varied (where $\alpha$ = 4.0 corresponds to a narrow peak, $\alpha$ = 1.0 a broad peak). *$PAF_{PW}$*: PAF estimated via averaging of channel-wise PSD estimates furnished by `pwelch`; *$PAF_{SG}$*: PAF estimated via averaging of Savitzky-Golay smoothed, Q-weighted channel-wise PSD estimates; *$CoG$*: CoG estimated by SGF routine; *RMSE*: root mean squared error of PAF/CoG estimates; *maxDiff*: maximum absolute difference between PAF/CoG estimates and corresponding peak frequency (Hz) of underlying alpha-band component; *% Dev*: percentage of PAF/CoG estimates that diverged from the target alpha frequency by more than 0.5 Hz; *n chans*: median number of channel estimates per simulated dataset retained for PAF/CoG estimation (and associated standard deviation).
+Table: PAF and CoG estimator performance as a function of SNR (0.40 vs. 0.15) and alpha component distribution (4.0 vs. 2.5 vs. 1.0). Synthetic alpha components were constructed from a set of oscillatory signals that were sampled using a Gaussian windowing function. The inverse standard deviation of this function was parametrically varied (where $\alpha$ = 4.0 corresponds to a narrow peak, $\alpha$ = 1.0 a broad peak). *$PAF_{PW}$*: PAF estimated via averaging of channel-wise PSD estimates furnished by `pwelch`; *$PAF_{SG}$*: PAF estimated via averaging of Savitzky-Golay smoothed, Q-weighted channel-wise PSD estimates; *$CoG$*: CoG estimated by SGF routine; *RMSE*: root mean squared error of PAF/CoG estimates; *maxDiff*: maximum absolute difference (Hz) between PAF/CoG estimates and corresponding peak frequency of underlying alpha-band component; *% Dev*: percentage of PAF/CoG estimates that diverged from the target alpha frequency by more than 0.5 Hz; *n chans*: median number of channel estimates per simulated dataset retained for estimating PAF/CoG window.
 
 SNR |  | 0.40 |  |  | 0.15 |  |
 |---|---|---|---|---|---|---|
@@ -545,7 +545,7 @@ $CoG$| 9 (0.14) | 9 (0.14) | 9 (0.14) | 9 (0.43) | 9 (0.52) | 9 (0.90) |
 
 For the moderate SNR condition, PAF and CoG estimates became less accurate on average (as indexed by RMSE) as the dispersal of the target component increased (i.e. as synthetic alpha peaks became broader and less prominent).
 This overarching pattern was replicated in the low SNR condition, which also tended to produce estimates with higher average errors than those generated at corresponding levels of alpha dispersal in the moderate SNR condition.
-The magnitude of maximum absolute estimation errors likewise tended to increase as a function of synthetic alpha peak dispersal (although this pattern was less consistently realised in the low SNR simulations).
+The magnitude of maximum absolute estimation errors (maxDiff) likewise tended to increase as a function of synthetic alpha peak dispersal (although this pattern was less consistently realised in the low SNR simulations).
 In both SNR conditions, the least accurate estimates of broad peak components deviated from their target frequencies by more than 1 Hz. 
 The proportion of PAF and CoG estimates that substantially erred from their target frequency (i.e. deviated by more than 0.5 Hz) likewise tended to increase as a function of alpha component dispersal.
 
@@ -553,20 +553,21 @@ Of the 600 sets of channel data simulated across all alpha distribution $\times$
 The average number of simulated channels that contributed to the calculation of cross-channel PAF estimates generally diminished as alpha dispersal increased.
 The number of channels in which a viable alpha peak was detected also demonstrated greater variability as function of both alpha distribution and SNR, with broader component structures and low SNR both associated with increased volatility of channel selection.
 Together with the consistent trends towards increased estimation error described above, these observations support the notion that broader, flatter alpha peaks pose a greater challenge to automated PAF detection (even under moderate levels of SNR).
-By contrast, the SGF routine was able to extract CoG estimates for all  simulated dataset, and retained a higher proportion of channel data across all conditions.
-Indeed, channel inclusion was close to ceiling for the moderate SNR conditions, and remained high despite increasing variability as a funtion of increased alpha component dispersal in the low SNR conditions.
+By contrast, the SGF routine was able to extract CoG estimates for all  simulated datasets, and derived alpha window estimates from a higher proportion of channel data across all conditions.
+Indeed, channel inclusion was close to ceiling for the moderate SNR conditions, and remained high despite increasing variability as a funtion of broader alpha component dispersal in the low SNR conditions.
 
 Amongst the two methods for estimating PAF, the Savitzky-Golay smoothed, Q-weighted average estimates were consistently less error-prone (i.e. registered lower RMSEs across conditions) than those derived by averaging across the 'raw' (i.e. unsmoothed) channel-wise PSDs generated by `pwelch`.
 The latter approach also produced more extreme deviations from the target PAF in all but the least favourable simulation condition (i.e. SNR = 0.15, $\alpha$ = 1.0), in which the maximum error magnitude was roughly equal to that of the SGF technique.
 Significantly, the SGF method produced far fewer estimates that deviated substantially (> 0.5 Hz) from the target peak frequency in all simulations except those featuring the most broadly distributed components (i.e. $\alpha$ = 1.0; where performance remained superior by a less substantial margin).
 This pattern was observed irrespective of SNR, and is strongly suggestive of the SGF technique's capacity to improve upon the precision of `pwelch` furnished PAF estimates.
 
-The SGF method produced very similar PAF and CoG estimates in moderate SNR condition, while the relation between these estimators was somewhat less consistent in the low SNR condition.
+The SGF method produced very similar PAF and CoG estimates in the moderate SNR condition, while the relation between these estimators was somewhat less consistent in the low SNR condition.
 Interestingly, CoG estimates resulted in mild reductions in the average error, maximum error, and proportion of substantial estimate deviation registered by $PAF_{SG}$ in the moderate SNR condition.
 This result provides encouraging evidence in favour of the SGF method's capacity to accurately localise the beginning and end of the alpha-band component (i.e. $f_1$ and $f_2$), at least when the peak is not too broadly distributed.
-By contrast, the inferior performance of the CoG estimator relative to $PAF_{SG}$ across the most of low SNR simulations suggests the routine is less reliable when the alpha component is embedded amidst a relatively noisy signal.
-This is unsurprising, since identifying the bounds of the alpha component is more challenging (and thus, more susceptible to error that biases CoG estimation) under noisy signal conditions.
-Note, however, that while the CoG estimator was more prone to errors when SNR was low, the magnitude of estimate deviations from the target frequency did not reach the extremes observed in both methods of PAF estimation (≥ 1.75 Hz) when simulated components were broadly distributed.
+By contrast, the inferior performance of the CoG estimator relative to $PAF_{SG}$ across most of the low SNR simulations suggests the routine is less reliable when the alpha component is embedded amidst a relatively noisy signal.
+This is perhaps unsurprising, since identifying the bounds of the alpha component is more challenging (and thus, more susceptible to errors that bias CoG estimation) under noisy signal conditions.
+Note, however, that while the CoG estimator was more prone to errors when SNR was low, the magnitude of its worst estimate deviations did not reach the extremes observed in both methods of PAF estimation (≥ 1.75 Hz) when the simulated components were broadly distributed.
+The increased average error sustained by the CoG estimator when SNR is low may therefore be offset by a self-limiting tendency that curbs the discrepancy of its estimates from their corresponding estimands.
 
 ## 4 Discussion
 We have proposed a novel method for the automatic detection of the two most prevalent indices of individual alpha frequency in the literature.
@@ -652,8 +653,8 @@ We intend to explore a number of these possibilities in future work.
 We have developed a free, open source programme for automatically estimating individual alpha frequency in resting-state EEG data.
 This programme has been shown to perform more accurately than a simpler automated peak detection routine, and may return a higher proportion of empirical IAF estimates than parametric curve-fitting techniques.
 Furthermore, this method is not dependent on alpha-band reactivity differences, which may bias IAF estimation. 
-In addition to its obvious advantages from the perspective of analytic replicability and efficiency, this method offers a convenient tool for IAF estimation that has the potential to improve the accuracy and precision of future IAF-related research.
-The approach also promises to open up new lines of methodological inquiry, insofar as it facilitates direct comparison of two popular indices of IAF that have for the most part been studied independently of one another.
+In addition to its obvious advantages from the perspective of analytic replicability and efficiency, simulation data indicate that this method could improve the accuracy and precision of future IAF-related research.
+This technique also promises to open up new lines of methodological inquiry, insofar as it facilitates direct comparison of two popular indices of IAF that have for the most part been studied independently of one another.
 
 ## References
 
