@@ -441,17 +441,18 @@ Post-experiment resting-state EEG recordings were missing for three participants
 These individuals thus contributed only one set of channel estimates each to the following analysis.
 A further 11 channels were excluded from analysis on the basis of excessive kurtosis (note, no more than 1 channel was rejected from any given recording).
 This left a grand total of 1096 PSDs to estimate across the sample (561 pre- and 535 post-experiment spectra).
-From these channel data, a total 948 PAF estimates (pre = 472, post = 476) and 1009 CoG estimates (pre = 506, post = 503) were extracted across all recordings.
+From these channel data, a total 944 PAF estimates (pre = 480, post = 464) and 1003 CoG estimates (pre = 507, post = 496) were extracted across all recordings.
 
 [Fig_stacked_chans](#stacked_chans) shows the relative distribution of channel estimates derived from all participants.
 This figure indicates that the estimation routine derived PAF and CoG estimates from most (if not all) available channels in the majority of cases.
-Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed to surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ and $CoG_M$ estimation. 
-This result indicates that these participants should be excluded from IAF-related analyses on account of the general lack of alpha-band activity in the majority of their channel spectra.
+Of those participants who registered a limited number of channel estimates, two (#29 and #50) failed to surpass the minimal threshold (i.e. $cMin = 3$) required for $PAF_M$ estimation. 
+This result indicates that these participants should be excluded from PAF-related analyses on account of the general lack of any concerted alpha-band activity across the majority of their channel spectra.
 Visual inspection of these individuals' PSD plots confirmed that neither participant's data demonstrated compelling evidence of a distinct alpha peak component ([Fig_no_pafs](#no_pafs)).
+Note that the CoG estimator was able to extract an estimate of $CoG_M$ for one of these participant's (#29) post-experiment EEG recording.
 
 ![*Fig_stacked_chans.* Stacked bar chart displaying the number of channels from which PAF (purple and blue segments) and CoG (green and yellow segments) estimates were derived across participants. PAF and CoG estimates are further divided according to EEG recording (purple/green = pre-experiment, blue/yellow = post-experiment). Totals normalised to take into account excluded channels. Note, post-experiment data were unavailable for participants #26, #56, and #57.](figs/stacked_chans.png){#stacked_chans}
 
-![*Fig_no_pafs.* Representative channel PSDs (three superposed channel spectra) from two sets of EEG recordings in which the IAF estimation routine failed to detect evidence of substantive alpha rhythm activity (top row: participant #29; bottom row: participant #50). Shaded areas indicate range of the alpha peak search window $W_\alpha$; red curve indicates a representative $minP$ threshold.](figs/no_pafs.png){#no_pafs}
+![*Fig_no_pafs.* Representative channel PSDs (three superposed channel spectra) from two sets of EEG recordings in which the IAF estimation routine failed to detect evidence of any substantive alpha peak activity (top row: participant #29; bottom row: participant #50). Shaded areas indicate range of the alpha peak search window $W_\alpha$; red curve indicates a representative $minP$ threshold.](figs/no_pafs.png){#no_pafs}
 
 #### 3.1.2 Estimator distributions & correlation coefficients
 Consistent with previous reports [@kopruner1984;@klimesch1990], mean estimates of IAF were centred about 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz.
@@ -588,7 +589,7 @@ We note also that our SGF method resulted in a higher proportion of PAF estimate
 It may be the case then that our non-parametric approach, which attempts to smooth the PSD rather than fit a specified function to it, retains more data (i.e. excludes fewer individuals from IAF-related analyses) by virtue of its capacity to accommodate a broader range of alpha-band distributions.
 
 While we cannot categorically rule out the possiblity that sampling error furnished us with a dataset comprised of an unusually high number of individuals manifesting singular, unambiguous alpha peaks, it is encouraging that the SGF technique was able to estimate such a high proportion of PAFs and CoGs.
-By the same token, it is also reassuring that the two cases in which the technique was not able to extract IAF estimates did not demonstrate compelling evidence of any concerted alpha-band activity on visual inspection of the relevant PSD plots ([Fig_no_pafs](#no_pafs)).
+By the same token, it is also reassuring that the two cases in which the technique was not able to extract PAF estimates did not demonstrate compelling evidence of any concerted alpha-band activity on visual inspection of the relevant PSD plots ([Fig_no_pafs](#no_pafs)).
 It is perhaps also worth pointing out that the diverse age range of participants sampled within this study would most likely have posed a robust challenge to any automated peak frequency routine, given the typically reported changes in spectral power and alpha peak distribution associated with older adulthood [e.g., @dustman1999].
 That the automated IAF estimation technique reported here was able to extract estimates for the vast majority of individuals, and that it did so using a fixed set of a priori-defined parameters assigned on the basis of preliminary testing in an independent dataset, speaks to its capacity to derive resting-state IAF estimates across a broad spectrum of the healthy population.
 
