@@ -456,7 +456,7 @@ Visual inspection of these individuals' PSD plots confirmed that neither partici
 #### 3.1.2 Estimator distributions & correlation coefficients
 Consistent with previous reports [@kopruner1984;@klimesch1990], mean estimates of IAF were centred about 10 Hz, with the majority of estimates falling in the range of 9 to 11 Hz.
 $PAF_M$ and $CoG_M$ were similarly distributed across both sets of recordings (see histograms, [Fig_pre_post](#pre_post)).
-Intraclass correlation coefficients ($ICC_{3,k}$: $PAF_M = .97; CoG_M = .94$) indicated that variance in $PAF_M$ and $CoG_M$ estimates can be predominantly attributed to interindividual differences across the sample, rather than intraindividual differences between recordings (see scatterplots, [Fig_pre_post](#pre_post)).
+Intraclass correlation coefficients ($ICC_{3,k}$: $PAF_M = .97; CoG_M = .95$) indicated that variance in $PAF_M$ and $CoG_M$ estimates can be predominantly attributed to interindividual differences across the sample, rather than intraindividual differences between recordings (see scatterplots, [Fig_pre_post](#pre_post)).
 These data are therefore in accord with previous studies reporting evidence of the IAF's high temporal stability (at least within the same recording session) and interindividual variability (at least in the context of eyes-closed resting-state recordings).
 
 ![*Fig_pre_post.* *Top and central rows*: Histograms displaying distribution of $PAF_M$ (left column) and $CoG_M$ (right column) estimates across recordings. *Bottom row*: Scatterplots showing high degree of agreement between corresponding estimators of IAF calculated from pre- and post-experiment resting-state recordings. Broken line indicates perfect positive correlation between pre- and post-experiment IAF estimates.](figs/pre_post.png){#pre_post}
@@ -468,7 +468,7 @@ This is in keeping with previous reports of PAF distribution [@klimesch1996].
 $CoG_{GA}$ showed some evidence of deviation from the Gaussian distribution on account of a higher incidence of more extreme estimates.
 To the best of our knowledge, this is the first study to examine the distributional properties of the alpha-band $CoG$.
 It is therefore unclear how our estimation procedure compares to previous methods of $CoG$ calculation in this regard.
-Despite the apparent difference in their distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .88$; [Fig_intercorrel](#intercorrel)).
+Despite the apparent difference in their distributional characteristics, $PAF_{GA}$ and $CoG_{GA}$ produced remarkably consistent results ($ICC_{3,k} =.97$; $R^2 = .89$; [Fig_intercorrel](#intercorrel)).
 This finding, which extends that reported in a smaller sample by Jann, Koenig, Dierks, Boesch, and Federspiel [-@jann2010], lends support to the claim that these two estimators tap into the same fundamental oscillatory process(es).
 
 ![*Fig_GA_distribs. *Top row*: Probability density of $PAF_{GA}$ (left panel) and $CoG_{GA}$ (right panel) following application of a Gaussian kernal density estimator. *Bottom row*: Normal probability plots indicating how well $PAF_{GA}$ and $CoG_{GA}$ estimates approximate a normal distribution (indicated by the broken red line). While $PAF_{GA}$ estimates vary in a fashion broadly consistent with an underlying normal distribution, the $CoG_{GA}$ estimator shows evidence of a somewhat heavier-tailed distribution.*](figs/GA_distribs.png){#GA_distribs}
@@ -597,7 +597,7 @@ This trend was by no means universal, however, thus it seems prudent for researc
 As expected, pre- and post-experiment IAF estimates were highly intercorrelated; hence, it would seem reasonable to treat those estimates derived from singular recordings (i.e. cases in which only one recording yielded an estimate of PAF/CoG) as valid indicators of IAF.
 Additional support for this view accrues from the observation that the inclusion of single-recording PAF estimates amongst grand-averaged PAFs did not result in any marked deviation from the expected (approximately) Gaussian distribution reported previously [@klimesch1996].
 
-Comparison of PAF and CoG estimates also revealed a high degree of intercorrelation, despite showing some differences in the distribution of respective grand-averaged estimates.
+Comparison of PAF and CoG estimates also revealed a high degree of intercorrelation, despite showing some differences in the distribution of their respective grand-averaged estimates.
 Although this might prompt concerns of redundancy, we interpret this finding positively: the CoG seems to tap into a similar underlying neural process (or indeed, set of processes) as that indexed by PAF.
 Although not necessary in the present analysis on account of the high proportion of PAFs that were extracted, this finding suggests that the CoG estimator might be substituted as an alternative marker of IAF in cases where the PAF cannot be determined (e.g., due to significant split-peaks).
 In any case, given the dearth of research directly comparing these two measures (most IAF-related research involves some variant of PAF, perhaps on account of the additional complexities involved in calculating CoG), we suggest that it would be informative if future researchers were to report both of these indices in parallel.
