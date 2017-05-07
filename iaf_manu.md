@@ -6,7 +6,7 @@ author:
   - Phillip M. Alday$^b$
   - Matthias Schlesewsky$^b$
   - name: Ina Bornkessel-Schlesewsky$^b$
-    affiliation: $^a$Cognition and Philosophy Lab, School of Philosophical, Historical and International Studies, Monash University, Clayton, Victoria 3800, Australia $^b$Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill 5072, Australia.
+    affiliation: $^a$Cognition and Philosophy Laboratory, School of Philosophical, Historical and International Studies, Monash University, Clayton, Victoria 3800, Australia $^b$Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill 5072, Australia.
 
 abstract:
   Great new IAF technique described here.
@@ -23,7 +23,7 @@ bibliography:
   libraryAC.bib
 
 csl:
-  apa-old-doi-prefix.csl
+  apa.csl
 ---
 ## 1 Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
@@ -34,7 +34,7 @@ The alpha rhythm of the human EEG is thought be the primary carrier of this inhi
 This account is gaining increasing acceptance over alternative accounts of the alpha rhythm such as the proposal that it reflects cognitive idling [@adrian1934;@pfurtscheller1996].
 
 While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger’s seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of inter-individual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
-According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate while one relaxes in a state of alert wakefulness  (i.e. the individual alpha frequency; IAF)predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
+According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate while one relaxes in a state of alert wakefulness  (i.e. the individual alpha frequency; IAF) predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
 The IAF, which varies between approximately 9.5 and 11.5 Hz in healthy young adults [@klimesch1999], is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
 Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], possibly due to decreased efficiency of thalamo-cortical feedback loops [@klimesch1997;@steriade1990].
 They also show a reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013] in comparison to their high-IAF counterparts.
