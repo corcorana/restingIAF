@@ -1,29 +1,27 @@
 ---
-title: Towards a reliable, automated method of individual alpha frequency (IAF) quantification
-
+title: "Towards a reliable, automated method of individual alpha frequency (IAF) quantification"
 author:
-  - Andrew W. Corcoran$^{a,b}$
-  - Phillip M. Alday$^b$
-  - Matthias Schlesewsky$^b$
-  - name: Ina Bornkessel-Schlesewsky$^b$
-    affiliation: $^a$Cognition and Philosophy Laboratory, School of Philosophical, Historical and International Studies, Monash University, Clayton, Victoria 3800, Australia $^b$Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill 5072, Australia.
-
-abstract:
-  Great new IAF technique described here.
-
-keywords:   
-  Individual alpha frequency, peak frequency, centre of gravity, alpha rhythm, posterior dominant rhythm, Savitzky-Golay filter
-
+- Andrew W. Corcoran$^{a,b}$
+- Phillip M. Alday$^b$
+- Matthias Schlesewsky$^b$
+- affiliation: $^a$Cognition and Philosophy Laboratory, School of Philosophical, Historical
+    and International Studies, Monash University, Clayton, Victoria 3800, Australia
+    $^b$Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social
+    Policy, University of South Australia, Magill 5072, Australia.
+  name: Ina Bornkessel-Schlesewsky$^b$
+bibliography: libraryAC.bib
 output:
+  pdf_document:
+    toc: yes
   html_document:
-    toc: true
-    toc_float: true
-
-bibliography:
-  libraryAC.bib
-
-csl:
-  apa.csl
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+keywords: Individual alpha frequency, peak frequency, centre of gravity, alpha rhythm,
+  posterior dominant rhythm, Savitzky-Golay filter
+csl: apa.csl
+abstract: Great new IAF technique described here.
 ---
 ## 1 Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
@@ -33,7 +31,7 @@ Task-irrelevant and potentially interfering connections must concomitantly be in
 The alpha rhythm of the human EEG is thought be the primary carrier of this inhibitory function [@klimesch2007;@klimesch2012;@jensen2010;@jensen2012;@sadaghiani2016], with alpha synchronisation in task-irrelevant regions reflecting inhibition, and alpha desynchronisation in task-relevant regions reflecting release from inhibition [@pfurtscheller2003].
 This account is gaining increasing acceptance over alternative accounts of the alpha rhythm such as the proposal that it reflects cognitive idling [@adrian1934;@pfurtscheller1996].
 
-While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger’s seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of inter-individual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
+While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger's seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of inter-individual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
 According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate while one relaxes in a state of alert wakefulness  (i.e. the individual alpha frequency; IAF) predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
 The IAF, which varies between approximately 9.5 and 11.5 Hz in healthy young adults [@klimesch1999], is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
 Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], possibly due to decreased efficiency of thalamo-cortical feedback loops [@klimesch1997;@steriade1990].
@@ -56,22 +54,26 @@ We begin by surveying various ways in which these measures have been operational
 The classical method of estimating IAF relies on delineating the peak alpha frequency (PAF); a singular, prominent peak within the alpha-band frequency range [8-13 Hz; @noachtar2004] of the power spectral density (PSD) plot ([Fig_pafs](#pafs)).
 This expression can be formalised in terms of the local (i.e. relative) maximum within the alpha band:
 
-$$ PAF = \text{arg max}_{\substack{x\in A \subseteq PSD }} f(x) \iff \text{arg max}_{\substack{x\in A \subseteq PSD }} f(x) = \text{singleton} \land \text{max}_{\substack{x\in A \subseteq PSD }} f(x) \geq \phi , $$
+$$ \text{PAF} =  
+\begin{cases}
+\text{arg}\max_{f \in  \text{alpha band}} \text{PSD}(f), & \text{PSD}(f) - \text{PSD}(f') > \varphi \, \forall f' \neq f \\
+\text{undefined}, & \text{otherwise} 
+\end{cases}
+$$
 
-$$ \text{arg max}_{\substack{x\in A \subseteq PSD }} f(x) := \{ x \mid x  \in A \land \forall y \in A : f(y) \leq f(x) \} , $$
 
-where $\text{arg max}$ returns the frequency bin (or subset of bins) $x$ containing the maximal power value $\text{max } f(x)$ registered within that subset of frequency bins $A$ constituting the alpha band, and where $PSD$ denotes the complete set of frequency bins resolved by the spectral analysis.
-Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $x_k$ containing a power value $\geq \phi$, where $\phi$ defines the minimum threshold value differentiating a substantive spectral peak from background noise.
-The definition of both $A$ and $\phi$ pose non-trivial problems (more on which shortly).
+where $\text{arg} \max$ returns the frequency bin (or subset of bins) $f$ containing the maximal power value $\max \text{PSD}(f)$ registered within the set of frequency bins constituting the alpha band.
+Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $f$  with a corresponding power spectral density $\geq \varphi$, where $\varphi$ defines the minimum threshold value differentiating a substantive spectral peak from background noise.
+The definition of both alpha band and $\varphi$, the discrimination threshold, pose non-trivial problems (more on which shortly).
 
-![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear-scaled PSD ranging from 1 to 25 Hz. Strong alpha band activity is clearly evidenced by the sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of the PSD displayed in the left panel. Here, ordinate data have been log-transformed into decibels. Decibel-scaling accentuates the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all frequency bins resolved within the range of 1 to 100 Hz (frequencies and power estimates both log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ inverse power-law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](figs/pafs.png?raw=true){#pafs}
+![*Fig_pafs.* Power spectral density (PSD) plots displaying frequency component distribution of averaged signal variance across a 2 min eyes-closed resting-state EEG recording (POz). Light grey column indicates the standard alpha band interval, which constitutes the search window for the peak frequency. *Left panel*: Linear-scaled PSD ranging from 1 to 25 Hz. Strong alpha band activity is clearly evidenced by the sharp component spanning ~7.5 to 12.5 Hz, and peaking at ~9.75 Hz. *Central panel*: Alternative depiction of the PSD displayed in the left panel. Here, the y-axis is presented  log-transformed into decibels. Decibel-scaling accentuates the relatively minor peak detected in the beta range of the spectrum (this activity approximates the first harmonic of the dominant alpha rhythm). *Right panel*: Log-log plot of spectral density estimates across all frequency bins resolved within the range of 1 to 100 Hz (frequencies and power estimates both log~10~-transformed). The alpha peak represents a marked deviation from the $1/f$ inverse power-law (indicated by the broken line) characteristically approximated by log-transformed EEG power spectra.](figs/pafs.png?raw=true){#pafs}
 
 PAF estimates are typically extracted from parieto-occipital EEG channels while the participant relaxes with their eyes closed.
 This strategy exploits the classic observation that alpha oscillations dominate EEG recorded over centro-posterior scalp regions when visual sensory input is suppressed [@barry2007;@sadaghiani2016].
 Although PAF can often be rapidly ascertained upon visual inspection of the PSD function ([Fig_pafs](#pafs)), this approach to IAF extraction is inefficient and potentially impractical when dealing with large datasets [@chiang2008;@goljahani2012].
-Moreover, it is well documented that a sizeable proportion of individuals fail to manifest an unambiguous PAF, on account of there being either two (or more) peaks within the alpha band [so-called ‘split-peaks’; @chiang2011], or a general absence of prominent alpha-band activity [e.g., @anokhin1996] (see [Fig_bad_pafs](#bad_pafs)).
+Moreover, it is well documented that a sizeable proportion of individuals fail to manifest an unambiguous PAF, on account of there being either two (or more) peaks within the alpha band [so-called 'split-peaks'; @chiang2011], or a general absence of prominent alpha-band activity [e.g., @anokhin1996] (see [Fig_bad_pafs](#bad_pafs)).
 Under such circumstances, visual analysis of the PSD plot must determine whether a PAF estimate can be reliably inferred.
-Relating back to the PAF formulation outlined above, these scenarios can be construed as the problem of evaluating whether the $\phi$ criterion has been satisfied (or alternatively, of determining the correct threshold level where this criterion ought to be located).
+Relating back to the PAF formulation outlined above, these scenarios can be construed as the problem of evaluating whether the $\varphi$ criterion has been satisfied (or alternatively, of determining the correct threshold level where this criterion ought to be located).
 Resolving such problem cases (i.e. deciding whether a single, dominant peak can be confidently distinguished from competing peak candidates / noise fluctuations in background spectral activity) necessary involves subjective choices on the part of the investigator.
 Such cases may consequently be prone to biased or inconsistent assessment [@chiang2008] and pose significant challenges to replicability.
 Uncertainty about the appropriate decision rule for ambiguous spectral peaks can also result in the exclusion of a substantial subset of participants from IAF-related analyses [see for example, @bornkessel-schlesewsky2015].
@@ -80,36 +82,34 @@ Uncertainty about the appropriate decision rule for ambiguous spectral peaks can
 
 Automated analysis routines offer one way of ensuring that PAF criteria are explicitly stipulated and consistently applied within and across datasets.
 However, while simple automated peak detection methods are relatively straightforward to implement in many popular EEG processing software packages, such strategies are prone to various sources of error.
-For instance, searching for the maximal power estimate $\text{max } f(x)$ within the alpha-band search window $A$ can result in the arbitrary assignment of PAF at $f_1$ (i.e. the lower bound of $A$) in the absence of a clear peak.
-That is, in the case where the PSD function declines approximately monotonically [e.g., conforms to the $1/f$-like power distribution without showing the characteristic deviation at about 10 Hz; cf. @pritchard1992], the highest power value within $A$ will be the supremum encountered at the first frequency bin encompassed by the alpha-band interval.
-One solution to this problem is to stipulate that $\text {arg max}_{\substack{x\in A \subseteq PSD }} f(x)$ qualifies as a viable PAF estimate $iff$ the power estimate of frequency bin $x_k$ exceeds that of its neighbouring frequency bins $x_{k-1}$ and $x_{k+1}$.
+For instance, searching for the maximal power estimate $\max \text{PSD}(f)$ within the alpha-band search window  can result in the arbitrary assignment of PAF at the lower edge of the search window in the absence of a clear peak.
+That is, in the case where the PSD function declines approximately monotonically [e.g., conforms to the $1/f$-like power distribution without showing the characteristic deviation at about 10 Hz; cf. @pritchard1992], the highest power value within the alpha band will be the supremum encountered at the first frequency bin encompassed by the alpha-band interval.
+One solution to this problem is to stipulate that $\text{arg} \max \text{PSD}(f)$ qualifies as a viable PAF estimate if and only if the power estimate of frequency bin $f_k$ exceeds that of its neighbouring frequency bins $f_{k-1}$ and $f_{k+1}$.
 While this approach ensures that the selected frequency component constitutes a local maximum rather than a supremum, it is still vulnerable to two of the problems identified above.
-First, it fails to distinguish spectra featuring singular, dominant peaks from those possessing prominent secondary peaks (i.e. where visual inspection of the plot would suggest two or more alpha peaks that differ in height by some – potentially trivial – magnitude; e.g., right and central panels, [Fig_bad_pafs](#bad_pafs)).
+First, it fails to distinguish spectra featuring singular, dominant peaks from those possessing prominent secondary peaks (i.e. where visual inspection of the plot would suggest two or more alpha peaks that differ by some -- potentially trivial -- magnitude; e.g., left and central panels, [Fig_bad_pafs](#bad_pafs)).
 Second, it fails to differentiate maximum power values at the apex of a genuine spectral peak from those at the apex of noisy fluctuations within the PSD function (i.e. where visual inspection of the plot would suggest the absence of any substantive alpha peak; e.g., right panel, [Fig_bad_pafs](#bad_pafs)).
 Automated routines of this sort might therefore render rapid and consistent estimates of PAF, but are likely to be too liberal in what they accept as an alpha peak.
 
 ### 1.2 Alpha centre of gravity and individualised frequency bands
-Klimesch and colleagues [@klimesch1993; @klimesch1997] proposed using alpha mean or centre of gravity (CoG) frequency, an IAF estimator originally formulated by Klimesch, Schimke, Ladurner, and Pfurtscheller [-@klimesch1990], in order to circumvent some of the difficulties posed by the absence of a clear spectral peak.
-The CoG furnishes a weighted sum of spectral estimates divided by total power within the selected alpha frequency window $A$, as defined by the bounds $f_1$ and $f_2$:
+Klimesch and colleagues [@klimesch1993; @klimesch1997] proposed using the PSD-weighted mean alpha frequency, i.e. the centre of gravity (CoG) frequency, an IAF estimator originally formulated by Klimesch, Schimke, Ladurner, and Pfurtscheller [-@klimesch1990], in order to circumvent some of the difficulties posed by the absence of a clear spectral peak.
+Mathematically, we can express the COG as
 
-$$ CoG = \frac { \sum\limits_{f_1}^{f_2} f(x) \ x } { \sum\limits_{f_1}^{f_2} f(x) }, $$
-
-where $f(x)$ is the PSD estimate (ordinate) for frequency bin $x$.
+$$ \text{CoG} = \frac{\sum \text{PSD}(f) \cdot f}{\sum \text{PSD}(f)}. $$
 
 Since the CoG is sensitive to the shape of the power distribution within the selected alpha band window, and the precise bandwidth of alpha-rhythm activity varies across individuals, Klimesch and colleagues [-@klimesch1990, see also @klimesch1997] discouraged calculating the CoG according to a fixed index of summation corresponding to some standard, a priori-defined alpha bandwidth (e.g., $f_1$ = 8 Hz, $f_2$ = 13 Hz).
-Rather, they recommended computing CoG on the basis of bespoke frequency windows that capture the entire range of the individual’s alpha-band activity.
+Rather, they recommended computing CoG on the basis of bespoke frequency windows that capture the entire range of the individual's alpha-band activity.
 To this end, Klimesch and colleagues [-@klimesch1990] proposed the following procedure for estimating the IAF bandwidth:
 First, PSD plots are extracted from all EEG channels for each participant and examined for evidence of a clear alpha peak.
 Second, $f_1$ and $f_2$ are assigned to those frequency bins where the ascending and descending edges of the peak are deemed to start and end, respectively [[Fig_f1f2](#f1f2); cf. Table 1, @klimesch1997].
-Finally, these channel-wise $f_1$ and $f_2$ values are averaged to render the bounds of the frequency interval that will be used to calculate the participant’s CoG.
+Finally, these channel-wise $f_1$ and $f_2$ values are averaged to render the bounds of the frequency interval that will be used to calculate the participant's CoG.
 Notice that, even though EEG channels that fail to manifest distinctive peaks do not contribute to the definition of the IAF bandwidth, the CoG is computed on the basis of spectral data compiled from all frequency bins bounded by $f_1$ and $f_2$ across all available channels.
 
 ![*Fig_f1f2.* Fixed vs. individually adapted alpha frequency band windows. *Left panel*: Individual bandwidth (indicated by shaded area under PSD) closely approximates the standard alpha band range indicated by the grey column. *Central panel*: Fixed bandwidths may fail to fully and selectively capture empirical alpha peak distributions, thus giving rise to biased estimates of alpha centre of gravity. *Right panel*: Spectral density from central panel reproduced with superposed eyes-open resting-state PSD (red function). Here, the transition frequency (TF) at which the ascending edge of the eyes-closed alpha peak intersects with (and surpasses) the corresponding eyes-open power estimates (indicated by the broken black line) closely approximates the lower bound of the alpha interval $f_1$ located via qualitative analysis of the plot. In this case, the empirical TF of ~6.25 Hz deviates from standard definitions of the theta/alpha boundary, thus locating the beginning of the alpha component within what would canonically be considered the theta band (indicated by the pink column). Power estimates log-scaled to aid visual identification of $f_1$ and $f_2$ [@klimesch1997].](figs/f1f2.png){#f1f2}
 
 Klimesch [-@klimesch1999] later proposed an alternative method for defining individualised alpha-band windows that relies on a somewhat less subjective interpretation of the PSD.
 This technique exploits the typically observed anticorrelation between theta band [4–8 Hz; @noachtar2004] and alpha oscillatory dynamics in response to task demands or cognitive load [@doppelmayr1998a; @klimesch1996a; cf. @rugg1982].
-Klimesch and colleagues [-@klimesch1996a] first used this approach to delineate the ‘transition frequency’ (TF) where the alpha-band activity that dominates the relaxed individual’s EEG gives way to theta oscillations induced by stimulus processing (see [Fig_f1f2](#f1f2), right panel).
-Adopting an event-related desynchronisation [ERD; @pfurtscheller1977; @pfurtscheller1999] paradigm, spectra from a pre-stimulus ‘reference’ interval and a peri-stimulus ‘test’ interval were averaged across trials and superimposed, and the TF designated as the frequency at which the reference and test interval PSD functions intersected (or where the difference between them was minimised, in cases where they failed to intersect).
+Klimesch and colleagues [-@klimesch1996a] first used this approach to delineate the 'transition frequency' (TF) where the alpha-band activity that dominates the relaxed individual's EEG gives way to theta oscillations induced by stimulus processing (see [Fig_f1f2](#f1f2), right panel).
+Adopting an event-related desynchronisation [ERD; @pfurtscheller1977; @pfurtscheller1999] paradigm, spectra from a pre-stimulus 'reference' interval and a peri-stimulus 'test' interval were averaged across trials and superimposed, and the TF designated as the frequency at which the reference and test interval PSD functions intersected (or where the difference between them was minimised, in cases where they failed to intersect).
 Klimesch [-@klimesch1999] proposed generalising this procedure to resting-state EEG recordings, where an analogous shift from prominent alpha- to theta-band activity is classically evoked by the visual stimulation experienced upon opening the eyes [this phenomenon, known variously as alpha blocking, desynchronisation, suppression, or attenuation, was first documented by @berger1929].
 This method thus renders a systematic means of estimating the lower alpha frequency bound $f_1$.
 
@@ -132,7 +132,7 @@ The first method, which we refer to as peak attenuation, was described by Posthu
 Similar in principle to Klimesch's [-@klimesch1999] delineation of the TF, this technique simply subtracts eyes-oped PSD estimates from the corresponding ordinates of the eyes-closed PSD within some a priori-defined target region (typically, this interval is extended beyond the canonical alpha bandwidth; e.g., 7–14 Hz).
 The resulting peak, which constitutes the maximal power difference between the two spectra, is taken as the PAF ([Fig_blocking](#blocking), top row).
 To avoid trivial peaks arising from small fluctuations in the PSD, Posthuma and colleagues [-@posthuma2001] excluded spectra that featured consistent low power (< 1.5 $\mu$V/Hz) within the alpha-band.
-It isn’t clear, however, whether this criterion (which is analogous to the $\phi$ parameter in the PAF equation defined above) was also applied in cases where the maximal difference between spectra was similarly small (i.e. where both spectra present a substantive, approximately overlapping alpha-band component).
+It isn't clear, however, whether this criterion (which is analogous to the $\varphi$ parameter in the PAF equation defined above) was also applied in cases where the maximal difference between spectra was similarly small (i.e. where both spectra present a substantive, approximately overlapping alpha-band component).
 Posthuma and colleagues [-@posthuma2001] also remarked that peak attenuation estimates deviated from eyes-closed resting-state PAFs in 21% of cases.
 This lack of convergence, coupled with the observation that peak attenuation may lead to distorted representations of the PAF when the assumption of significant eyes-open alpha desynchronisation fails to obtain [see [Fig_blocking](#blocking), central and bottom row; cf. @gaal2010; @kreitman1965], suggests peak attenuation may constitute a suboptimal IAF estimator (at least insofar as IAF is conceived in terms of the PAF).
 
@@ -140,7 +140,7 @@ This lack of convergence, coupled with the observation that peak attenuation may
 
 Although Posthuma and colleagues [-@posthuma2001] did not attempt to locate the bounds of the individual alpha bandwidth on the basis of peak attenuation, the logic motivating this technique could be applied to infer $f_1$ and $f_2$ in much the same way as the TF (i.e. by taking those frequency bins either side of the difference peak where the difference between corresponding spectral estimates is *minimised*).
 This is precisely the approach that Goljahani and colleagues formalised in their channel reactivity based (CRB) method [@goljahani2012; @goljahani2014].
-This technique, which is conceptually reminiscent of Klimesch and colleagues’ [-@klimesch1996a] attempt to characterise phasic shifts in band power, quantifies the difference between reference and test PSDs in terms of the alpha responsiveness (or desynchronisation) region; i.e. the area between the PSD functions spanning frequency bins $f_1...f_2$ (where the spectra intersect, or the residual difference between corresponding spectral estimates is minimised).
+This technique, which is conceptually reminiscent of Klimesch and colleagues' [-@klimesch1996a] attempt to characterise phasic shifts in band power, quantifies the difference between reference and test PSDs in terms of the alpha responsiveness (or desynchronisation) region; i.e. the area between the PSD functions spanning frequency bins $f_1...f_2$ (where the spectra intersect, or the residual difference between corresponding spectral estimates is minimised).
 IAF is estimated by computing the CoG for the reference interval, taking the frequency bounds delimiting the responsiveness region as the index of summation.
 
 The CRB method offers an elegant solution to the problem of finding individualised frequency bands for CoG estimation.
@@ -154,7 +154,7 @@ IBS: Based on recent theoretical approaches to the alpha rhythm, one reason for 
 AC: this is an interesting point, do you want me to integrate it in the above paragraph ? it also seems germane to the points raised in the following paragraph, i think, since altering a task will presumably alter the pattern of (de)synchronisation
 -->
 
-A related concern deriving from the CRB method’s reliance on phasic changes in rhythmic activity is the possibility that within-subject estimates of IAF might vary depending on the specific processing mode evoked by the event (e.g., target discrimination vs. memory retrieval; visual vs. auditory modality), and the relative timing of the reference/test intervals subjected to spectral analysis. <!-- PA: How do these concerns interact with the idea that IAF is trait-like? AC response: Several authors posit that there are a variety of alpha generators, the cumulative activity of which accounts for the characteristic resting peak (or peaks), and thus shifts in peak frequency mark shifts in the relative activity of these populations. The argument here then is that, while resting eyes closed IAF is stable/enduring and indicative of at least some cognitive capacities (presumably by tapping into specific underlying neuronal processes), measures of alpha activity during cognitive tasks (or the difference in alpha activity between different states of rest/anticipation/action) may not offer an analagous index of IAF as construed by research involving EC resting state data. I see no necessary contradiction between the notion that resting state IAF is stable/'trait-like' etc, and the observation that dominant alpha band activity dynamically shifts during 'non-restful' states (presumably as a consequency of the shifting division of labour across alpha generators). indeed, since you asked me this question, i've re-read a few articles and noticed a number of references to this idea of IAF as possessing both trait- and state-like qualities-->
+A related concern deriving from the CRB method's reliance on phasic changes in rhythmic activity is the possibility that within-subject estimates of IAF might vary depending on the specific processing mode evoked by the event (e.g., target discrimination vs. memory retrieval; visual vs. auditory modality), and the relative timing of the reference/test intervals subjected to spectral analysis. <!-- PA: How do these concerns interact with the idea that IAF is trait-like? AC response: Several authors posit that there are a variety of alpha generators, the cumulative activity of which accounts for the characteristic resting peak (or peaks), and thus shifts in peak frequency mark shifts in the relative activity of these populations. The argument here then is that, while resting eyes closed IAF is stable/enduring and indicative of at least some cognitive capacities (presumably by tapping into specific underlying neuronal processes), measures of alpha activity during cognitive tasks (or the difference in alpha activity between different states of rest/anticipation/action) may not offer an analagous index of IAF as construed by research involving EC resting state data. I see no necessary contradiction between the notion that resting state IAF is stable/'trait-like' etc, and the observation that dominant alpha band activity dynamically shifts during 'non-restful' states (presumably as a consequency of the shifting division of labour across alpha generators). indeed, since you asked me this question, i've re-read a few articles and noticed a number of references to this idea of IAF as possessing both trait- and state-like qualities-->
 ERD studies have revealed that both the qualitative profile and temporal course of alpha- and theta-band desynchronisation are contingent upon the particular nature of the task used to induce oscillatory power shifts [@klimesch2006; @klimesch2007].
 If different paradigms do precipitate distinct patterns of ERD during the selected test interval [or indeed, *enhance* rather than attenuate the alpha rhythm; e.g., @kreitman1965; @rihs2007], then the ensuing responsiveness regions used to define the coverage of the CoG estimate will span non-identical frequency bands [cf. @haegens2014, for evidence of analogous intraindividual shifts in PAF as a function of varying task conditions].
 While this property of the CRB method need not be a problem for ERD-type applications (indeed, sensitivity to such selective changes in band power might prove theoretically interesting and productive in this context), it renders the approach less suited to the task of estimating the IAF as a marker of stable, trait-like differences in information processing capacities.
@@ -180,7 +180,7 @@ More recent innovations designed to address these problems via the application o
 Consequently, we sought to articulate an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of resting-state IAF in two major programming languages: MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and Python&trade;.
 This goal is consistent with recent proposals to make the analysis of cognitive electrophysiological data as open, transparent, and amenable to replication as possible [@cohen2017].
 
-Our approach aims to emulate Klimesch and colleagues’ [-@klimesch1990] original attempt to characterise individual profiles of resting-state oscillatory activity across the entirety of the alpha band by means of a relatively simple, non-parametric curve-fitting algorithm.
+Our approach aims to emulate Klimesch and colleagues' [-@klimesch1990] original attempt to characterise individual profiles of resting-state oscillatory activity across the entirety of the alpha band by means of a relatively simple, non-parametric curve-fitting algorithm.
 Our strategy for accomplishing this task runs as follows: <!-- AC: am I correct in thinking it's non-parametric because it makes no assumptions about the underlying shape of the function (only that it can be fitted by polynomials) ? -->
 First, we extract PSD estimates from preprocessed and fast Fourier transformed EEG signals.
 Second, we apply a least-squares curve-fitting procedure (i.e. Savitzky-Golay filtering) to accomplish the dual task of smoothing the PSD function and estimating its first- and second-order derivatives.
@@ -205,9 +205,9 @@ Derivatives describe the relative rate of change in the dependent variable or fu
 The first derivative of a vector of PSD estimates thus provides point estimates of the (instantaneous) rate of change in the amount of spectral power estimated for each frequency bin resolved in the analysis.
 This relationship can be formalised as follows:
 
-$$ f’(x) = \frac{\Delta f(x)} {\Delta x} , $$
+$$ f'(x) = \lim_{ \Delta{x} \rightarrow{} 0} \frac{\Delta f(x)} {\Delta x} , $$
 
-where $f’(x)$ is the first derivative of the relative change in the power estimate $f(x)$ at frequency bin $x$.
+where $f'(x)$ is the first derivative of the relative change in the power estimate $f(x)$ at frequency bin $x$.
 
 Another way to conceptualise this relationship is to construe the derivative as describing the slope of the tangent line to the PSD function $f(x)$ at any given frequency bin $x$.
 From this perspective, it becomes clear that the first derivative will be zero (i.e. the slope of the tangent will be horizontal) at any point in the function corresponding to a peak or trough.
@@ -242,12 +242,12 @@ This procedure is intended to sharpen the precision of PAF estimation amidst cro
 
 This approach relies on differentiation of the second derivative of the PSD function:
 
-$$ f’’(x) = \frac {\Delta f'(x)} {\Delta x} , $$
+$$ f''(x) = \lim_{ \Delta{x} \rightarrow{} 0}  \frac {\Delta f'(x)} {\Delta x} , $$
 
-where $f’’(x)$ is the derivative of the first derivative $f’(x)$ at frequency bin $x$.
+where $f''(x)$ is the derivative of the first derivative $f'(x)$ at frequency bin $x$.
 In other words, the second derivative is simply the rate of change of the first derivative of some function $f(x)$.
 Second derivatives are useful for evaluating whether the curvature of a function is concave up (i.e. convex) or concave down at any given value of $x$.
-The transition of a curve’s direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
+The transition of a curve's direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
 
 We suggest that the inflection points $i_1$ and $i_2$ on either side of $\text{max } f(x)$ offer a convenient objective standard for evaluating the relative quality of channel peak estimates.
 The basic idea here is to quantify the area under the peak in such a way that distinguishes stronger (i.e. containing a greater proportion of spectral power) and less variable (i.e. spanning fewer frequency bins) peaks from shallower, broader, or otherwise noisier components.
@@ -256,12 +256,15 @@ Note that this procedure has no bearing on CoG estimation (since the CoG may be 
 
 Having defined both the height and width of the putative alpha peak by means of the first and second derivative zero crossings, peak quality is quantified via the following formula:<!-- AC: I've used integration here, or more properly an approximation to integration rendered via MATLABs `trapz` function, but I wonder if it's better to use the sum of frequency bins approach as per the CoG formula in order to draw out the similarities with the CoG calculation ? -->
 
-$$ Q = \frac{\int_{i_1}^{i_2} f(x) } { i_2 – i_1 } , $$
-<!-- PA: From the Mean Value Theorem, this is exactly the “mean” power on that interval, which tells you a bit about how strong the peak is – peaks have higher mean values. AC response: All I can tell from wikipedia etc is that the MVT proves there is at least one point on a differentiable function that has a tangent that is parallel to the secant through the function's endpoints - I don't see how this relates to Q calculation -->
-where $Q$ is the scaled quantity of normalised alpha peak power, and $f(x)$ is the estimated power at each frequency bin $x$ that falls within the index of integration $i_1... i_2$.
+$$ Q = \frac{\int_{i_1}^{i_2} \text{PSD}(f)\; df } { i_2 - i_1 } , $$
+<!-- PA: From the Mean Value Theorem, this is exactly the ''mean'' power on that interval, which tells you a bit about how strong the peak is – peaks have higher mean values. AC response: All I can tell from wikipedia etc is that the MVT proves there is at least one point on a differentiable function that has a tangent that is parallel to the secant through the function's endpoints - I don't see how this relates to Q calculation -->
+
+
+where $Q$ is the scaled average power within the peak interval $[i_1,i_2]$. 
+(In a very strict sense, $Q$ is the mean value of the power spectral density function on the peak interval as given by the Mean Value Theorem.)
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
 Given equal values of $\int_{i_1}^{i_2}f(x)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts.
-This formulation thus penalises ‘less peaky’ components by assigning a heavier weighting to those estimates containing evidence of a relatively more dominant spectral peak.
+This formulation thus penalises 'less peaky' components by assigning a heavier weighting to those estimates containing evidence of a relatively more dominant spectral peak.
 However, it is perhaps worth emphasising that this calculation only influences PAF estimation in cases where channel data produce divergent PAF estimates (i.e. channel estimate $Q$ weights have no impact on the mean PAF calculated from channels that furnish identical estimates of the peak frequency).
 
 ![*Fig_q_wts.* Power spectra from four individuals in which two channels from the same eyes-closed resting-state recording are superposed. Each spectrum is shaded within the region bounded by the inflection points either side of the  peak alpha frequency estimate. Respective $Q$ values are also presented. *Left column*: Blue channel peaks dominate their red counterparts, however cross-channel averages are unaffected due to the identity of peak estimates. *Right column*: Where peak estimates diverge across spectra, channels which manifest a greater concentration of power (holding peak width constant) will be assigned higher weightings compared to those with relatively less power. Note that secondary components are ignored on account of the inflection point delimitation of the main peak. Power values normalised within each channel according to mean spectral power.](figs/q_wts.png){#q_wts}
@@ -276,7 +279,7 @@ Signal Processing Toolbox is required for the `pwelch` and `sgolay` functions, w
 `sgolay` was preferred over `sgolayfilt` on the basis that it outputs the coefficients necessary for calculating higher-order derivative functions, as well as those required for the zero-order (i.e. smoothed) PSD function.
 All functions that were developed in order to conduct the following analyses are open source and can be accessed (along with sample datasets) via [GitHub](https://github.com/corcorana/restingIAF).
 
-We chose to base our IAF estimation strategy on a Hamming-windowed implementation of Welch’s modified periodogram method of PSD estimation [@welch1967] on account of the prevalent application of this technique in the IAF literature.
+We chose to base our IAF estimation strategy on a Hamming-windowed implementation of Welch's modified periodogram method of PSD estimation [@welch1967] on account of the prevalent application of this technique in the IAF literature.
 It should be noted however that our approach could quite readily be modified to enable the `pwelch` routine to be substituted with some alternative method of PSD estimation.
 We also stress that our selection of the Hamming window to taper time series data prior to FFT does not reflect any strong commitments concerning the optimal method of preparing EEG data for spectral analysis.
 It stands rather as one common preference amongst several possible alternatives, each of which could reasonably have been applied.
@@ -288,7 +291,7 @@ A number of parameters must be specified in order to execute the IAF estimation 
 In relation to the SGF, both polynomial degree $k$ and a filter window frame width $F_w$ are required to define the least-squares minimisation operation.
 $k$ must be $< F_w$, and $F_w$ must be odd to ensure an equal number of sample points either side of the centre coefficient.
 Also note that no smoothing will occur if $k = F_w - 1$.
-Although some degree of exploratory analysis may be desirable to find the optimal combination of $k$ and $F_w$ parameters for the dataset under analysis, a convenient heuristic is to set the length of $F_w$ approximately 1 to 2 times the anticipated FWHM of the PAF component [@enke1976; @press1992]. <!-- IBS: Doesn’t this detract somewhat from the ‘objectivity’ and replicability of the approach? Can we provide a more precise default choice (or an algorithm for finding one) to ensure that anyone using the procedure with this standard parameter choice will obtain the same results? The same applies to all other parameters needing to be set… but perhaps section 2.2.4 will clarify this. AC response: I completely agree this seems like a concession that undercuts some of the previous arguments. The 'cost' of using the SGF is that it comes with this flexibility in choice of Fw and k, the setting of which (general heuristics aside - which are only of limited use assuming peak width varies across individuals) can look a bit arbitrary. I also think some degree of exploratory fitting is justified if trying to extend the method out to populations that may not be expected to show the sort of classical peak components we associate with healthy young adults (older adult/clinical/children etc). Of course, so long as param settings are known, there is no problem on the replication side of things. I guess the only worry is people might fish around to get the peaks they want / exclude the ones they don't -->
+Although some degree of exploratory analysis may be desirable to find the optimal combination of $k$ and $F_w$ parameters for the dataset under analysis, a convenient heuristic is to set the length of $F_w$ approximately 1 to 2 times the anticipated FWHM of the PAF component [@enke1976; @press1992]. <!-- IBS: Doesn't this detract somewhat from the 'objectivity' and replicability of the approach? Can we provide a more precise default choice (or an algorithm for finding one) to ensure that anyone using the procedure with this standard parameter choice will obtain the same results? The same applies to all other parameters needing to be set… but perhaps section 2.2.4 will clarify this. AC response: I completely agree this seems like a concession that undercuts some of the previous arguments. The 'cost' of using the SGF is that it comes with this flexibility in choice of Fw and k, the setting of which (general heuristics aside - which are only of limited use assuming peak width varies across individuals) can look a bit arbitrary. I also think some degree of exploratory fitting is justified if trying to extend the method out to populations that may not be expected to show the sort of classical peak components we associate with healthy young adults (older adult/clinical/children etc). Of course, so long as param settings are known, there is no problem on the replication side of things. I guess the only worry is people might fish around to get the peaks they want / exclude the ones they don't -->
 Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981], and hence may be desirable in cases of noisy spectral densities.
 We note however that excessively flat peaks following application of the smoothing procedure are indicative of a suboptimally large $F_w$.
 We favour higher-order polynomials (e.g., $k = 5$) due to their peak-height preserving properties, but acknowledge that they might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992].
@@ -328,10 +331,9 @@ The programme derives these bounds by taking the left- and right-most peaks with
 Since some spectra show a relatively shallow roll-off as the edges of the alpha peak diminish, and thus do not culminate in a local minimum for several frequency bins, we relaxed the requirement for an upward going zero crossing (i.e. evidence of a local minimum) such that the transition into a prolonged shallow function is taken as sufficient evidence of the individual alpha bounds $f_1$ or $f_2$.
 This criterion was formalised as follows:
 
-$$f_1 = f’(x) < |1| \text{ for } f(x_{j}...x_{k}),$$
-$$f_2 = f’(x) < |1| \text{ for } f(x_{k}...x_{l}),$$
+$$f_1 = \text{arg} \max_{f < \text{PAF}} |PSD'(f)| < 1 $$
+$$f_2 = \text{arg} \min_{f > \text{PAF}} |{PSD'(f)| < 1 $$
 
-where $f(x_k)$ is the first encountered frequency bin where $f’(x) < |1|$, $f(x_{j})$ is the frequency bin whose centre frequency is ~1 Hz below that of $f(x_{k})$, and $f(x_{l})$ is the frequency bin whose centre frequency is ~1 Hz above that of $f(x_{k})$ (exact scaling will depend on the frequency resolution of the analysis). <!-- AC: ? better way to notate this -->
 $f_1$ and $f_2$ estimates from each eligible channel are averaged to yield the individualised alpha window.
 This window defines the index of summation (i.e. frequency band coverage) used to calculate the CoG across all available channels.
 
@@ -527,7 +529,7 @@ Table: Summary statistics characterising peak alpha frequency (PAF) estimation a
 While the SGF technique failed to extract PAF estimates for approximately one-third of simulations at SNR = 0.05, the proportion of estimated alpha peaks rapidly approached ceiling as SNR increased beyond 0.10.
 RMSE was generally low for all levels of SNR, suggesting that alpha peaks were consistently estimated with a high degree of accuracy when detected by the SGF analysis routine.
 Between 1-2% of PAF estimates in the SNR < 0.15 conditions deviated from their target frequencies by the equivalent of up to 3 frequency bins (resolution = ~0.24 Hz).
-Given the rareness of these frequency bin shifts in the higher SNR conditions, and the relatively low magnitude of such deviations when they did occur, it seems that the SGF technique exhibited near-optimal performance at SNR ≥ 0.20
+Given the rareness of these frequency bin shifts in the higher SNR conditions, and the relatively low magnitude of such deviations when they did occur, it seems that the SGF technique exhibited near-optimal performance at SNR $\geq$ 0.20
 
 The LM routine returned PAF estimates for every simulated spectrum; however, 15 estimates in the SNR = 0.05 condition were excluded on the basis that they constituted suprema at the lower bound of $W_\alpha$.
 Even with these estimates removed, LM detection was associated with much higher degrees of estimate error in the low SNR conditions as compared to the SGF method.
