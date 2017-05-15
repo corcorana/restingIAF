@@ -25,21 +25,17 @@ abstract: Individual alpha frequency (IAF) is a promising electrophysiological m
   performance across a variety of psychophysical and cognitive tasks, and may underpin
   trait-like differences in information processing and general intelligence. It may
   also prove methodologically useful for sharpening the precision of frequency-band
-  analyses throughout the spectral range. Despite the large body of literature pertaining
-  to IAF-related analysis, there seems to be no clear consensus on the optimal method
-  for estimating IAF. In this paper, we describe a method of deriving peak and centre
+  analyses throughout the spectral range. While numerous methods for estimating IAF have been proposed, the optimal approach remains unclear. In this paper, we describe a technique for deriving peak and centre
   of gravity IAF estimates from Savitzky-Golay filtered power spectra. We evaluated
   the performance characteristics of this automated analysis routine in both empirical
   and simulated EEG datasets. In the former, 61 peak alpha frequency estimates, and
-  62 centre of gravity estimates, were derived from 63 healthy adults. The statistical
-  features of these IAF estimates was remarkably consistent across the two estimators,
-  and accorded with previously reported results from large-scale datasets. Simulation
-  data analysis revealed that our automated estimation routine reliably extracted
-  underlying alpha components even under relatively noisy spectral conditions. It
-  was also found to consistently outperform a simpler automated method of peak localisation
+  62 centre of gravity estimates, were derived from $n=63$ healthy adults. The statistical
+  features of these IAF estimates were remarkably consistent across the two estimators,
+  and accorded with previously reported results from large-scale datasets. IAF simulations revealed that our automated estimation routine reliably extracted
+  target alpha components even under relatively noisy spectral conditions. This routine consistently outperformed a simpler automated method of peak localisation
   that did not involve spectral smoothing. Our technique is fast, open source, and
   available in two popular programming languages (MATLAB and Python), and thus can
-  easily be integrated in the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python).
+  easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). As such, it offers a convenient means of improving the reliability and replicability of future IAF-related research.
 ---
 # Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
@@ -49,22 +45,16 @@ Task-irrelevant and potentially interfering connections must concomitantly be in
 The alpha rhythm of the human EEG is thought be the primary carrier of this inhibitory function [@klimesch2007;@klimesch2012;@jensen2010;@jensen2012;@sadaghiani2016], with alpha synchronisation in task-irrelevant regions reflecting inhibition, and alpha desynchronisation in task-relevant regions reflecting release from inhibition [@pfurtscheller2003].
 This account is gaining increasing acceptance over alternative accounts of the alpha rhythm such as the proposal that it reflects cognitive idling [@adrian1934;@pfurtscheller1996].
 
-While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger's seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of inter-individual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
-According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate while one relaxes in a state of alert wakefulness  (i.e. the individual alpha frequency; IAF) predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004] tasks.
-The IAF, which varies between approximately 9.5 and 11.5 Hz in healthy young adults [@klimesch1999], is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
-Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], possibly due to decreased efficiency of thalamo-cortical feedback loops [@klimesch1997;@steriade1990].
-They also show a reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013] in comparison to their high-IAF counterparts.
-IAF decreases with age from young adulthood onwards [@chiang2011;@klimesch1999;@kopruner1984;@obrist1979], and the age-related slowing of the alpha rhythm thus accompanies the well-known decline of many cognitive abilities in older adulthood [e.g. @hedden2004;@salthouse2011].
+<!-- AC: I've tried to hack this section down a bit, further revisions welcome -->While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger's seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of interindividual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
+According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate during relaxed wakefulness (i.e. the individual alpha frequency; IAF) predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004;@klimesch2006] tasks.
+IAF is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
+Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], and show reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013] in comparison to their high-IAF counterparts.
+IAF decreases with age from young adulthood onwards [@chiang2011;@klimesch1999;@kopruner1984;@obrist1979], hence lifelong changes in IAF accompany the well-known decline of many cognitive abilities in older adulthood [e.g. @hedden2004;@salthouse2011].
 Taken together, this evidence suggests that IAF constitutes a promising neurophysiological marker of certain fundamental properties of central nervous system functioning [@grandy2013;@grandy2013a].
 
-<!-- IBS: not sure we need following paragraph -->IAF modulates early brain responses that accompany basic aspects of visual perception [@klimesch2004;@koch2008], while individual alpha power and alpha timing (entrainment) affect well-known attentional phenomena such as the attentional blink [@maclean2012;@zauner2012].
-Moreover, IAF-informed brain stimulation has been shown to improve cognitive performance [@klimesch2006] and to shift the boundaries of integration windows for cross-modal perception [@cecere2015].
-Accordingly, individual differences in alpha activity may influence the efficiency of attentional filtering [@klimesch2012].
-This mechanism is especially important for increasing the signal-to-noise ratio when attentional demands increase, for example in cognitive processing scenarios requiring top-down control or prediction [@klimesch2011].
-Adjusting frequency band analysis in relation to IAF has also been argued to enhance sensitivity to band-specific oscillatory dynamics [@citation], and has proved useful for dissociating distinct functional properties of alpha-band sub-regions [@citation].
-Indeed, recent evidence [@van_albada2013] supporting the idea that the canonical frequency bands display an approximately harmonic relationship to the dominant alpha rhythm [@klimesch2012] suggests that IAF may offer a valuable tool for sharpening the precision of frequency domain analysis across the entire spectrum.
-
-In spite of its promise as a marker of apparently enduring, trait-like individual differences in cognitive functioning, and its potential utility for tuning frequency band analysis to the individual properties of electrophysiological data, no consensus currently exists as to the optimal method for quantifying IAF.
+In addition to accounting for interindividal variation in alpha-band oscillatory dynamics, tuning frequency bands in accordance with the IAF may help to sharpen the precision of frequency domain analysis more broadly [@klimesch2012].
+Taking the IAF as an anchor point separating subregions of the alpha band has helped to reveal functional dissociations between distinct alpha-rhythms [@refs], and offers a empirically-driven approach to the definition of the canonical frequency bands [@klimesch2012].
+Despite the apparent advantages of IAF-guided frequency domain analysis, however, no consensus currently exists as to the optimal method for quantifying IAF.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices in the IAF literature; namely, peak alpha frequency and alpha frequency centre of gravity.
 We begin by surveying various ways in which these measures have been operationalised and implemented in previous research, and highlight some of the problematic aspects of these methods.
 
