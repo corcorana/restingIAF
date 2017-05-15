@@ -720,5 +720,3 @@ This technique also promises to open up new lines of methodological inquiry, ins
 \begin{center}
 \textbf{References}
 \end{center}
-
-<!-- Zhivomirov, H. (2013). pinknoise [Software]. Retrieved from https://au.mathworks.com/matlabcentral/fileexchange/42919-pink--red--blue-and-violet-noise-generation-with-matlab-implementation/content/pinknoise.m (Accessed 18/03/2017) -->
