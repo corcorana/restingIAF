@@ -53,7 +53,7 @@ IAF decreases with age from young adulthood onwards [@chiang2011;@klimesch1999;@
 Taken together, this evidence suggests that IAF constitutes a promising neurophysiological marker of certain fundamental properties of central nervous system functioning [@grandy2013;@grandy2013a].
 
 In addition to accounting for interindividal variation in alpha-band oscillatory dynamics, tuning frequency bands in accordance with the IAF may help to sharpen the precision of frequency domain analysis more broadly [@klimesch2012].
-Taking the IAF as an anchor point separating subregions of the alpha band has helped to reveal functional dissociations between distinct alpha-rhythms [@refs], and offers a empirically-driven approach to the definition of the canonical frequency bands [@klimesch2012].
+Taking the IAF as an anchor point separating subregions of the alpha band has helped to reveal functional dissociations between distinct alpha-rhythms [@klimesch1997], and offers a empirically-driven approach to the definition of the canonical frequency bands [@klimesch2012].
 Despite the apparent advantages of IAF-guided frequency domain analysis, however, no consensus currently exists as to the optimal method for quantifying IAF.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices in the IAF literature; namely, peak alpha frequency and alpha frequency centre of gravity.
 We begin by surveying various ways in which these measures have been operationalised and implemented in previous research, and highlight some of the problematic aspects of these methods.
