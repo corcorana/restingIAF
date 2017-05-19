@@ -2,14 +2,13 @@
 title: 'restingIAF: A reliable, automated, open source method for quantifying individual alpha frequency'
 
 author:
-  - Andrew W. Corcoran$^a$
-  - Phillip M. Alday$^b$
-  - Matthias Schlesewsky$^b$
-  - name: Ina Bornkessel-Schlesewsky$^b$
-    affiliation: $^a$Cognition and Philosophy Lab, School of Philosophical, Historical and International Studies, Monash University, Clayton, Victoria 3800, Australia $^b$Cognitive Neuroscience Lab, School of Psychology, Social Work and Social Policy, University of South Australia, Magill 5072, Australia.
+  - Andrew W. Corcoran
+  - Phillip M. Alday
+  - Matthias Schlesewsky
+  - Ina Bornkessel-Schlesewsky
 
 output: 
-  html_document
+  pdf_document
 
 bibliography: 
   libraryAC.bib

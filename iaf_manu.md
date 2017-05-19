@@ -17,25 +17,9 @@ output:
   word_document:
     number_sections: yes
     toc: yes
-keywords: Individual alpha frequency, peak frequency, centre of gravity, alpha rhythm,
-  posterior dominant rhythm, Savitzky-Golay filter
 csl: apa.csl
-abstract: Individual alpha frequency (IAF) is a promising electrophysiological marker
-  of interindividual differences in cognitive function. IAF has been shown to predict
-  performance across a variety of psychophysical and cognitive tasks, and may underpin
-  trait-like differences in information processing and general intelligence. It may
-  also prove methodologically useful for sharpening the precision of frequency-band
-  analyses throughout the spectral range. While numerous methods for estimating IAF have been proposed, the optimal approach remains unclear. In this paper, we describe a technique for deriving peak and centre
-  of gravity IAF estimates from Savitzky-Golay filtered power spectra. We evaluated
-  the performance characteristics of this automated analysis routine in both empirical
-  and simulated EEG datasets. In the former, 61 peak alpha frequency estimates, and
-  62 centre of gravity estimates, were derived from $n=63$ healthy adults. The statistical
-  features of these IAF estimates were remarkably consistent across the two estimators,
-  and accorded with previously reported results from large-scale datasets. IAF simulations revealed that our automated estimation routine reliably extracted
-  target alpha components even under relatively noisy spectral conditions. This routine consistently outperformed a simpler automated method of peak localisation
-  that did not involve spectral smoothing. Our technique is fast, open source, and
-  available in two popular programming languages (MATLAB and Python), and thus can
-  easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). As such, it offers a convenient means of improving the reliability and replicability of future IAF-related research.
+abstract: "Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function. IAF has been linked with  trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands. In this paper, we describe an automated method for deriving the two most common estimators of IAF: peak alpha frequency (PAF) and centre of gravity (CoG). These indices are calculated from resting-state power spectra that have been smoothed by a Savitzky-Golay filter (SGF). We evaluated the performance characteristics of this SGF analysis routine in both empirical and simulated EEG datasets. Application of the SGF technique to resting-state data from $n=63$ healthy adults resulted in 61 PAF, and 62 CoG estimates. The statistical properties of these estimates were consistent with previous studies. Analysis of simulated electrophysiological signals revealed that the automated SGF routine reliably extracts target alpha components, even under relatively noisy spectral conditions. The routine consistently outperformed a simpler method of automated peak localisation that did not involve spectral smoothing. The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). As such, it affords a convenient opportunity for improving the reliability and replicability of future IAF-related research."
+keywords: "Individual alpha frequency, peak frequency, centre of gravity, alpha rhythm, posterior dominant rhythm, Savitzky-Golay filter"
 ---
 # Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
@@ -365,7 +349,7 @@ For CoG estimates, $\beta$ is the number of channels used to estimate the mean i
 ### Participants
 Sixty-three right-handed [Edinburgh Handedness Inventory; @oldfield1971], native English-speaking adults (42 females, mean age = 35 years, age range = 18-74 years) with normal (or corrected-to-normal) vision and audition, and no history of psychiatric, neurological, or cognitive disorder, participated in the study.
 All participants provided written, informed consent, and received financial remuneration for their time.
-This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@gysin-websterInprep], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
+This study, which formed part of a larger research project investigating EEG responses to complex, naturalistic stimuli [@rogers2017], was approved by the University of South Australia Human Research Ethics Committee (Application ID: 0000035576).
 
 ### Procedure
 Following screening and consent procedures, participants were seated in a dimly-lit, sound-attenuated room for the duration of the session.
@@ -507,7 +491,7 @@ This finding, which extends that reported in a smaller sample by Jann, Koenig, D
 ![Scatterplot displaying association between grand averaged PAF and CoG estimates across all participants for whom both estimators were calculated. Broken line indicates perfect positive correlation between IAF estimators.](figs/intercorrel.png){#intercorrel}
 
 As a final point of comparison with established findings, we examined the relation between age and IAF ([Figure 14](#age)).
-Both estimators showed a marginal trend towards reduced IAF as a function of increasing age, however this association accounted for only small proportion of the variance ($R^2 = 0.05$ and $R^2 = 0.04$ for PAF$_{GM}$ and CoG$_{GM}$, respectively).
+Both estimators showed a marginal trend towards reduced IAF as a function of increasing age, however this association accounted for only small proportion of the variance ($R^2 = 0.05$ and 0.04 for PAF$_{GM}$ and CoG$_{GM}$, respectively).
 Despite broadly dispersed interindividual differences across younger and older adults, the fitted polynomials appear to indicate a general trend towards IAF decline from about the third decade onwards.
 This is in line with previously reported findings from much larger datasets [e.g. @chiang2011]
 
