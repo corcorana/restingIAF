@@ -518,7 +518,7 @@ The results of this analysis are summarised in Figure 16 and Table 1.
 \includegraphics[width=0.75\textwidth]{figs/low_snr.png}
 \\
 \includegraphics[width=0.75\textwidth]{figs/rest_snr.png}
-\caption{Some badly scaled boxplots. One extreme negative PAF$_{LM}$ outlier (-4.83 Hz) excluded from SNR = 0.10 plot to improve visualisation.}
+\caption{Some badly scaled box plots. One extreme negative PAF$_{LM}$ outlier (-4.83 Hz) excluded from SNR = 0.10 plot to improve visualisation.}
 \end{figure}
 
 Table: Summary statistics characterising peak alpha frequency (PAF) estimation as a function of estimation method and signal-to-noise ratio (SNR).
@@ -547,7 +547,7 @@ Given the rareness of these *binShift* deviations in the higher SNR conditions, 
 The LM routine returned PAF estimates for all simulated spectra; however, 15 estimates in the SNR = 0.05 condition were excluded on the basis that they constituted lower bound suprema.
 Even with these estimates removed, LM detection was associated with a 12-fold increase in average estimate error in the SNR = 0.05 condition as compared to the SGF method.
 Of the 224 estimates that were shifted by more than one frequency bin from their corresponding target frequency, 42 deviated by 1 to 2.5 Hz, while a further 56 deviated by more than 2.5 Hz.
-All of these extreme errors constituted under-estimates of the target component (SNR = 0.05, Figure 16).
+All of these extreme errors constituted underestimates of the target component (SNR = 0.05, Figure 16).
 The LM procedure was also markedly less accurate in the SNR = 0.10 condition, where it registered more than double the RMSE observed in SGF-resolved peaks.
 Average LM estimation error converged with that of the SGF technique in higher SNR conditions, although the magnitude of its worst errors (*maxDiff*) remained elevated relative to SGF-generated PAF estimates.
 
@@ -575,7 +575,7 @@ The results of this analysis are summarised in [Figure 18](#snr_15_40) and Table
 
 ![](figs/snr_15.png){#snr_15_40} ![](figs/snr_40.png)
 
-Figure 18: Boxplots summarising the spread of estimator error across simulation conditions. Boxplot centre mark indicates median estimate error, edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero estimate error (broken horizontal line) corresponds to correct extraction of the underlying (target) alpha peak frequency. Negative error indicates under-estimation of the target frequency, positive error indicates over-estimation. *Top row*: Comparison of estimator performance in the SNR = 0.15 condition. *Bottom row*: Comparison of estimator performance in the SNR = 0.40 condition. The dispersal of the underlying alpha component was broadest in the left column ($\alpha = 1.0$) and narrowest in the right column ($\alpha = 4.0$). *LM* and *SG*: Peak alpha frequency estimated via the Local Maximum and Savitzky-Golay routines, respectively. *CoG*: Centre of gravity estimated via the Savitzky-Golay routine. Note, y-axis scaling varied across $\alpha$ levels to assist visualisation.
+Figure 18: Box plots summarising the spread of estimator error across simulation conditions. Box plot centre mark indicates median estimate error, edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero estimate error (broken horizontal line) corresponds to correct extraction of the underlying (target) alpha peak frequency. Negative error indicates underestimation of the target frequency, positive error indicates over-estimation. *Top row*: Comparison of estimator performance in the SNR = 0.15 condition. *Bottom row*: Comparison of estimator performance in the SNR = 0.40 condition. The dispersal of the underlying alpha component was broadest in the left column ($\alpha = 1.0$) and narrowest in the right column ($\alpha = 4.0$). *LM* and *SG*: Peak alpha frequency estimated via the Local Maximum and Savitzky-Golay routines, respectively. *CoG*: Centre of gravity estimated via the Savitzky-Golay routine. Note, y-axis scaling varied across $\alpha$ levels to assist visualisation.
 
 Table: IAF estimator performance as a function of SNR (0.15 vs. 0.40) and alpha component distribution (1.0 vs. 2.5 vs. 4.0). Synthetic alpha components were constructed from a set of oscillatory signals that were sampled using a Gaussian windowing function. The reciprocal of the standard deviation of this function was parametrically varied (where $\alpha$ = 1.0 corresponds to a broad peak, $\alpha$ = 4.0 a narrow peak). *PAF$_{LM}$*: Local maximum PAF estimator; *PAF$_{SG}$*: Savitzky-Golay filter (SGF) PAF estimator; *CoG*: SGF CoG estimator; *RMSE*: root mean squared error of PAF/CoG estimates; *maxDiff*: maximum absolute difference (Hz) between PAF/CoG estimates and corresponding peak frequency of underlying alpha-band component; *% Dev*: percentage of PAF/CoG estimates that diverged from the target alpha frequency by more than 0.5 Hz; *n chans*: median (s.d.) channel spectra retained for estimating PAF/CoG frequency interval per simulated dataset.
 
@@ -607,7 +607,7 @@ All three IAF estimators demonstrated consistent reductions in error indices as 
 This finding is congruent with the intuition that, irrespective of SNR, recovery of broader peak component structures poses a greater challenge for automated IAF estimation procedures than the recovery of narrower, sharper peaks.
 Further, there was some indication of an alpha distribution $\times$ SNR interaction effect, such that error indices for a given $\alpha$ level were more elevated in the low (as compared to the moderate) SNR condition.
 While this effect was at best marginal (and not entirely consistent) for both PAF estimators, it was more clearly apparent in the case of the CoG estimator.
-These general trends (i.e. improved estimation accuracy with decreased alpha dispersal and higher SNR) were mirrored by both the average (median) number of channels that contributed to PAF$_{SG}$ estimation, and the degree of variability (s.d.) in the number of channels retained by the SGF precedure for each set of simulations.
+These general trends (i.e. improved estimation accuracy with decreased alpha dispersal and higher SNR) were mirrored by both the average (median) number of channels that contributed to PAF$_{SG}$ estimation, and the degree of variability (s.d.) in the number of channels retained by the SGF procedure for each set of simulations.
 This is to say that a higher proportion of channels were deemed to contain valid PAFs as both SNR increased and peak dispersal decreased, while volatility in the number of channels per dataset selected for PAF/CoG alpha interval calculation correspondingly declined.
 
 As per the single frequency component analysis, PAF estimates derived from low SNR simulations were more accurate on average when estimated with the SGF procedure.
@@ -622,7 +622,7 @@ While the PAF estimator resulted in diminished RMSEs, lower maximal deviations, 
 This latter result provides encouraging evidence in favour of the SGF method's capacity to accurately localise the beginning and end of the alpha-band component (i.e. $f_1$ and $f_2$), at least when the embedded alpha signal is not too weak.
 Interestingly, even though the CoG performed less consistently when SNR was low, it still tended to be more reliable than the PAF$_{LM}$ estimator.
 For instance, the CoG method resulted in a 16% overall reduction in substantial estimate errors that would have ensued if relying on the LM method.
-While CoG may therefore be more susceptible to bias than its PAF$_{SG}$ counterpart when channel specra contain relatively high degrees of background noise, it may still offer tangible advantages over LM-based peak detection strategies.
+While CoG may therefore be more susceptible to bias than its PAF$_{SG}$ counterpart when channel spectra contain relatively high degrees of background noise, it may still offer tangible advantages over LM-based peak detection strategies.
 
 ### Split-peak simulations
 In the final analysis, we repeated the multi-channel dataset simulations with composite signals constructed using a bimodal sampling window.
@@ -630,7 +630,7 @@ This windowing function was comprised of two overlapping Gaussians ($\alpha$ = 2
 The peak distance between the two Gaussians was maintained constant at a frequency offset equivalent to 1.6 Hz.
 The results of this analysis are summarised in [Figure 19](#bimod) and Table 3.
 
-![Boxplots summarising the spread of estimator deviation from the centre frequency of the sampling window across SNR conditions. Boxplot centre mark indicates median estimate deviation (Hz), edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero deviation (broken horizontal line) corresponds to estimating the midpoint between the two components. Peak locations indicated by dotted horizontal lines. *Left column*: Schematic of the sampling window used to construct composite alpha signals simulated in corrosponding row. The discrepancy between simulated peaks (higher relative to lower frequency bins) ranges from 0 (top row) to 0.50 (bottom row). *Central column*: Comparison of estimator performance in the SNR = 0.15 condition. *Right column*: Comparison of estimator performance in the SNR = 0.40 condition. *LM* and *SG*: Peak alpha frequency estimated via the Local Maximum and Savitzky-Golay routines, respectively. *CoG*: Centre of gravity estimated via the Savitzky-Golay routine.](figs/bimod.png){#bimod}
+![Box plots summarising the spread of estimator deviation from the centre frequency of the sampling window across SNR conditions. Box plot centre mark indicates median estimate deviation (Hz), edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero deviation (broken horizontal line) corresponds to estimating the midpoint between the two components. Peak locations indicated by dotted horizontal lines. *Left column*: Schematic of the sampling window used to construct composite alpha signals simulated in corrosponding row. The discrepancy between simulated peaks (higher relative to lower frequency bins) ranges from 0 (top row) to 0.50 (bottom row). *Central column*: Comparison of estimator performance in the SNR = 0.15 condition. *Right column*: Comparison of estimator performance in the SNR = 0.40 condition. *LM* and *SG*: Peak alpha frequency estimated via the Local Maximum and Savitzky-Golay routines, respectively. *CoG*: Centre of gravity estimated via the Savitzky-Golay routine.](figs/bimod.png){#bimod}
 
 Table: IAF estimator performance as a function of SNR (0.15 vs. 0.40) and relative weighting of bimodal peaks. Synthetic alpha components were constructed from a set of oscillatory signals that were sampled using a bimodal (Gaussian) windowing function, in which the right-most function was either 0, 0.25, or 0.50 times larger than the left (*PeakDiff*). *PAF$_{LM}$*: Local maximum peak alpha frequency (PAF) estimator; *PAF$_{SG}$*: Savitzky-Golay filter (SGF) PAF estimator; *CoG*: SGF centre of gravity (CoG) estimator; *RMSE*: root mean squared error of PAF/CoG estimates (relative to centre frequency of sampled components); *maxDiff*: maximum absolute difference (Hz) between PAF/CoG estimates and corresponding centre frequency of sampled components; *n chans*: median (s.d.) channel spectra retained for estimating PAF/CoG frequency interval per simulated dataset.
 
@@ -655,14 +655,14 @@ Median number of channel PAF estimates was also reduced as compared to the corre
 CoG again returned estimates for all simulated datasets, irrespective of SNR.
 
 Across all simulation conditions, PAF$_{LM}$ returned more variable and extreme results than PAF$_{SG}$; although interpretation of this observation is complicated by the presence of a (somewhat) dominant peak in the +0.25 and +0.50 conditions.
-As both SNR and peak difference increase, PAF$_{LM}$ shows a stronger migration towards the higher frequency peak than either of the SGF estimators, altough note that it is still relatively more prone to erroneously ascribing the PAF to the secondary (lower frequency) peak.
+As both SNR and peak difference increase, PAF$_{LM}$ shows a stronger migration towards the higher frequency peak than either of the SGF estimators, although note that it is still relatively more prone to erroneously ascribing the PAF to the secondary (lower frequency) peak.
 On the other hand, PAF$_{SG}$ is less liable to spurious fluctuations in the PSD, exhibiting instead a tendency to curb PAF estimates towards the centre mass of the double component.
 This might reflect a consequence of noisy fluctuations being smoothed, such that marginal local maxima are absorbed within the resolution of a broader peak structure.
-As SNR and peak inequality increase, PAF$_{SG}$ estimates cluster in closer proximity to the dominaint peak.
-This then explains why RMSE increases relative to the centre frequence: as SNR improves and the split-peak becomes more asymmetrical (and hence, one peak more dominant over its competitor), more evidence accrues in favour of an underlying PAF.
+As SNR and peak inequality increase, PAF$_{SG}$ estimates cluster in closer proximity to the dominant peak.
+This then explains why RMSE increases relative to the centre frequency: as SNR improves and the split-peak becomes more asymmetrical (and hence, one peak more dominant over its competitor), more evidence accrues in favour of an underlying PAF.
 
 The CoG estimator demonstrates similar levels of variability to that of the PAF$_{SG}$ under low SNR conditions, but is markedly less variable under moderate SNR conditions.
-The box plots in [Figure 19](#bimod) also indicate that the CoG estimator performaed similarly across the different degrees of peak inequality within each SNR condition.
+The box plots in [Figure 19](#bimod) also indicate that the CoG estimator performed similarly across the different degrees of peak inequality within each SNR condition.
 Comparing across SNR conditions, CoG estimation shows substantially greater precision when SNR = 0.40.
 Indeed, compared to the other two estimators, CoG is both remarkably stable and closely centred around the centre frequency of the window function.
 As such, this finding provides compelling evidence that our implementation of the CoG estimator renders an accurate summary of the underlying alpha component distribution.
@@ -712,8 +712,8 @@ Our preliminary set of simulation analyses indicated that the SGF technique appr
 Indeed, the peak detection routine performed reasonably well when signals contained as little as 12 s of alpha-band activity, with fewer than 6% of simulated alpha components going undetected or being erroneously estimated by more than one frequency bin.
 
 Interestingly, our analysis shows that less sophisticated approaches to peak estimation (namely, automated detection of local maxima) can result in substantial error at comparably low levels of SNR.
-It is likely that many of these inaccurate estimates derived from spurious local maxima occuring due to fluctuations in background spectral activity.
-Indeed, the LM method's high propensity towards under-estimation of the PAF in low SNR conditions supports this interpretation, since the inverse power-law (which is not generally taken into account by LM detection methods) increases the likelihood of spurious local maxima at lower frequencies within the search window.
+It is likely that many of these inaccurate estimates derived from spurious local maxima occurring due to fluctuations in background spectral activity.
+Indeed, the LM method's high propensity towards underestimation of the PAF in low SNR conditions supports this interpretation, since the inverse power-law (which is not generally taken into account by LM detection methods) increases the likelihood of spurious local maxima at lower frequencies within the search window.
 Such artifacts are undesirable not only for the obvious reason that they introduce additional noise into IAF-related analyses, but also insofar as these errors diminish confidence in the reliability of the automated analysis method (after all, such errors would presumably have been avoided had spectral data been subjected instead to visual inspection).
 Indeed, we consider it preferable that an automated peak detection routine should reject spectra showing inconclusive evidence of any concerted alpha-band activity, rather than generating highly deviant estimates of the underlying (albeit weak) signal.
 It is a strength of the SGF technique, then, that it applies more stringent criteria in the evaluation of peak candidates -- criteria which we believe constitute a good approximation to the traditional method of (visual) PAF evaluation formulated in Section 1.1.
@@ -746,7 +746,7 @@ It may therefore be a valuable line of future research to investigate whether th
 
 Taking the results of the single- and split-peak simulations together, it is tempting to conclude that the PAF estimator outperforms its CoG counterpart in the former scenario, while the opposite holds true in the latter.
 The CoG estimator tended to underestimate its estimand in the single-peak simulations, even under more favourable spectral conditions.
-Indeed, CoG underestimation actually increased as target components become narrower, which seems counterintuitive if narrower peaks are in fact less difficult to accurately resolve and parameterise.
+Indeed, CoG underestimation actually increased as target components become narrower, which seems counter intuitive if narrower peaks are in fact less difficult to accurately resolve and parameterise.
 This apparent underestimation discrepancy may however be an artifact, insofar as we have assumed that the CoG ought to coincide with the PAF.
 Although this would be entirely correct had we analysed the composite alpha signals alone (on account of the Gaussian nature of their structure), it does not follow that this assumption holds after they have been combined with random pink noise distributions.
 Pink noise itself contains a nonuniform distribution of alpha-band components, which our simulation procedure did not take into account.
