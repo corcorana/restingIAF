@@ -1,0 +1,76 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=2cm,portrait]{geometry}
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\begin{document}
+\thispagestyle{empty}
+
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=yellow!20, 
+    text width=5em, text badly centered, node distance=2.5cm, inner sep=1pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [ellipse, draw, fill=red!20, node distance=2cm,
+    minimum height=5em]
+\tikzstyle{ball} = [circle, draw, fill=red!20, 
+    text width=6em, text centered, node distance=3cm]    
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    %% restingIAF
+    \node [cloud] (raw) {Preprocessed EEG};
+    \node [block, below of=raw, yshift=-.2cm] (sel) {Select channel};
+    \node [block, below of=sel] (pwelch) {Calculate $PSD$};
+    \node [block, below of=pwelch] (trim) {Trim $f$ range};
+    \node [block, below of=trim] (norm) {Normalise $PSD$ ($P$/mean $P$) };
+    \node [block, below of=norm] (log) {Log-transform $PSD$};
+    \node [block, below of=log] (reg) {Fit regression line};
+    \node [block, below of=reg] (sd) {Calculate $minP$ from model fit};
+    \node [block, below of=sd, yshift=-0.25cm] (sgf) {Calculate $0^{th}$, $1^{st}$ \& $2^{nd}$ derivatives of normalised $PSD$};
+    
+    %% peakBounds
+    \node [block, right of=raw, xshift=5cm, yshift=-3.5cm] (win) {Search $\alpha$ window for zero crossings};
+    \node [decision, below of=win, yshift=-.3cm] (dgzc) {Downward crossing detected?};
+    \node [decision, below of=dgzc, yshift=-1cm] (minP) {Does $P$ exceed $minP$?};
+    \node [ball, right of=minP, xshift=2cm] (nan) {Exclude channel from analysis};
+    \node [decision, below of=minP, yshift=-.8cm] (multi) {Is there $>1$ peak?};
+    \node [block, below of=multi, yshift=-.5cm] (rank) {Sort candidate peaks by $P$};
+    \node [decision, below of=rank, yshift=-.3cm] (mDiff) {Does $P_1$ exceed $P_2$ $> pDiff$?};
+    \node [ball, right of=mDiff, xshift=2cm] (nopaf) {Exclude channel from PAF analysis};
+    \node [block, below of=mDiff, yshift=-.8cm] (f1f2) {Locate $\alpha$ peak bounds \& inflections};
+    \node [block, below of=f1f2] (qwt) {Calculate Q weights};
+    \node [ball, right of=qwt, xshift=2cm] (save) {Output data for channel-wise averaging};
+
+    % Draw edges
+    \path [line] (raw) -- (sel);
+    \path [line] (sel) -- (pwelch);
+    \path [line] (pwelch) -- (trim);
+    \path [line] (trim) -- (norm);
+    \path [line] (norm) -- (log);
+    \path [line] (log) -- (reg);
+    \path [line] (reg) -- (sd);
+    \path [line] (sd) -- (sgf);
+    \path [line] (sgf) --++ (+3,0) |- (win);
+    
+    \path [line] (win) -- (dgzc);
+    \path [line] (dgzc) -- node {no} (nan);
+    \path [line] (dgzc) -- node {yes} (minP);
+    \path [line] (minP) -- node {no} (nan);
+    \path [line, dashed] (nan) |- (sel); 
+    \path [line] (minP) -- node {yes} (multi);
+    \path [line] (multi) --++ (-2.5,0) node [near start] {no} |- (f1f2);
+    \path [line] (multi) -- node {yes} (rank);
+    \path [line] (rank) -- (mDiff);
+    \path [line] (mDiff) -- node {no} (nopaf);
+    \path [line] (mDiff) -- node {yes} (f1f2);    
+    \path [line] (f1f2) -- (qwt);
+    \path [line, dashed] (qwt) --++ (-9.5,0) |- (sel);
+    \path [line] (qwt) -- (save);
+
+\end{tikzpicture}
+
+\end{document}
