@@ -2,7 +2,7 @@
 \documentclass[landscape,a0paper,fontscale=.235]{xebaposter} % Adjust the font scale/size here
 
 \usepackage{relsize}		% For \smaller
-\usepackage{wrapfig}
+\usepackage{wrapfig}  % wrap text around figure
 \usepackage{graphicx} % Required for including images
 %\graphicspath{{figures/}} % Directory in which figures are stored
 
@@ -11,6 +11,9 @@
 
 \usepackage{booktabs} % Top and bottom rules for tables
 \usepackage{enumitem} % Used to reduce itemize/enumerate spacing
+\newlist{todolist}{itemize}{1}
+\setlist[todolist]{label=$\square$}
+
 \usepackage{palatino} % Use the Palatino font
 \usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
 
@@ -20,12 +23,6 @@
 
 \usepackage{tikz} % Required for flow chart
 \usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
-
-\newcommand{\compresslist}{ % Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{enumerate}
-\setlength{\itemsep}{1pt}
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-}
 
 \definecolor{lightblue}{rgb}{0.145,0.6666,1} % Defines the color used for content box headers
 
@@ -61,8 +58,8 @@ linewidth=.75pt % Width of the border lines around content boxes
 \setlength\fboxrule{0pt}
 	\fbox{
 		\begin{minipage}{8em}
-			\includegraphics[width=4.5em,height=4.5em]{cpl_logo.png}
-			\includegraphics[width=5em,height=4em]{mps_logo.png}
+			\includegraphics[width=4.5em,height=4.5em]{figs/cpl_logo.png}
+			\includegraphics[width=5em,height=4em]{figs/mps_logo.png}
 		\end{minipage}
 	}
 }
@@ -75,44 +72,41 @@ linewidth=.75pt % Width of the border lines around content boxes
 \setlength\fboxrule{0pt}
 	\fbox{
 		\begin{minipage}{8em}
-			\includegraphics[width=4em,height=5em]{cnl.png}
-			\includegraphics[width=4em,height=5em]{unisa_logo.png}
+			\includegraphics[width=4em,height=5em]{figs/cnl.png}
+			\includegraphics[width=4em,height=5em]{figs/unisa_logo.png}
 		\end{minipage}
 	}
 }
 
 
 %----------------------------------------------------------------------------------------
-%	Intro
+%	MAIN BODY - LEFT COLUMN
 %----------------------------------------------------------------------------------------
 
 \headerbox{Introduction}{name=intro,column=0,row=0}{
-IAF is a fundamental property of brain processing that predicts individual differences across various domains:
-\begin{itemize}\compresslist
-\item perception
-\item memory \& attention
-\item language
-\item general intelligence
+IAF is a fundamental property of brain processing relating to individual differences across various domains:
+\begin{itemize}[noitemsep]
+\item perception\textsuperscript{[1,2]}
+\item memory\textsuperscript{[3]} \& attention\textsuperscript{[4]}
+\item language\textsuperscript{[5]}
+\item general intelligence\textsuperscript{[6]}
 \end{itemize}
-IAF might also help improve the precision of frequency band analysis.
+IAF might also help improve the precision of frequency band analysis.\textsuperscript{[7]}
 
 \vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
 }
 
-%----------------------------------------------------------------------------------------
-%	Problem
-%----------------------------------------------------------------------------------------
 
 \headerbox{The Problem}{name=problem,column=1}{
 IAF is typically indexed by a dominant (peak) frequency elicited during eyes-closed resting-state M/EEG.
 However, a subset of individuals do not demonstrate a clear alpha peak.
-\\Further, visual identification of peak frequency from cannel spectra is time-consuming and prone to bias.
+\\Further, visual identification of peak frequency from channel spectra is time-consuming and prone to bias.
 \\Automated strategies may solve these problems, but also introduce new sources of error.
 }
 
 \headerbox{The Idea}{name=idea,span=2,below=intro}{
 We devised an automated routine that estimates \textbf{peak alpha frequency (PAF)} from the 1\textsuperscript{st} derivative of Savitzky-Golay filtered spectra. 
-\\S-G filtering smoothes noisy fluctuations while preserving peak characteristics.
+\\S-G filtering smoothes noisy fluctuations while preserving peak characteristics.\textsuperscript{[8]}
 \\We also extended this approach to derive \textbf{centre of gravity (CoG)} estimates of IAF.
 }
 
@@ -134,14 +128,50 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
 \textbf{\textsc{Simulation Data}}
 \\Single and complex (Gaussian-distributed) alpha component signals were randomly synthesised and embedded within pink noise. Signal-to-noise ratio (SNR) and component dispersal ($\alpha$) were parametrically varied.
 
+}
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - RIGHT COLUMN
+%----------------------------------------------------------------------------------------
+
+\headerbox{Key Findings}{name=results,span=2,column=2}{
+}
+
+\headerbox{Conclusions}{name=conc,column=2,below=results}{
+-- S-G filtering aids accurate, automated extraction of target alpha components.
+\\-- Empirical data show similar characteristics to previous large \emph{n} studies.
+\\-- \emph{restingIAF} may help improve reliability and rigour of future IAF research.
 
 }
-%\hspace*{.10cm}\includegraphics[height=7cm]{figs/short_flow.pdf}
 
+\headerbox{Future Work}{name=affils,column=3,below=results}{
+  \begin{todolist}[noitemsep]
+  \item \textbf{\textsc{Soon:}}
+  \item[--] GitHub release
+  \item[--] Assess performance in children
+  \item \textbf{\textsc{Later:}}
+  \item[--] Develop GUI for EEGLAB
+  \item[--] Automate parameter settings
+  \end{todolist}
+}
 
-%\headerbox{References}{name=refs,span=2,below=idea}{
-%\[1\]
-%}
+\headerbox{Affiliations \& References}{name=refs,span=2,column=2,below=conc}{
+\smaller[2]{
+\textsuperscript{a}Cognition \& Philosophy Laboratory, Monash University.
+\textsuperscript{b}Cognitive Neuroscience Laboratory, University of South Australia.
+\textsuperscript{c}Max Planck Institute for Psycholinguistics, Nijmegen.}
+\textbf{\textsc{Contact}: andrew.corcoran1@monash.edu}
+
+\smaller[2]
+[1] Cecere et al. \emph{Curr. Biol.} \textbf{2015}, \emph{25}, 231.
+[2] Samaha \& Postle. \emph{Curr. Biol.} \textbf{2015}, \emph{25}, 2985.
+[3] Klimesch. \emph{Brain Res. Rev.} \textbf{1999}, \emph{29}, 169.
+[4] MacLean et al. \emph{Brain Cogn.} \textbf{2012}, \emph{78},{\vspace{-\baselineskip} 218.
+[5] Bornkessel et al. \emph{Exp. Psychol.} \textbf{2004}, \emph{51}, 279.
+[6] Grandy et al. \emph{NeuroImage.} \textbf{2013}, \emph{79}, 10.
+[7] Klimesch. \emph{TICS.} \textbf{2012}, \emph{16}, 606.
+[8] Zeigler. \emph{Appl. Spectrosc.} \textbf{1981}, \emph{35}, 88.}
+}
 
 \end{poster}
 
