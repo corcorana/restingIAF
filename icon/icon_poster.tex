@@ -1,10 +1,9 @@
 
 \documentclass[landscape,a0paper,fontscale=.235]{xebaposter} % Adjust the font scale/size here
 
-\usepackage{relsize}		% For \smaller
-\usepackage{wrapfig}  % wrap text around figure
+\usepackage{relsize}	% Control relative text size 
+\usepackage{wrapfig}  % Wrap text around figure
 \usepackage{graphicx} % Required for including images
-%\graphicspath{{figures/}} % Directory in which figures are stored
 
 \usepackage{amsmath} % For typesetting math
 \usepackage{amssymb} % Adds new symbols to be used in math mode
@@ -20,9 +19,6 @@
 \usepackage{multicol} % Required for multiple columns
 \setlength{\columnsep}{1.5em} % Slightly increase the space between columns
 \setlength{\columnseprule}{0mm} % No horizontal rule between columns
-
-\usepackage{tikz} % Required for flow chart
-\usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
 
 \definecolor{lightblue}{rgb}{0.145,0.6666,1} % Defines the color used for content box headers
 
@@ -65,7 +61,7 @@ linewidth=.75pt % Width of the border lines around content boxes
 }
 % TITLE & AUTHORS
 {\bf\textsc{\emph{restingIAF}: a reliable, automated method for quantifying Individual Alpha Frequency}\vspace{.2em}} % Poster title
-{\smaller Andrew W Corcoran\textsuperscript{a,b} Phillip M Alday\textsuperscript{c,b} Matthias Schlesewsky\textsuperscript{b} Ina Bornkessel-Schlesewsky\textsuperscript{b}} % Author names
+{\smaller Andrew W. Corcoran\textsuperscript{a,b} Phillip M. Alday\textsuperscript{c,b} Matthias Schlesewsky\textsuperscript{b} Ina Bornkessel-Schlesewsky\textsuperscript{b}} % Author names
 % RIGHT LOGOS
 {
 \setlength\fboxsep{0pt}
@@ -96,7 +92,6 @@ IAF might also help improve the precision of frequency band analysis.\textsupers
 \vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
 }
 
-
 \headerbox{The Problem}{name=problem,column=1}{
 IAF is typically indexed by a dominant (peak) frequency elicited during eyes-closed resting-state M/EEG.
 However, a subset of individuals do not demonstrate a clear alpha peak.
@@ -110,23 +105,24 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
 \\We also extended this approach to derive \textbf{centre of gravity (CoG)} estimates of IAF.
 }
 
-\headerbox{Method}{name=method,span=2,below=idea}{
+\headerbox{Method \& Analysis}{name=method,span=2,below=idea}{
 \begin{wrapfigure}{r}{.26\textwidth}
   \vspace*{-1cm}\includegraphics[height=7.4cm]{short_flow.pdf}
   %\caption{\smaller{Flow diagram summarising algorithm}}
 \end{wrapfigure}
 
 \textbf{\textsc{Algorithm}}
-\\The routine is summarised in the flow diagram (right).
+\\The routine is summarised in the flow diagram opposite.
 \\To register as a PAF, peaks must exceed a background spectral noise threshold and a secondary peak threshold. Number of estimates for averaging can also be thresholded.
 \\ \emph{restingIAF} has EEGLAB and Python implementations.
 \\[.25cm]
 \textbf{\textsc{Empirical Data}}
 \\63 healthy adults (42 females; age range: 18-74 yrs).
-\\2 min eyes-closed resting-state EEG recorded pre/post ~90 min experimental session.
+\\2 min eyes-closed EEG recorded pre/post experiment.
+\\PAF and CoG distributions and correlations analysed.
 \\[.25cm]
 \textbf{\textsc{Simulation Data}}
-\\Single and complex (Gaussian-distributed) alpha component signals were randomly synthesised and embedded within pink noise. Signal-to-noise ratio (SNR) and component dispersal ($\alpha$) were parametrically varied.
+\\Gaussian-distributed alpha components synthesised and embedded within pink noise signal. Component dispersal (\textbf{$\alpha$}) and signal-to-noise ratio (\textbf{SNR}) parametrically varied. PAF/CoG compared to \textbf{local maximum (LM)} detection.
 
 }
 
@@ -135,6 +131,11 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
 %----------------------------------------------------------------------------------------
 
 \headerbox{Key Findings}{name=results,span=2,column=2}{
+
+\includegraphics[clip, trim=1cm 0cm 1cm 0cm, width=\textwidth]{empir.eps}
+
+\includegraphics[clip, trim=1.5cm 0cm 1.5cm 0cm, width=0.5\textwidth]{snr_015.eps}
+\includegraphics[clip, trim=1.4cm 0cm 1.4cm 0cm, width=0.5\textwidth]{snr_040.eps}
 }
 
 \headerbox{Conclusions}{name=conc,column=2,below=results}{
