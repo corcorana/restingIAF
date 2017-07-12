@@ -80,7 +80,7 @@ linewidth=.75pt % Width of the border lines around content boxes
 %----------------------------------------------------------------------------------------
 
 \headerbox{Introduction}{name=intro,column=0,row=0}{
-IAF is a fundamental property of brain processing relating to individual differences across various domains:
+\textbf{IAF} is a fundamental property of brain processing relating to individual differences across various domains:
 \begin{itemize}[noitemsep]
 \item perception\textsuperscript{[1,2]}
 \item memory\textsuperscript{[3]} \& attention\textsuperscript{[4]}
@@ -93,14 +93,13 @@ IAF might also help improve the precision of frequency band analysis.\textsupers
 }
 
 \headerbox{The Problem}{name=problem,column=1}{
-IAF is typically indexed by a dominant (peak) frequency elicited during eyes-closed resting-state M/EEG.
-However, a subset of individuals do not demonstrate a clear alpha peak.
-\\Further, visual identification of peak frequency from channel spectra is time-consuming and prone to bias.
-\\Automated strategies may solve these problems, but also introduce new sources of error.
+IAF is typically indexed by a dominant spectral peak elicited during eyes-closed resting-state M/EEG. However, a subset of individuals do not demonstrate any clear alpha peak.
+\\-- \textbf{Visual identification} of spectral peaks in such cases is inefficient, prone to bias, and difficult to replicate.
+\\-- \textbf{Automated strategies} may solve these problems, but are themselves subject to various limitations.
 }
 
 \headerbox{The Idea}{name=idea,span=2,below=intro}{
-We devised an automated routine that estimates \textbf{peak alpha frequency (PAF)} from the 1\textsuperscript{st} derivative of Savitzky-Golay filtered spectra. 
+We devised an automated routine that estimates \textbf{peak alpha frequency (PAF)} from the 1\textsuperscript{st} and 2\textsuperscript{nd} derivatives of \textbf{Savitzky-Golay (S-G) filtered} power spectra. 
 \\S-G filtering smoothes noisy fluctuations while preserving peak characteristics.\textsuperscript{[8]}
 \\We also extended this approach to derive \textbf{centre of gravity (CoG)} estimates of IAF.
 }
@@ -114,15 +113,15 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
 \textbf{\textsc{Algorithm}}
 \\The routine is summarised in the flow diagram opposite.
 \\To register as a PAF, peaks must exceed a background spectral noise threshold and a secondary peak threshold. Number of estimates for averaging can also be thresholded.
-\\ \emph{restingIAF} has EEGLAB and Python implementations.
+\\ \emph{restingIAF} has MATLAB and Python implementations.
 \\[.25cm]
 \textbf{\textsc{Empirical Data}}
-\\63 healthy adults (42 females; age range: 18-74 yrs).
+\\63 healthy adults (42 females; age range: 18--74 yrs).
 \\2 min eyes-closed EEG recorded pre/post experiment.
-\\PAF and CoG distributions and correlations analysed.
+\\PAF/CoG distributions and correlations analysed.
 \\[.25cm]
 \textbf{\textsc{Simulation Data}}
-\\Gaussian-distributed alpha components synthesised and embedded within pink noise signal. Component dispersal (\textbf{$\alpha$}) and signal-to-noise ratio (\textbf{SNR}) parametrically varied. PAF/CoG compared to \textbf{local maximum (LM)} detection.
+\\Gaussian-distributed alpha components synthesised and embedded within a pink noise signal. Component dispersal (\textbf{$\alpha$}) and signal-to-noise ratio (\textbf{SNR}) parametrically varied. PAF/CoG compared to \textbf{local maximum (LM)} detection.
 
 }
 
@@ -133,9 +132,11 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
 \headerbox{Key Findings}{name=results,span=2,column=2}{
 
 \includegraphics[clip, trim=1cm 0cm 1cm 0cm, width=\textwidth]{empir.eps}
-
+\hrule
+\medskip
 \includegraphics[clip, trim=1.5cm 0cm 1.5cm 0cm, width=0.5\textwidth]{snr_015.eps}
 \includegraphics[clip, trim=1.4cm 0cm 1.4cm 0cm, width=0.5\textwidth]{snr_040.eps}
+
 }
 
 \headerbox{Conclusions}{name=conc,column=2,below=results}{
@@ -152,7 +153,7 @@ We devised an automated routine that estimates \textbf{peak alpha frequency (PAF
   \item[--] Assess performance in children
   \item \textbf{\textsc{Later:}}
   \item[--] Develop GUI for EEGLAB
-  \item[--] Automate parameter settings
+  \item[--] Automate S-G filter settings
   \end{todolist}
 }
 
