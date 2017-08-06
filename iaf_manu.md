@@ -1,7 +1,7 @@
 ---
 title: "Towards a reliable, automated method of individual alpha frequency (IAF) quantification"
 author:
-- Andrew W. Corcoran^a,b^, Phillip M. Alday^c,b^, Matthias Schlesewsky^b^, 
+- Andrew W. Corcoran^a,b^, Phillip M. Alday^c,b^, Matthias Schlesewsky^b^,
 - Ina Bornkessel-Schlesewsky^b^
 
 bibliography: libraryAC.bib
@@ -22,9 +22,9 @@ abstract: "Individual alpha frequency (IAF) is a promising electrophysiological 
 
 **Keywords**: Individual alpha frequency; Peak frequency; Centre of gravity; Alpha rhythm; Posterior dominant rhythm; Savitzky-Golay filter
 
-^a^Cognition & Philosophy Laboratory, School of Philosophical, Historical and International Studies, Clayton, VIC 3800, Australia 
+^a^Cognition & Philosophy Laboratory, School of Philosophical, Historical and International Studies, Clayton, VIC 3800, Australia
 
-^b^Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill, SA 5072, Australia 
+^b^Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill, SA 5072, Australia
 
 ^c^Max Planck Institute for Psycholinguistics, Nijmegen, 6500 AH, The Netherlands
 
@@ -41,10 +41,10 @@ According to this body of literature, the frequency at which alpha-generating ne
 IAF is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
 Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], and show reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013] in comparison to their high-IAF counterparts.
 IAF decreases with age from young adulthood onwards [@chiang2011;@klimesch1999;@kopruner1984;@obrist1979], hence lifelong changes in IAF accompany the well-known decline of many cognitive abilities in older adulthood [e.g. @hedden2004;@salthouse2011].
-Taken together, this evidence suggests that IAF constitutes a promising neurophysiological marker of certain fundamental properties of central nervous system functioning [@grandy2013;@grandy2013a].
+Taken together, this evidence suggests that IAF constitutes a promising neurophysiological marker of certain fundamental properties of central nervous system information processing [@grandy2013;@grandy2013a].
 
 In addition to accounting for interindividal variation in alpha-band oscillatory dynamics, tuning frequency bands in accordance with the IAF may help to sharpen the precision of frequency domain analysis more broadly [@klimesch2012].
-Taking the IAF as an anchor point separating subregions of the alpha band has helped to reveal functional dissociations between distinct alpha-rhythms [@klimesch1997], and offers a empirically-driven approach to the definition of the canonical frequency bands [@klimesch2012].
+Taking the IAF as an anchor point that separates subregions of the alpha band has helped to reveal functional dissociations between distinct alpha-rhythms [@klimesch1997], and offers an empirically-driven approach to the definition of the canonical frequency bands [@klimesch2012].
 Despite the apparent advantages of IAF-guided frequency domain analysis, however, no consensus currently exists as to the optimal method for quantifying IAF.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices in the IAF literature; namely, peak alpha frequency and alpha frequency centre of gravity.
 We begin by surveying various ways in which these measures have been operationalised and implemented in previous research, and highlight some of the problematic aspects of these methods.
@@ -56,7 +56,7 @@ This expression can be formalised in terms of the local (i.e. relative) maximum 
 $$ \text{PAF} =  
 \begin{cases}
 \text{arg}\max_{f \in  \text{alpha band}} \text{PSD}(f), & \text{PSD}(f) - \text{PSD}(f') > \varphi \, \forall f' \neq f \\
-\text{undefined}, & \text{otherwise} 
+\text{undefined}, & \text{otherwise}
 \end{cases}
 $$
 
@@ -151,12 +151,14 @@ Indeed, this phenomenon might go some way to explaining the substantial discrepa
 <!---
 IBS: Based on recent theoretical approaches to the alpha rhythm, one reason for this might be that alpha synchronisation or desynchronisation is not a global all-or-nothing phenomenon, but that the alpha rhythm synchronises in task-irrelevant cortical regions (reflecting inhibition) and desynchronises in task-relevant cortical regions (reflecting release from inhibition), e.g. Klimesch (2012)
 AC: this is an interesting point, do you want me to integrate it in the above paragraph ? it also seems germane to the points raised in the following paragraph, i think, since altering a task will presumably alter the pattern of (de)synchronisation
+IBS: Rereading this section now, I think it's fine as is. The point about different task effects is sufficient here, I think. I have inserted a brief remark and reference to Klimesch and Jensen in the following para, but I don't think we need to go into more detail.
 -->
 
 A related concern deriving from the CRB method's reliance on phasic changes in rhythmic activity is the possibility that within-subject estimates of IAF might vary depending on the specific processing mode evoked by the event (e.g., target discrimination vs. memory retrieval; visual vs. auditory modality), and the relative timing of the reference/test intervals subjected to spectral analysis.
 ERD studies have revealed that both the qualitative profile and temporal course of alpha- and theta-band desynchronisation are contingent upon the particular nature of the task used to induce oscillatory power shifts [@klimesch2006; @klimesch2007].
 If different paradigms do precipitate distinct patterns of ERD during the selected test interval [or indeed, *enhance* rather than attenuate the alpha rhythm; e.g., @kreitman1965; @rihs2007], then the ensuing responsiveness regions used to define the coverage of the CoG estimate will span non-identical frequency bands [cf. @haegens2014, for evidence of analogous intraindividual shifts in PAF as a function of varying task conditions].
-While this property of the CRB method need not be a problem for ERD-type applications (indeed, sensitivity to such selective changes in band power might prove theoretically interesting and productive in this context), it renders the approach less suited to the task of estimating the IAF as a marker of stable, trait-like differences in information processing capacities.
+This property of the CRB method need not be a problem for ERD-type applications – and indeed, sensitivity to such selective changes in band power might prove theoretically interesting and productive in this context [cf. @klimesch2012;@jensen2010, for reviews of alpha ERD/ERS changes related to specific task demands].
+However, it renders the approach less suited to the task of estimating the IAF as a marker of stable, trait-like differences in information processing capacities.
 
 ## Automated curve-fitting approaches to alpha rhythm quantification
 Finally, we turn briefly to a promising line of research that attempts to quantify the spectral features of EEG data, and in particular spectral peaks, by means of statistical curve-fitting techniques.
@@ -168,9 +170,9 @@ Lodder and van Putten reported that higher degrees of estimate accuracy (i.e. ag
 
 Given the obvious advantages of automated analysis tools, it is somewhat puzzling that these curve-fitting techniques do not yet appear to have gained widespread currency in the contemporary IAF literature [although cf. Haegens and colleagues, -@haegens2014, for a notable counterexample].
 For instance, neither Goljahani and colleagues [-@goljahani2012] nor Bazanova and Vernon [-@bazanova2014] mention the development of such algorithms in their reviews of IAF methods.
-One possibility is that many researchers are simply unaware of the existence of these methods, since their application to date has been predominantly focused on spectral modeling, rather than the quantification of IAF per se.
+One possibility is that many researchers are simply unaware of the existence of these methods, since their application to date has been predominantly focused on spectral modelling, rather than the quantification of IAF per se.
 An alternative explanation is that researchers deem these methods too complex to be a worthwhile investment of their time (especially if quantifying IAF is only an intermediary step within a broader analysis framework, rather than the main topic of inquiry).
-This attitude might be reinforced by the additional burden involved in obtaining and implementing an algorithm that may have been written in an unfamiliar programming language, and which poses nontrivial challenges with respect to integration within existing analysis pipelines.
+This attitude might be reinforced by the additional burden involved in obtaining and implementing an algorithm that may have been written in an unfamiliar programming language, and which poses nontrivial challenges with respect to integration with existing analysis pipelines.
 We suggest then that one of the critical steps towards achieving a more widespread adoption of automated IAF estimation routines is to make these tools as openly available as possible, in formats that are easy to assimilate within popular methods of EEG data analysis.
 
 ## Aims of the present study
@@ -255,7 +257,7 @@ Having defined both the height and width of the putative alpha peak by means of 
 
 $$ Q = \frac{\int_{i_1}^{i_2} \text{PSD}(f)\; df } { i_2 - i_1 } , $$
 
-where $Q$ is the scaled average power within the peak interval $[i_1,i_2]$. 
+where $Q$ is the scaled average power within the peak interval $[i_1,i_2]$.
 (In a very strict sense, $Q$ is the mean value of the power spectral density function on the peak interval as given by the Mean Value Theorem.)
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
 Given equal values of $\int_{i_1}^{i_2}f(x)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts.
@@ -305,7 +307,7 @@ Examples of what we consider to be reasonable parameter values are outlined in S
 \begin{figure}
 (a)
 \centering
-\includegraphics[width=0.7\textwidth]{figs/decision_flow1.pdf} 
+\includegraphics[width=0.7\textwidth]{figs/decision_flow1.pdf}
 \caption{Flow diagrams summarising key steps of the analysis pipeline. The first diagram (a) depicts processing of individual channel data. These channel-wise estimates are then averaged according to the process described in the second diagram (b). See main text for details. {\it PSD}: power spectral density; {\it f range}: frequency bins to be included in analysis; {\it P}: spectral power estimate; {\it min}: minimal power estimate necessary for qualification as a putative peak; {\it pDiff}: minimal power difference necessary for qualification as a PAF; {\it Q weights}: quantification of peak quality; {\it cMin}: minimum number of channel estimates required for cross-channel averaging; {\it IAW}: individualised alpha-band window; $f_1$ and $f_2$: lower and upper frequency bounds of IAW; $PAF_M$: mean PAF estimate; $CoG_M$: mean CoG estimate; $IAF_M$: $PAF_M$ or $CoG_M$; $IAF_{GA}$: grand averaged PAF/CoG estimate.}
 \end{figure}
 
@@ -400,7 +402,7 @@ Datasets exceeding 120 s were trimmed to this duration in order to reduce variab
 Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. These data were collected as part of a separate EEG protocol.
 
 The length of the Hamming window implemented in `pwelch` was set at 1024 samples (4 times the sampling rate raised to the next power of 2), which yielded a frequency resolution of ~0.24 Hz.
-This sliding window was applied with 50% overlap. 
+This sliding window was applied with 50% overlap.
 The bounds of the alpha-band window $W_\alpha$ were set at 7 and 13 Hz.
 Width of the SGF sliding window $F_w$ was set at 11 samples (i.e. frequency bins), corresponding to a frequency span of ~2.69 Hz.
 A fifth-degree polynomial was selected as the curve-fitting parameter $k$.
@@ -421,7 +423,7 @@ Synthetic resting-state EEG data were generated by combining a sine wave time se
 This latter background or pink noise series was produced using the `pinknoise` MATLAB function [@zhivomirov2013].
 This programme works by generating a vector of Gaussian-distributed random values, transforming this series into the frequency domain in order to rescale these samples according to the inverse power-law, and then converting back into the time domain after mean-centring and unity-based normalisation.
 The fabricated pink noise time series was multiplied with the target alpha signal to generate a composite signal, which was then subjected to PSD estimation and smoothing (see [Figure 9](#sim_peaks) for an illustration of the signal generation procedure).
-All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above. <!--- IBS: Above, you refer to a sampling rate of 1000 Hz ...? 
+All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above. <!--- IBS: Above, you refer to a sampling rate of 1000 Hz ...?
 AC: that's correct, but I downsampled to 250 Hz after preprocessing (I mention this in line 389... this is quite common practice it seems, as it helps improve frequency resolution)-->
 
 ![Illustration of the general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly synthesised alpha and pink noise signals, together with their respective power spectral densities (right panels; log-scaled). *Bottom row*: Time series produced by combining the above two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
