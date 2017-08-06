@@ -761,6 +761,9 @@ Although this would be entirely correct had we analysed the composite alpha sign
 Pink noise itself contains a nonuniform distribution of alpha-band components, which our simulation procedure did not take into account.
 As such, our target components were likely to feature some degree of negative skew on account of the relatively higher powered contribution of lower alpha-band frequencies contained within the pink noise signal.
 This of course merely reinforces the point that PAF and CoG estimators summarise different features of the spectral distribution, and therefore need not always converge.
+<!---
+IBS: The paragraph starts out with a comparison of single and split peak scenarios, but never returns to the split peaks. Can we add a sentence or two about these and the respective measures? Indeed, it seems that which measure is 'best' (or more suitable) for split peaks depends on one's favoured definition of IAF in these split cases. Klimesch's group uses the mean of the two peaks in a split scenario (not sure if this is published anywhere, but this is at least what his group used to use internally according to Dietmar), which would seem to favour the CoG estimator as applied here, but I'm not aware of any theoretical motivation for doing it this way ... In any case, it seems to me that the issue is still unresolved theoretically. 
+-->
 
 ## Limitations and future developments
 We aimed to design an accessible, fast, automated routine that calculates reliable PAF and CoG estimates from posterior channel EEG data recorded during short periods of relaxed, eyes-closed wakefulness.
