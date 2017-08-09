@@ -1,7 +1,7 @@
 ---
 title: "Towards a reliable, automated method of individual alpha frequency (IAF) quantification"
 author:
-- Andrew W. Corcoran^a,b^, Phillip M. Alday^c,b^, Matthias Schlesewsky^b^,
+- Andrew W. Corcoran^a,b,\*^, Phillip M. Alday^b,c^, Matthias Schlesewsky^b^,
 - Ina Bornkessel-Schlesewsky^b^
 
 bibliography: libraryAC.bib
@@ -20,13 +20,21 @@ csl: apa.csl
 abstract: "Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function. IAF has been linked with  trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands. In this paper, we describe an automated method for deriving the two most common estimators of IAF: peak alpha frequency (PAF) and centre of gravity (CoG). These indices are calculated from resting-state power spectra that have been smoothed by a Savitzky-Golay filter (SGF). We evaluated the performance characteristics of this SGF analysis routine in both empirical and simulated EEG datasets. Application of the SGF technique to resting-state data from $n=63$ healthy adults resulted in 61 PAF, and 62 CoG estimates. The statistical properties of these estimates were consistent with previous studies. Analysis of simulated electrophysiological signals revealed that the automated SGF routine reliably extracts target alpha components, even under relatively noisy spectral conditions. The routine consistently outperformed a simpler method of automated peak localisation that did not involve spectral smoothing. The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). As such, it affords a convenient opportunity for improving the reliability and replicability of future IAF-related research."
 ---
 
-**Keywords**: Individual alpha frequency; Peak frequency; Centre of gravity; Alpha rhythm; Posterior dominant rhythm; Savitzky-Golay filter
+**Keywords**: Alpha; Individual alpha frequency; Peak frequency; Centre of gravity; Posterior dominant rhythm; Savitzky-Golay filter
 
-^a^Cognition & Philosophy Laboratory, School of Philosophical, Historical and International Studies, Clayton, VIC 3800, Australia
+^a^Cognition & Philosophy Laboratory, School of Philosophical, Historical and International Studies, Monash University, Clayton, VIC 3800, Australia
 
 ^b^Cognitive Neuroscience Laboratory, School of Psychology, Social Work and Social Policy, University of South Australia, Magill, SA 5072, Australia
 
 ^c^Max Planck Institute for Psycholinguistics, Nijmegen, 6500 AH, The Netherlands
+
+^\*^**Corresponding author at**: Cognition & Philosophy Laboratory, Room E672, Menzies Building, 20 Chancellors Walk, Monash University, VIC 3800, Australia
+
+E-mail address: andrew.corcoran1\@monash.edu
+
+**Conflicts of interest**: None. 
+
+**Role of funding source**: This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science. This funding supported the first author while he collected and analysed the empirical EEG dataset reported in this manuscript. The Institute had no influence on the design, analysis, or interpretation of the reported study.
 
 # Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
@@ -36,7 +44,7 @@ Task-irrelevant and potentially interfering connections must concomitantly be in
 The alpha rhythm of the human EEG is thought be the primary carrier of this inhibitory function [@klimesch2007;@klimesch2012;@jensen2010;@jensen2012;@sadaghiani2016], with alpha synchronisation in task-irrelevant regions reflecting inhibition, and alpha desynchronisation in task-relevant regions reflecting release from inhibition [@pfurtscheller2003].
 This account is gaining increasing acceptance over alternative accounts of the alpha rhythm such as the proposal that it reflects cognitive idling [@adrian1934;@pfurtscheller1996].
 
-<!-- AC: I've tried to hack this section down a bit, further revisions welcome -->While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger's seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of interindividual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
+While the importance of the alpha rhythm for cognitive processing has been recognised since Hans Berger's seminal work on the human EEG in the early 20th century [@berger1929; cf. @adrian1934], a more recent line of research has focused on the importance of interindividual variability in resting alpha activity for cognitive processing [cf. @klimesch1999, for a review].
 According to this body of literature, the frequency at which alpha-generating neural circuits predominantly oscillate during relaxed wakefulness (i.e. the individual alpha frequency; IAF) predicts performance across a variety of perceptual [e.g., @cecere2015;@samaha2015] and cognitive [e.g., @bornkessel2004;@clark2004;@klimesch2006] tasks.
 IAF is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974;@malone2014;@posthuma2001;@smit2006] and test-retest reliability [@gasser1985;@kondacs1999;@naepflin2007], while remaining stable across cognitive training interventions [@grandy2013a].
 Individuals with a low IAF process information more slowly [@klimesch1996b;@surwillo1961;@surwillo1963], and show reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013] in comparison to their high-IAF counterparts.
@@ -148,11 +156,6 @@ As such, CRB promises to maximise the potential utility of the CoG as an estimat
 We note however that, much like the peak attenuation technique, CRB estimates may be prone to bias in cases where the ERD task elicits asymmetrical patterns of alpha-band desynchronisation [@klimesch1996b; see also @klimesch1997, for evidence of the dissociation between lower and upper alpha-band reactivity].
 This is because the partial overlap of reference and test spectra that will ensue should the test stimulus fail to evoke comprehensive alpha desynchronisation will restrict the responsiveness region to a limited segment of the alpha band, thus precipitating a narrower (and potentially shifted) index of summation.
 Indeed, this phenomenon might go some way to explaining the substantial discrepancies observed between some of the CRB CoGs reported by Goljahani and colleagues (some of which were extreme by conventional IAF standards; e.g., 14.9 Hz) and the corresponding PAFs derived from the same set of channel data [see Figure 6(d), @goljahani2012].
-<!---
-IBS: Based on recent theoretical approaches to the alpha rhythm, one reason for this might be that alpha synchronisation or desynchronisation is not a global all-or-nothing phenomenon, but that the alpha rhythm synchronises in task-irrelevant cortical regions (reflecting inhibition) and desynchronises in task-relevant cortical regions (reflecting release from inhibition), e.g. Klimesch (2012)
-AC: this is an interesting point, do you want me to integrate it in the above paragraph ? it also seems germane to the points raised in the following paragraph, i think, since altering a task will presumably alter the pattern of (de)synchronisation
-IBS: Rereading this section now, I think it's fine as is. The point about different task effects is sufficient here, I think. I have inserted a brief remark and reference to Klimesch and Jensen in the following para, but I don't think we need to go into more detail.
--->
 
 A related concern deriving from the CRB method's reliance on phasic changes in rhythmic activity is the possibility that within-subject estimates of IAF might vary depending on the specific processing mode evoked by the event (e.g., target discrimination vs. memory retrieval; visual vs. auditory modality), and the relative timing of the reference/test intervals subjected to spectral analysis.
 ERD studies have revealed that both the qualitative profile and temporal course of alpha- and theta-band desynchronisation are contingent upon the particular nature of the task used to induce oscillatory power shifts [@klimesch2006; @klimesch2007].
@@ -401,13 +404,14 @@ Datasets exceeding 120 s were trimmed to this duration in order to reduce variab
 ### IAF analysis parameters
 Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. These data were collected as part of a separate EEG protocol.
 
-The length of the Hamming window implemented in `pwelch` was set at 1024 samples (4 times the sampling rate raised to the next power of 2), which yielded a frequency resolution of ~0.24 Hz.
+The length of the Hamming window implemented in `pwelch` was set at 1024 samples (i.e. 4 times the sampling rate raised to the next power of 2), which yielded a frequency resolution of ~0.24 Hz.
 This sliding window was applied with 50% overlap.
 The bounds of the alpha-band window $W_\alpha$ were set at 7 and 13 Hz.
 Width of the SGF sliding window $F_w$ was set at 11 samples (i.e. frequency bins), corresponding to a frequency span of ~2.69 Hz.
 A fifth-degree polynomial was selected as the curve-fitting parameter $k$.
 
-The minimum power difference parameter was set at $pDiff = .20$. This meant that the largest peak detected within $W_\alpha$ had to register a PSD value at least 20% greater than that of the next largest peak to qualify as the PAF estimate for that channel.
+The minimum power difference parameter was set at $pDiff = .20$. 
+This meant that the largest peak detected within $W_\alpha$ had to register a PSD value at least 20% greater than that of the next largest peak to qualify as the PAF estimate for that channel.
 Although this criterion constitutes an arbitrarily defined threshold, we know of no objective standard (or theoretical rationale) that can be used to guide the determination of this necessary boundary condition.
 However, we consider it a strength of the current approach that this limit must be explicitly defined prior to data analysis, and uniformly applied across all encountered cases.
 
@@ -423,8 +427,7 @@ Synthetic resting-state EEG data were generated by combining a sine wave time se
 This latter background or pink noise series was produced using the `pinknoise` MATLAB function [@zhivomirov2013].
 This programme works by generating a vector of Gaussian-distributed random values, transforming this series into the frequency domain in order to rescale these samples according to the inverse power-law, and then converting back into the time domain after mean-centring and unity-based normalisation.
 The fabricated pink noise time series was multiplied with the target alpha signal to generate a composite signal, which was then subjected to PSD estimation and smoothing (see [Figure 9](#sim_peaks) for an illustration of the signal generation procedure).
-All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above. <!--- IBS: Above, you refer to a sampling rate of 1000 Hz ...?
-AC: that's correct, but I downsampled to 250 Hz after preprocessing (I mention this in line 389... this is quite common practice it seems, as it helps improve frequency resolution)-->
+All synthetic signals were designed to replicate the 250 Hz sampling rate and 2 min duration of the empirical data reported above.
 
 ![Illustration of the general scheme for constructing synthetic resting-state EEG data. *Top and central rows*: 2 s portion of randomly synthesised alpha and pink noise signals, together with their respective power spectral densities (right panels; log-scaled). *Bottom row*: Time series produced by combining the above two signals together (point-by-point multiplication in the time domain). *a.u.*: arbitrary unit.](figs/sim_peaks.png){#sim_peaks}
 
@@ -714,7 +717,7 @@ In any case, given the dearth of research directly comparing these two measures 
 Should it be the case that PAF and CoG track one another almost identically, then only one of these measures need be selected for the remainder of the analysis [as per @jann2010].
 However, it could be the case that PAF and CoG diverge under certain circumstances, the understanding of which may shed light on the nature of the IAF (and alpha-band dynamics more generally).
 It is of course a notable advantage of the present method that it enables researchers to rapidly derive sample-wide estimates of both PAF and CoG, thus furnishing a convenient means of estimator comparison.
-To the best of our knowledge, no other automated technique provides the functionality to simultaneously compute both of these IAF indices.
+To the best of our knowledge, no previously reported automated technique provides the functionality to simultaneously compute both of these IAF indices.
 
 ## Estimation of simulated IAFs
 Our preliminary set of simulation analyses indicated that the SGF technique approached an optimal level of performance when 2 min synthetic signals featured at least 36 s of alpha-band oscillations (SNR = 0.30).
@@ -748,22 +751,20 @@ Corresponding improvements were not realised however in the context of low SNR; 
 
 Of the three IAF estimators examined in these simulation analyses, the CoG was most sensitive to manipulation of the SNR.
 That low SNR simulations should inflict substantial performance decrements is hardly surprising, however, given that the CoG calculation depends upon the spectral characteristics of the entire (individualised) alpha-band interval as manifest across all available channels.
-Not only does low SNR pose nontrivial difficulties in defining the bounds of the alpha interval (thus threatening to introduce noise either by including extraneous data beyond the alpha interval, or conversely by excluding portions of the alpha component from analysis), the relative weakness of the alpha signal means that a higher proportion of background noise contributes to CoG calculation.
+Not only does low SNR pose nontrivial difficulties in defining the bounds of the alpha interval (thus threatening to introduce noise either by including extraneous data from beyond the alpha interval, or conversely by excluding portions of the alpha component from analysis), the relative weakness of the alpha signal means that a higher proportion of background noise contributes to CoG calculation.
 This scenario may be compounded by the fact that the traditional method of computing CoG estimates applies the individualised alpha-band window to (and thus, averages across) all available channels, not just those that contributed to calculation of alpha interval bandwidth (although note that the average number of channels selected to infer this bandwidth remained high even in the doubly challenging conditions posed by the low SNR $\times$ broad component dispersal combination of the single-peak analysis).
 It could be the case then that the central tendency-like properties of the CoG, which might well have underpinned its strong performance in the moderate SNR simulations (where, of the three estimators, it was the least prone to substantial estimate deviation), render it more vulnerable to error when substantive alpha-band activity is relatively sparse.
 It may therefore be a valuable line of future research to investigate whether the performance of the CoG estimator in relatively noisy conditions can be augmented through the development of more robust methods of calculation.
 
-Taking the results of the single- and split-peak simulations together, it is tempting to conclude that the PAF estimator outperforms its CoG counterpart in the former scenario, while the opposite holds true in the latter.
-The CoG estimator tended to underestimate its estimand in the single-peak simulations, even under more favourable spectral conditions.
-Indeed, CoG underestimation actually increased as target components become narrower, which seems counterintuitive assuming such peaks are less difficult to accurately resolve and parameterise.
-This apparent underestimation discrepancy may however be an artifact, insofar as we have assumed that the CoG ought to coincide with the PAF.
-Although this would be entirely correct had we analysed the composite alpha signals alone (on account of the Gaussian nature of their structure), it does not follow that this assumption holds after they have been combined with random pink noise distributions.
-Pink noise itself contains a nonuniform distribution of alpha-band components, which our simulation procedure did not take into account.
-As such, our target components were likely to feature some degree of negative skew on account of the relatively higher powered contribution of lower alpha-band frequencies contained within the pink noise signal.
-This of course merely reinforces the point that PAF and CoG estimators summarise different features of the spectral distribution, and therefore need not always converge.
-<!---
-IBS: The paragraph starts out with a comparison of single and split peak scenarios, but never returns to the split peaks. Can we add a sentence or two about these and the respective measures? Indeed, it seems that which measure is 'best' (or more suitable) for split peaks depends on one's favoured definition of IAF in these split cases. Klimesch's group uses the mean of the two peaks in a split scenario (not sure if this is published anywhere, but this is at least what his group used to use internally according to Dietmar), which would seem to favour the CoG estimator as applied here, but I'm not aware of any theoretical motivation for doing it this way ... In any case, it seems to me that the issue is still unresolved theoretically. 
--->
+Taking the results of the single- and split-peak simulations together, it is tempting to conclude that the PAF estimator outperforms its CoG counterpart in the former scenario, while the opposite is true for the latter.
+Even under relatively favourable spectral conditions, the CoG estimator tended to underestimate the target frequency in the single-peak simulations.
+Indeed, CoG estimates increasingly deviated from the centre frequency of the target component as the latter became narrower, which seems counterintuitive if such peaks ought to be less difficult to resolve and parameterise.
+We suggest however that this tendancy derived from the skewness introduced into the Gaussian-distributed target components when they were combined with the pink noise signal.
+This observation thus reinforces the point that PAF and CoG estimators summarise different features of the spectral distribution, and that they need not always converge.
+Analysis of the split-peak simulations suggests however that the SGF method may still be somewhat prone to PAF estimate distortion when the underlying `pwelch` routine fails to consistently resolve dual subcomponents across channel spectra.
+This finding suggests a more stringent $cMin$ criterion might be advisable to avoid the calculations of PAF that might in fact reflect a more CoG-like average across channels that, due to random noise fluctuations, resolve only one of two (or more) underlying subcomponents.
+In our view, the fact that the SGF approach to PAF estimation does not fully eliminate the methodological and conceptual challenges posed by split-peaks is not so much an intrinsic shortcoming of our technique in particular, but reflects rather a problematic attribute of the PAF in general.
+These data thus lend weight to arguments that the CoG, insofar as it avoids these difficulties, should be preferred over the PAF.
 
 ## Limitations and future developments
 We aimed to design an accessible, fast, automated routine that calculates reliable PAF and CoG estimates from posterior channel EEG data recorded during short periods of relaxed, eyes-closed wakefulness.
@@ -790,7 +791,13 @@ Furthermore, this method is not dependent on phasic alpha-band reactivity, which
 In addition to its obvious advantages from the perspective of analytic replicability and efficiency, our simulations indicate that the method could help to improve the accuracy and precision of future IAF-related research.
 This technique also promises to open up new lines of methodological inquiry, insofar as it facilitates the direct comparison of two prevalent indices of IAF that have for the most part been investigated in isolation of one another.
 
-\break
+\begin{center}
+\textbf{Acknowledgements}
+\end{center} 
+\begin{flushleft}
+We thank Jessica Gysin-Webster and Daniel A. Rogers for their assistance with data collection.
+\end{flushleft}
+
 \begin{center}
 \textbf{References}
 \end{center}
