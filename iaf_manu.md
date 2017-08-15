@@ -103,7 +103,7 @@ Mathematically, we can express the COG as
 
 $$ \text{CoG} = \frac{\int_{f_1}^{f_2} \text{PSD}(f) \cdot f \; df}{\int_{f_1}^{f_2} \text{PSD}(f) \; df}. $$
 
-<!-- AC: ?still need to specify f1/f2 in equation -->Since the CoG is sensitive to the shape of the power distribution within the selected alpha band window, and the precise bandwidth of alpha-rhythm activity varies across individuals, Klimesch and colleagues [-@klimesch1990, see also @klimesch1997] discouraged calculating the CoG according to a fixed index of summation corresponding to some standard, a priori-defined alpha bandwidth (e.g., $f_1$ = 8 Hz, $f_2$ = 13 Hz).
+Since the CoG is sensitive to the shape of the power distribution within the selected alpha band window, and the precise bandwidth of alpha-rhythm activity varies across individuals, Klimesch and colleagues [-@klimesch1990, see also @klimesch1997] discouraged calculating the CoG according to a fixed index of summation corresponding to some standard, a priori-defined alpha bandwidth (e.g., $f_1$ = 8 Hz, $f_2$ = 13 Hz).
 Rather, they recommended computing CoG on the basis of bespoke frequency windows that capture the entire range of the individual's alpha-band activity.
 To this end, Klimesch and colleagues [-@klimesch1990] proposed the following procedure for estimating the IAF bandwidth:
 First, PSD plots are extracted from all EEG channels for each participant and examined for evidence of a clear alpha peak.
@@ -215,7 +215,7 @@ Another way to conceptualise this relationship is to construe the derivative as 
 From this perspective, it becomes clear that the first derivative will be zero (i.e. the slope of the tangent will be horizontal) at any point in the function corresponding to a peak or trough.
 In the case of the former, the derivative will change from a positive value (as the function ascends towards its peak) to a negative value (once the function begins to descend) as the tangent traverses the local maximum.
 As such, positive to negative sign changes (i.e. downward going zero crossings) within the first derivative offer a convenient index of local maxima.
-Conversely, sign changes in the opposite direction (i.e. upward going zero crossings) can likewise be used to identify local minima.^[A lack of sign change, e.g. a positive derivative going to zero then becoming strictly positive again, corresponds to a plateau.]
+Conversely, sign changes in the opposite direction (i.e. upward going zero crossings) can likewise be used to identify local minima.^[A lack of sign change, e.g., a positive derivative going to zero then becoming strictly positive again, corresponds to a plateau.]
 
 ### Savitzky-Golay smoothing and differentiation
 Although Grandy and colleagues [-@grandy2013; -@grandy2013a] correctly observe that searching for downward going zero crossings avoids the problem of arbitrary boundary effects in the absence of any clear alpha peak, they fail to articulate a systematic method for differentiating substantive peaks from trivial fluctuations in the PSD.
@@ -251,19 +251,21 @@ In other words, the second derivative is simply the rate of change of the first 
 Second derivatives are useful for evaluating whether the curvature of a function is concave up (i.e. convex) or concave down at any given value of $x$.
 The transition of a curve's direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
 
-We suggest that the inflection points $f_1$ and $f_2$ on either side of $\text{max } f(x)$ offer a convenient objective standard for evaluating the relative quality of channel peak estimates.
+We suggest that the inflection points $i_1$ and $i_2$ on either side of $\text{max } f(x)$ offer a convenient objective standard for evaluating the relative quality of channel peak estimates.
 The basic idea here is to quantify the area under the peak in such a way that distinguishes stronger (i.e. containing a greater proportion of spectral power) and less variable (i.e. spanning fewer frequency bins) peaks from shallower, broader, or otherwise noisier components.
 Given a set of spectral data from a variety of electrode channels, those PSDs which give rise to higher quality peaks (as operationalised above) are weighted more heavily than their less prominent counterparts, and thus contribute relatively more information when calculating the cross-channel PAF estimate.
 Note that this procedure has no bearing on CoG estimation (since the CoG may be derived from spectra in which no clear evidence of a single alpha peak was detected, and thus for which no inflection point data will be available).
 
 Having defined both the height and width of the putative alpha peak by means of the first and second derivative zero crossings, peak quality is quantified via the following formula:
 
-$$ Q = \frac{\int_{f_1}^{f_2} \text{PSD}(f)\; df } { f_2 - f_1 } , $$
+$$ Q = \frac{\int_{i_1}^{i_2} \text{PSD}(f)\; df } { i_2 - i_1 } , $$
 
-where $Q$ is the scaled average power within the peak interval $[f_1,f_2]$.
+where $Q$ is the scaled average power within the peak interval $[i_1,i_2]$.
+^[Notice that the interval bounded by $[i_1,i_2]$ is distinct from that bounded by $[f_1,f_2]$, the estimated span of the individualised alpha-band window.
+The former yields a narrower frequency range than the latter, and does not take into account secondary peaks within the alpha band.]
 (In a very strict sense, $Q$ is the mean value of the power spectral density function on the peak interval as given by the Mean Value Theorem.)
 Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
-Given equal values of $\int_{f_1}^{f_2}\text{PSD}(f)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts.
+Given equal values of $\int_{i_1}^{i_2}\text{PSD}(f)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts.
 This formulation thus penalises 'less peaky' components by assigning a heavier weighting to those estimates containing evidence of a relatively more dominant spectral peak (see [Figure 6](#q_wts)).
 However, it is perhaps worth emphasising that this calculation only influences PAF estimation in cases where channel data produce divergent PAF estimates (i.e. channel estimate $Q$ weights have no impact on the mean PAF calculated from channels that furnish identical estimates of the peak frequency).
 
@@ -340,7 +342,7 @@ CoG calculation follows the standard procedure described by Klimesch and colleag
 The analysis routine derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide in some cases with the PAF), and searching the first derivative for evidence of the nearest local minimum (1) prior to the left-most peak ($f_1$), and (2) following the right-most peak ($f_2$).
 ^[This contingency allows for the individualised alpha-band window, and thus the CoG, to be estimated even in cases where there is no clear PAF; e.g., in the presence of split-peaks.]
 Since some spectra show a relatively shallow roll-off as the edges of the alpha peak diminish, and thus do not culminate in a local minimum several frequency bins away from the main body of the component structure, we relaxed the requirement for an upward going zero crossing (i.e. evidence of a local minimum) such that the transition into a prolonged shallow gradient is taken as sufficient evidence of the individual alpha bounds $f_1$ or $f_2$.
-This criterion was formalised as follows:<!-- AC: not sure these capture the stipulation that |PSD'(f)| must be < 1 for the equivalent of 1 Hz, i.e. multiple successive bins -->
+This criterion was formalised as follows:
 
 $$f_1 = \text{arg} \max_{f < \text{PAF}} |PSD'(f)| < 1 $$
 $$f_2 = \text{arg} \min_{f > \text{PAF}} |PSD'(f)| < 1 $$
@@ -365,7 +367,7 @@ $$ \text{IAF}_{GA} = \frac{ \text{IAF}_1 \beta_1 + \text{IAF}_2 \beta_2 } {\beta
 
 where either PAF or CoG are substituted in place of IAF, $\beta$ constitutes the weighting afforded to the channel-wise mean estimates derived from each recording, and subscript indices indicate the identity of the EEG recording.
 For PAF estimates, $\beta$ is the number of channels used to estimate PAF$_M$ divided by total number of channels included in the analysis.
-For CoG estimates, $\beta$ is the number of channels used to estimate the mean individualised alpha-band window divided by total number of channels included in the analysis.<!-- AC: Let me know if there are convenient ways of capturing these details in equation format, to reduce need for in-text explication -->
+For CoG estimates, $\beta$ is the number of channels used to estimate the mean individualised alpha-band window divided by total number of channels included in the analysis.
 
 ## Empirical EEG data
 
