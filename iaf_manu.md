@@ -34,7 +34,11 @@ E-mail address: andrew.corcoran1\@monash.edu
 
 **Conflicts of interest**: None.
 
-**Role of funding source**: This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science. This funding supported the first author while he collected and analysed the empirical EEG dataset reported in this manuscript. The Institute had no influence on the design, analysis, or interpretation of the reported study.
+**Role of funding source**: This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science. 
+This funding supported AC while he collected and analysed the empirical EEG dataset reported in this manuscript. 
+The Institute had no influence on the design, analysis, or interpretation of the reported study.
+AC is also supported by an Australian Government Research Training Program (RTP) Scholarship.
+IBS is supported by an Australian Research Council Future Fellowship (FT160100437).
 
 # Introduction
 Oscillatory activity is an inherent property of neurons and neuronal assemblies, and the timing of oscillatory dynamics is thought to encode information [e.g. @buzsaki2004;@fries2005;@vanrullen2016].
