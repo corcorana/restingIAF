@@ -32,7 +32,7 @@ abstract: "Individual alpha frequency (IAF) is a promising electrophysiological 
 
 E-mail address: andrew.corcoran1\@monash.edu
 
-**Conflicts of interest**: None. 
+**Conflicts of interest**: None.
 
 **Role of funding source**: This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science. This funding supported the first author while he collected and analysed the empirical EEG dataset reported in this manuscript. The Institute had no influence on the design, analysis, or interpretation of the reported study.
 
@@ -323,7 +323,7 @@ Examples of what we consider to be reasonable parameter values are outlined in S
 \includegraphics[width=0.7\textwidth]{figs/decision_flow2.pdf}
 \end{figure}
 
-The analysis process can be divided into two main phases: 
+The analysis process can be divided into two main phases:
 First, PAF and individualised alpha-band windows are estimated for each channel included in the analysis (Figure 7(a)).
 Second, estimates are averaged across channels (and grand averaged across recordings, if possible; Figure 7(b)).
 
@@ -415,7 +415,7 @@ The bounds of the alpha-band window $W_\alpha$ were set at 7 and 13 Hz.
 Width of the SGF sliding window $F_w$ was set at 11 samples (i.e. frequency bins), corresponding to a frequency span of ~2.69 Hz.
 A fifth-degree polynomial was selected as the curve-fitting parameter $k$.
 
-The minimum power difference parameter was set at $pDiff = .20$. 
+The minimum power difference parameter was set at $pDiff = .20$.
 This meant that the largest peak detected within $W_\alpha$ had to register a PSD value at least 20% greater than that of the next largest peak to qualify as the PAF estimate for that channel.
 Although this criterion constitutes an arbitrarily defined threshold, we know of no objective standard (or theoretical rationale) that can be used to guide the determination of this necessary boundary condition.
 However, we consider it a strength of the current approach that this limit must be explicitly defined prior to data analysis, and uniformly applied across all encountered cases.
@@ -764,7 +764,7 @@ It may therefore be a valuable line of future research to investigate whether th
 Taking the results of the single- and split-peak simulations together, it is tempting to conclude that the PAF estimator outperforms its CoG counterpart in the former scenario, while the opposite is true for the latter.
 Even under relatively favourable spectral conditions, the CoG estimator tended to underestimate the target frequency in the single-peak simulations.
 Indeed, CoG estimates increasingly deviated from the centre frequency of the target component as the latter became narrower, which seems counterintuitive if such peaks ought to be less difficult to resolve and parameterise.
-We suggest however that this tendancy derived from the skewness introduced into the Gaussian-distributed target components when they were combined with the pink noise signal.
+We suggest however that this tendency derived from the skewness introduced into the Gaussian-distributed target components when they were combined with the pink noise signal.
 This observation thus reinforces the point that PAF and CoG estimators summarise different features of the spectral distribution, and that they need not always converge.
 Analysis of the split-peak simulations suggests however that the SGF method may still be somewhat prone to PAF estimate distortion when the underlying `pwelch` routine fails to consistently resolve dual subcomponents across channel spectra.
 This finding suggests a more stringent $cMin$ criterion might be advisable to avoid the calculations of PAF that might in fact reflect a more CoG-like average across channels that, due to random noise fluctuations, resolve only one of two (or more) underlying subcomponents.
@@ -799,7 +799,7 @@ This technique also promises to open up new lines of methodological inquiry, ins
 
 \begin{center}
 \textbf{Acknowledgements}
-\end{center} 
+\end{center}
 \begin{flushleft}
 We thank Jessica Gysin-Webster and Daniel A. Rogers for their assistance with data collection.
 \end{flushleft}
