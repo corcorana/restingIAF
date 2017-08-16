@@ -16,11 +16,11 @@ See the GNU General Public License (LICENCE.md) for more details.
 Constructive criticism, corrections, and potential improvements are most welcome.
 
 ## Citation
-If this programme was useful for your own work, help raise its profile by citing it: 
+If this programme was useful for your work, please cite the following: 
 
-> Corcoran, A.W. (2017). restingIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restingIAF
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv.
 
-[![DOI](https://zenodo.org/badge/80904585.svg)](https://zenodo.org/badge/latestdoi/80904585)
+[![DOI](https://doi.org/10.1101/176792)]
 
 ## Releases
 Release `v0.1.0` formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
