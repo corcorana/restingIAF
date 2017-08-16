@@ -45,9 +45,9 @@ dataPath = '~/tutorial/saved_data/';
 
 % define required parameters
 n = 2;              % number of subjects for analysis
-cmin = 3;           % minimum number of channel estimates required for cross-channel average (for these data: min == 1, max == 6)
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window
+cmin = 3;           % minimum number of channel estimates required for cross-channel average (for these data: min == 1, max == 6)
 
 % initialise data matrices / structures
 pSpec = struct('chans', [], 'sums', []);
