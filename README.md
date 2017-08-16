@@ -18,9 +18,7 @@ Constructive criticism, corrections, and potential improvements are most welcome
 ## Citation
 If this programme was useful for your work, please cite the following: 
 
-> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv.
-
-[![DOI](https://doi.org/10.1101/176792)]
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv. doi: https://doi.org/10.1101/176792
 
 ## Releases
 Release `v0.1.0` formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
