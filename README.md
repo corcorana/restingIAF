@@ -2,6 +2,7 @@
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
 Repo also contains a manuscript (submitted) outlining rationale for programme development and its performance on simulated and non-simulated datasets.
 An example analysis script (including real EEG data) is also [provided](https://github.com/corcorana/restingIAF/tree/master/code/tutorial).
+We recommend ensuring you can replicate the analysis demonstrated in the tutorial before implementing the package in your own analyses.
 
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
 
