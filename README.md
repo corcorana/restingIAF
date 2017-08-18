@@ -16,9 +16,10 @@ It is distributed WITHOUT WARRANTY; without even the implied warranty of merchan
 See the GNU General Public License (LICENCE.md) for more details.
 
 Constructive criticism, corrections, and potential improvements are most welcome.
+E-mail: andrew.corcoran1\@monash.edu
 
 ## Citation
-If this programme was useful for your work, please cite the following paper: 
+If this software was useful for your work, please cite the following paper: 
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv. doi: https://doi.org/10.1101/176792
 

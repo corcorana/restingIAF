@@ -3,7 +3,6 @@ title: "Towards a reliable, automated method of individual alpha frequency (IAF)
 author:
 - Andrew W. Corcoran^a,b,\*^, Phillip M. Alday^b,c^, Matthias Schlesewsky^b^,
 - Ina Bornkessel-Schlesewsky^b^
-
 bibliography: libraryAC.bib
 output:
   pdf_document:
@@ -13,11 +12,25 @@ output:
     number_sections: yes
     toc: yes
     toc_float: yes
-  word_document:
-    number_sections: yes
-    toc: yes
 csl: apa.csl
-abstract: "Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function. IAF has been linked with  trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands. In this paper, we describe an automated method for deriving the two most common estimators of IAF: peak alpha frequency (PAF) and centre of gravity (CoG). These indices are calculated from resting-state power spectra that have been smoothed by a Savitzky-Golay filter (SGF). We evaluated the performance characteristics of this SGF analysis routine in both empirical and simulated EEG datasets. Application of the SGF technique to resting-state data from $n=63$ healthy adults resulted in 61 PAF, and 62 CoG estimates. The statistical properties of these estimates were consistent with previous studies. Analysis of simulated electrophysiological signals revealed that the automated SGF routine reliably extracts target alpha components, even under relatively noisy spectral conditions. The routine consistently outperformed a simpler method of automated peak localisation that did not involve spectral smoothing. The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). As such, it affords a convenient opportunity for improving the reliability and replicability of future IAF-related research."
+abstract: 'Individual alpha frequency (IAF) is a promising electrophysiological marker
+  of interindividual differences in cognitive function. IAF has been linked with  trait-like
+  differences in information processing and general intelligence, and provides an
+  empirical basis for the definition of individualised frequency bands. Despite its widespread application, however, there is little consensus on the optimal method for estimating IAF, and many existing approaches are prone to various sources of bias and/or inconsistency. In this paper,
+  we describe an automated method for deriving the two most common estimators of IAF: peak alpha frequency (PAF) and centre of gravity (CoG). These indices are calculated
+  from resting-state power spectra that have been smoothed by a Savitzky-Golay filter
+  (SGF). We evaluated the performance characteristics of this SGF analysis routine
+  in both empirical and simulated EEG datasets. Application of the SGF technique to
+  resting-state data from $n=63$ healthy adults resulted in 61 PAF, and 62 CoG estimates.
+  The statistical properties of these estimates were consistent with previous studies.
+  Analysis of simulated electrophysiological signals revealed that the automated SGF
+  routine reliably extracts target alpha components, even under relatively noisy spectral
+  conditions. The routine consistently outperformed a simpler method of automated
+  peak localisation that did not involve spectral smoothing. The SGF technique is
+  fast, open-source, and available in two popular programming languages (MATLAB and
+  Python), and thus can easily be integrated within the most popular M/EEG toolsets
+  (EEGLAB, FieldTrip and MNE-Python). As such, it affords a convenient opportunity
+  for improving the reliability and replicability of future IAF-related research.'
 ---
 
 **Keywords**: Alpha; Individual alpha frequency; Peak frequency; Centre of gravity; Posterior dominant rhythm; Savitzky-Golay filter
