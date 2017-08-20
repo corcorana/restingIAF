@@ -40,6 +40,7 @@ function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, varargin)
 %   tlen = length of taper window applied by `pwelch` (default = 4*Fs)
 %   tover = length of taper window overlap in samples (default = 50% window length)
 %   nfft = specify number of FFT points used to calculate PSD (default = next power of 2 above window length)
+%   norm = normalise power spectra (default = true)
 
 %% setup inputParser
 p = inputParser;
@@ -82,7 +83,11 @@ p.addOptional('tover', [],...
                 {'integer', 'positive'}));
 p.addOptional('nfft', [],...
                 @(x) validateattributes(x, {'numeric'}, ...
-                {'integer', 'positive'}));           
+                {'integer', 'positive'}));
+p.addOptional('norm', 1,...
+                @(x) validateattributes(x, {'logical'}, ...
+                {'scalar'}));
+            
 p.parse(data, nchan, cmin, fRange, Fs, varargin{:})
 
 w = p.Results.w;
@@ -93,6 +98,7 @@ mdiff = p.Results.mdiff;
 tlen = p.Results.tlen;
 tover = p.Results.tover;
 nfft = p.Results.nfft;
+norm = p.Results.norm;
 %%
 
 pChans = struct('pxx', [], 'minPow', [], 'd0', [], 'd1', [], 'd2', [], 'peaks', [], 'pos1', [], 'pos2', [], 'f1', [], 'f2', [], 'inf1', [], 'inf2', [], 'Q', [],'Qf', [], 'gravs', [], 'selP', [], 'selG', [] );      % struct for channel data (PSD estimates & derivatives, some additional info)
@@ -107,8 +113,12 @@ for kx = 1:nchan
 	pxx = pxx(frex);      % truncate PSD to frex range
 
    	% normalise truncated PSD
-   	pChans(kx).pxx = pxx / mean(pxx);            
-            
+   	if norm == 1
+        pChans(kx).pxx = pxx / mean(pxx);            
+    else
+        pChans(kx).pxx = pxx;
+    end
+    
   	% calculate minPower vector
   	[pfit, sig] = polyfit(f, log10(pChans(kx).pxx), 1);     % fit 1st order poly (regression line) to normalised spectra (log-scaled)
     [yval, del] = polyval(pfit, f, sig);                    % derive yval coefficients of fitted polynomial and delta (std dev) error estimate

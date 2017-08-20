@@ -81,7 +81,7 @@ for k = lower_alpha-1:upper_alpha+1             % step through frequency bins in
       	negZ(cnt,1) = cnt;          % zero-crossing (i.e. peak) count
         negZ(cnt,2) = maxim;        % keep bin index for later
       	negZ(cnt,3) = f(maxim);     % zero-crossing frequency            
-     	negZ(cnt,4) = d0(maxim);    % power estimate (original signal - as smoothing will diminish)
+     	negZ(cnt,4) = d0(maxim);    % power estimate
     end
 end
     

@@ -41,7 +41,7 @@ end
 pop_editoptions('option_single', 0);
 
 % define path to the data files
-dataPath = '~/tutorial/saved_data/';
+dataPath = '~/tutorial/datasets/';
 
 % define required parameters
 n = 2;              % number of subjects for analysis
