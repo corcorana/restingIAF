@@ -1,4 +1,4 @@
-function [sig, rdm] = simSNR(ts, frex, snr, n)
+function [y, rdm] = simSNR(ts, frex, snr, n)
 % Create simulation data for PAF estimation under varied SNR conditions.
 % Combines two vectors (target component signal and pink noise signal).
 % Depends on `pinknoise` function to generate 1/f distributed noise signal.
@@ -9,7 +9,7 @@ function [sig, rdm] = simSNR(ts, frex, snr, n)
 %
 %%
 % Outputs:
-%   sig       = matrices of time series data (rows) for each simulation
+%   y       = matrices of time series data (rows) for each simulation
 %               - 1st dim = alpha signal centred at a randomly selected freq
 %               - 2nd dim = randomly generated pink noise signal
 %               - 3rd dim = combined signal (multiplied in time domain)
@@ -31,14 +31,14 @@ rng(812, 'twister');                            % rng set to replicate original 
 rdm = frex(randsample(1:length(frex), n, true));      
 
 % create mean centred / unity normalised alpha, pink, and combined signals
-sig = zeros(n, length(ts), 3);
+y = zeros(n, length(ts), 3);
 for Fc = 1:n
     sig = sin(2*pi*rdm(Fc).*ts);
     sig = sig - mean(sig);
     rms = sqrt(mean(sig.^2));
-    sig(Fc,:,1) = sig/rms;
-    sig(Fc,:,2) = pinknoise(length(ts));
-    sig(Fc,:,3) = [sig(Fc,a_pnts,1), unity].*sig(Fc,:,2);
+    y(Fc,:,1) = sig/rms;
+    y(Fc,:,2) = pinknoise(length(ts));
+    y(Fc,:,3) = [y(Fc,a_pnts,1), unity].*y(Fc,:,2);
 end
 
 

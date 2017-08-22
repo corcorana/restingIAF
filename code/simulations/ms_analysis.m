@@ -60,6 +60,9 @@ for ix = 1:8
     peaks(:, ix, 2) = [simSnr(ix).maxi(:).a];
 end
 
+failLm1 = sum(isnan(peaks(:,:,2)));
+failSg1 = sum(isnan(peaks(:,:,1)));
+
 % root mean squared error (Hz) of PAF estimates
 rmseLm1 = sqrt(nanmean(bsxfun(@minus, peaks(:,:,2), rdm').^2));
 rmseSg1 = sqrt(nanmean(bsxfun(@minus, peaks(:,:,1), rdm').^2)); 
@@ -74,14 +77,13 @@ devBinLm = sum(abs(errLm1(:,2:9))>.24);
 errSg1 = [[1:1000]' bsxfun(@minus, peaks(:,:,1), rdm')];
 devBinSg = sum(abs(errSg1(:,2:9))>.24);
 
-
 % print to console
-tab1 = [peaks(:,:,1);peaks(:,:,2); rmseLm1;rmseSg1; mDiffLm1;mDiffSg1;mDiffCg2; devBinLm;devBinSg]
-
+tab1a = [1000-failLm1;1000-failSg1]
+tab1b = [rmseLm1;rmseSg1; mDiffLm1;mDiffSg1; devBinLm;devBinSg]
 
 % breakdown LM SNR = 0.05 devBin by magnitude of deviation
-sum(abs(errLm1(:,2:9))>=1 & abs(errLm1(:,2:9))<2.6)
-sum(abs(errLm1(:,2:9))>2.5)
+sum(abs(errLm1(:,2:9))>=1 & abs(errLm1(:,2:9))<2.6);
+sum(abs(errLm1(:,2:9))>2.5);
 
 
 % figure 16: boxplots comparing LM/SGF estimate error across SNR levels
@@ -143,7 +145,7 @@ for ix = 1:4
     subplot(2,4,ix)
     plot(f, simSnr(ix).chans(indvec(ix)).pxx, 'Color', [0 .3 .7], 'LineWidth',2)
     hold on
-    plot(f, simSnr(ix).chans(indvec(ix)).d0, 'LineWidth',2)
+    plot(f, simSnr(ix).chans(indvec(ix)).d0,  'Color', [1 .2 0], 'LineWidth',2)
     xlim([3 17])
     ylim([0 15])
     title(titvec{ix})
@@ -156,7 +158,7 @@ for ix = 5:8
     subplot(2,4,ix)
     plot(f, simSnr(ix).chans(indvec(ix)).pxx, 'Color', [0 .3 .7], 'LineWidth',2)
     hold on
-    plot(f, simSnr(ix).chans(indvec(ix)).d0, 'LineWidth',2)
+    plot(f, simSnr(ix).chans(indvec(ix)).d0, 'Color', [1 .2 0], 'LineWidth',2)
     xlim([3 17])
     ylim([0 25])
     title(titvec{ix})
