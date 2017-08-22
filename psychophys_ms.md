@@ -3,18 +3,18 @@ title: "Towards a reliable, automated method of individual alpha frequency (IAF)
 author:
 - Andrew W. Corcoran^a,b,\*^, Phillip M. Alday^b,c^, Matthias Schlesewsky^b^,
 - Ina Bornkessel-Schlesewsky^b^
-geometry: margin = 2cm
-header-includes:
-  - \usepackage{setspace}
-  - \doublespacing
-  - \usepackage{lineno}
-  - \linenumbers
-bibliography: libraryAC.bib
+csl: apa.csl
 output:
+  word_document: default
   pdf_document:
     number_sections: yes
-csl: apa.csl
- 
+header-includes:
+- \usepackage{setspace}
+- \doublespacing
+- \usepackage{lineno}
+- \linenumbers
+geometry: margin = 2cm
+bibliography: libraryAC.bib
 ---
 
 ^a^Cognition & Philosophy Laboratory, School of Philosophical, Historical and International Studies, Monash University, Clayton, VIC 3800, Australia
