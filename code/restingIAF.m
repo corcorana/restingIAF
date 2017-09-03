@@ -137,7 +137,7 @@ for kx = 1:nchan
 end
         
 % estimate gravities for smoothed spectra (average IAF window across channels)
-[ gravs, selG ] = chanGravs([pChans(:).d0], f, [pChans(:).f1], [pChans(:).f2] );
+[ gravs, selG, iaw ] = chanGravs([pChans(:).d0], f, [pChans(:).f1], [pChans(:).f2] );
 
 % calculate average pt estimates/spectra across k-th channels for each j-th recording
 [ selP, pSum ] = chanMeans(gravs, selG, [pChans(:).peaks], [pChans(:).Qf], cmin); 
@@ -152,6 +152,6 @@ end
 % get total number of chans that contributed to PAF/CoG estimation
 pSum.pSel = sum(selP);
 pSum.gSel = sum(selG);
-
+pSum.iaw = iaw;
 
 end
