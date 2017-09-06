@@ -5,6 +5,8 @@ Materials required to replicate the simulation analyses reported in the manuscip
 A [tutorial](https://github.com/corcorana/restingIAF/tree/master/code/tutorial) analysis routine (including sample EEG data) is provided to familiarise you with various features of the package.
 If you experience any difficulties implementing `restingIAF`, please attempt to replicate the analysis detailed in the [tutorial readme](https://github.com/corcorana/restingIAF/tree/master/code/tutorial/tute_README.md) before contacting us for assistance.
 
+NOTE: All functions were developed and tested in MATLAB 2014/2015, and may not be backward compatible with older versions of MATLAB. The algorithm is also dependent on the Signal Processing Toolbox.
+
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
 
 Software developed in collaboration with Dr. Phillip Alday, Prof. Matthias Schlesewsky, & Prof. Ina Bornkessel-Schlesewsky, University of South Australia Cognitive Neuroscience Laboratory.
