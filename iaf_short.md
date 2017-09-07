@@ -96,7 +96,7 @@ While this strategy does not solve the basic problem of deciding the criteria by
 Simple algorithms may however introduce new sources of bias.
 For instance, a basic routine that searches for local maxima within the alpha band may arbitrarily assign the PAF to the lower bound of the search window in the absence of any distinct deviation from the inverse-power law.
 A more sophisticated implementation [e.g., the first-derivative test procedure, where the first derivative of the PSD is searched for downward going zero crossings; cf. @grandy2013a] obviates this error, but is incapable of distinguishing a substantive peak from split-peak or arbitrarily small deviation from background spectral activity.
-Such routines may therefore be too liberal in the estimates that class as spectral peaks.
+Such routines may therefore be too liberal in the estimates that they classify as spectral peaks.
 
 ## Alpha-band centre of gravity and reactivity
 Klimesch, Schimke, and Pfurtscheller [-@klimesch1993; see also @klimesch1997] proposed the CoG estimator as an alternative to PAF that circumvents some of the difficulties posed by the absence of a dominant alpha peak.
