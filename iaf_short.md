@@ -25,9 +25,9 @@ bibliography: libraryAC.bib
 
 \begin{flushleft}
 \textsuperscript{a}Cognition and Philosophy Laboratory, Monash University, Melbourne, Australia.
-\linebreak 
+\linebreak
 \textsuperscript{b}Centre for Cognitive and Systems Neuroscience, University of South Australia, Adelaide, Australia.
-\linebreak 
+\linebreak
 \textsuperscript{c}Max Planck Institute for Psycholinguistics, Nijmegen, 6500 AH, The Netherlands.
 \linebreak
 \linebreak
@@ -35,11 +35,11 @@ bibliography: libraryAC.bib
 \linebreak
 Email: andrew.corcoran1@monash.edu
 \linebreak
-Telephone: +61 (3) 9905 9166 
+Telephone: +61 (3) 9905 9166
 \linebreak
 \linebreak
-\textbf{Funding} This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science. 
-This funding supported AWC while he collected and analysed the empirical EEG dataset reported in this manuscript. 
+\textbf{Funding} This work was partially supported by funding from the University of South Australia Ehrenberg-Bass Institute for Marketing Science.
+This funding supported AWC while he collected and analysed the empirical EEG dataset reported in this manuscript.
 The Institute had no influence on the design, analysis, or interpretation of the reported study.
 AWC is supported by an Australian Government Research Training Program (RTP) scholarship.
 IBS is supported by an Australian Research Council Future Fellowship (FT160100437).
@@ -50,18 +50,18 @@ IBS is supported by an Australian Research Council Future Fellowship (FT16010043
 \begin{center}
 \textbf{Abstract}
 \end{center}
-Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function. 
-IAF has been linked with trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands. 
-Despite its widespread application, however, there is little consensus on the optimal method for estimating IAF, and many existing approaches are prone to various sources of bias and/or inconsistency. 
+Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function.
+IAF has been linked with trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands.
+Despite its widespread application, however, there is little consensus on the optimal method for estimating IAF, and many existing approaches are prone to various sources of bias and/or inconsistency.
 We describe an automated method for deriving the two most common estimators of IAF: peak alpha frequency (PAF) and centre of gravity (CoG).
-These indices are calculated from resting-state power spectra that have been smoothed by a Savitzky-Golay filter (SGF). 
-We evaluated the performance characteristics of this SGF analysis routine in both empirical and simulated EEG datasets. 
+These indices are calculated from resting-state power spectra that have been smoothed by a Savitzky-Golay filter (SGF).
+We evaluated the performance characteristics of this SGF analysis routine in both empirical and simulated EEG datasets.
 Application of the SGF technique to resting-state data from $n$=63 healthy adults resulted in 61 PAF, and 62 CoG estimates.
-The statistical properties of these estimates were consistent with previous studies. 
-Analysis of simulated electrophysiological signals revealed that the automated SGF routine reliably extracts target alpha components, even under relatively noisy spectral conditions. 
-The routine consistently outperformed a simpler method of automated peak localisation that did not involve spectral smoothing. 
-The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python). 
-As such, it affords a convenient opportunity for improving the reliability and replicability of future IAF-related research. 
+The statistical properties of these estimates were consistent with previous studies.
+Analysis of simulated electrophysiological signals revealed that the automated SGF routine reliably extracts target alpha components, even under relatively noisy spectral conditions.
+The routine consistently outperformed a simpler method of automated peak localisation that did not involve spectral smoothing.
+The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python).
+As such, it affords a convenient opportunity for improving the reliability and replicability of future IAF-related research.
 \linebreak
 \begin{flushleft}
 \textbf{Keywords:} Alpha Rhythm, EEG, Oscillation/Time Frequency Analyses, Savitzky-Golay Filter, Individual Alpha Frequency
@@ -117,8 +117,8 @@ We suggest that one of the critical steps towards achieving a more widespread ad
 
 ## Aims of the present study
 In sum, common methodological approaches to IAF estimation are either time-consuming and vulnerable to inconsistencies arising from subjective interpretation, or at risk of producing spurious or biased estimates under certain plausible spectral conditions.
-More recent innovations that address these problems via the application of sophisticated curve-fitting algorithms have so far found limited uptake within the broader IAF literature, perhaps on account of practical barriers pertaining to software access and implementation. 
-Consequently, we sought to develop an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of resting-state IAF in two major programming languages: MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and Python&trade;. 
+More recent innovations that address these problems via the application of sophisticated curve-fitting algorithms have so far found limited uptake within the broader IAF literature, perhaps on account of practical barriers pertaining to software access and implementation.
+Consequently, we sought to develop an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of resting-state IAF in two major programming languages: MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and Python&trade;.
 This goal is consistent with recent proposals to make the analysis of cognitive electrophysiological data as open, transparent, and amenable to replication as possible [@cohen2017].
 
 # Method
@@ -144,7 +144,7 @@ The idea here is to calculate a weighted average, such that channels with the st
 We consider this strategy an acceptible trade-off between the loss of information incurred by higher rates of channel exclusion vs. the additional error incurred by including less precise estimates in the calculation of cross-channel summary statistics.
 
 We quantified the relative quality of channel PAF estimates by calculating the area under the peak bounded by the inflection points either side of it (identified via the second-derivative test, see Appendix).
-Importantly, this quantity was scaled by the frequency interval spanning the inflection points. 
+Importantly, this quantity was scaled by the frequency interval spanning the inflection points.
 This procedure thus affords an indication of the relative quality of the resolved peak in terms of how well its distributional characteristics conform to the ideal of a higher powered, less varied (i.e. narrower) peak (as opposed to broader and/or shallower counterparts).
 Note, this procedure had no bearing on the calculation of the CoG, which aims to characterise the distributional properties of spectral activity within the IAW.
 
@@ -209,7 +209,7 @@ Following artifact rejection, EOG channels were excluded, and remaining channels
 Datasets exceeding 120 s were trimmed to this duration in order to reduce variability in the quantity of data analysed per participant.
 
 ### IAF analysis parameters
-Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data. 
+Initial parameters for the IAF analysis were determined on the basis of preliminary testing with an independent set of resting-state data.
 These data were collected as part of a separate EEG protocol.
 
 We implemented `pwelch` with a 1024 sample Hamming window (i.e. 4 times the sampling rate raised to the next power of 2), yielding a frequency resolution of ~0.24 Hz (window overlap was 50% by default).
@@ -249,7 +249,7 @@ This yielded a dataset of 9 synthetic 'channels' each comprised of identical alp
 This enabled us to examine how our algorithm's channel exclusion and averaging procedures performed under varying levels of SNR and peak dispersal.
 
 As per the preliminary analysis, we compared the performance of the SGF-generated PAF estimates against those produced by the LM procedure.
-For the latter, the optimisation function was applied to the mean PSD calculated for each set of simulated channel data. 
+For the latter, the optimisation function was applied to the mean PSD calculated for each set of simulated channel data.
 The simulation of broader alpha-band components also afforded the opportunity to assess the quality of CoG estimates furnished by the SGF routine.
 
 Finally, we repeated the multi-channel simulations using a set of alpha signals sampled via a bimodal Gaussian window.
