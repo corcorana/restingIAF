@@ -30,7 +30,7 @@ A specific version of the software can be cited as:
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF. [![DOI](https://zenodo.org/badge/80904585.svg)](https://zenodo.org/badge/latestdoi/80904585)
 
-Each new version release is issued with a unique doi from [Zenodo](https://zenodo.org/account/settings/github/repository/corcorana/restingIAF#).
+Each new version release is issued with a unique doi from [Zenodo](https://zenodo.org/record/846797#.WbEh4a2B2fQ).
 
 
 ## Releases
