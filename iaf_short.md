@@ -228,8 +228,8 @@ In the event that only one of the paired recordings satisfied $cMin$, grand aver
 
 ### Single component simulations
 As an initial proof of concept, we analysed the performance of the SGF routine in extracting target alpha frequency components embedded within noisy time series.
-These composite signals were created by combining a sine wave oscillating at target frequency $F\alpha$ with a 2 min 'pink noise' signal whose frequency characteristics were scaled to conform to the $1/f$ inverse power-law.
-SNR was manipulated by varying the length of the target signal embedded in the composite time series (e.g., for SNR = 0.5, the first half of the signal would comprise the product of each corresponding sample point from the alpha and noise signals, whereas the second half would comprise only the noise signal).
+These composite signals were created by combining a sine wave oscillating at target frequency $F\alpha$ with a 2 min 'pink noise' signal (i.e. whose frequency characteristics were scaled to conform to the $1/f$ inverse power-law).
+SNR was manipulated by varying the length of the target signal embedded in the composite time series (e.g., for SNR = 0.5, the first half of the signal would comprise the convolution of the alpha and noise signals, whereas the second half would comprise only the noise signal).
 
 We examined PAF estimation at SNR = 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, and 0.50, generating 1000 simulated signals for each SNR level.
 The target frequency was randomly sampled (with replacement) from a frequency vector ranging from 7.5 to 12.5 (iterations of 0.1).
