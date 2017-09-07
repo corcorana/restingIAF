@@ -22,12 +22,19 @@ Constructive criticism, corrections, and potential improvements are most welcome
 E-mail: andrew.corcoran1\@monash.edu
 
 ## Citation
-If this software was useful for your work, please cite the following paper: 
+If this software was useful for your work, please consider citing our methods paper: 
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv. doi: https://doi.org/10.1101/176792
+
+A specific version of the software can be cited as:
+
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF. [![DOI](https://zenodo.org/badge/80904585.svg)](https://zenodo.org/badge/latestdoi/80904585)
+
+Each new version release is issued with a unique doi from [Zenodo](https://zenodo.org/account/settings/github/repository/corcorana/restingIAF#).
+
 
 ## Releases
 `v1.0` was released in conjunction with publication of the bioRxiv preprint.
 
-Release `v0.1.0` formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
+Release `v0.1.0` formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. UPDATE (07/09/2017): This analysis was repeated using `v1.0` prior submission.
 Additional analysis scripts customised for the purposes of this study are included in release `v0.1.1`.
