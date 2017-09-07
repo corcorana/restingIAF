@@ -161,7 +161,7 @@ The following parameters must also be specified in order to execute the algorith
 - $W_\alpha$, the domain of the PSD searched for evidence of peak activity;
 - $minP$, the minimum power value that a local maximum must exceed to qualify as a peak candidate (1 s.d. above the power predicted by regression modeling of the log-transformed PSD);
 
-\newgeometry{left=0.5cm, top=1.2cm, bottom=1.2cm}
+\newgeometry{left=0.5cm, top=1.2cm, bottom=1.4cm}
 \begin{landscape}
 \begin{figure}
   \begin{centering}
