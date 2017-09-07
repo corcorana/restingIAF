@@ -236,12 +236,12 @@ The target frequency was randomly sampled (with replacement) from a frequency ve
 We compared the SGF routine's capacity to extract these target peaks with a that of a simple peak detection routine designed to locate the local maximum (LM) within $W_\alpha$.
 To avoid spurious estimates at the lower bound of $W_\alpha$, this routine evaluated whether the LM exceeded the estimated power of adjacent frequency bins (making it functionally equivalent to the first-derivative test).
 
-### Multi-channel simulations
+### Mixture and multi-channel simulations
 Next, we investigated the performance of the SGF routine under more ecologically valid spectral conditions.
-This involved creating alpha signals that were comprised of a set of neighbouring frequency components.
-We did this by centering a Gaussian function on a randomly-selected target from the frequency vector described above, and constructing the time series by sampling alpha oscillations up to $\pm$ 2.5 Hz from this target.
-Each alpha oscillatory signal was sampled in proportion to the height of the overlying window function, such that the centre (target frequency) contributed the most sample points.
-The span of the Gaussian window was systematically varied by manipulating the reciprocal of its standard deviation (i.e. $\alpha$, where higher values correspond to narrower distributions).
+This involved creating alpha signals that were comprised of a set of neighbouring frequency components from different channels.
+We did this by sampling an 'actual'/'measured' alpha frequency per channel from a truncated Gaussian distribution centered at the randomly target (selected as for the single component simulation) for each simulated (sub)component (targets chosen uniformly from the standard alpha band, as above).
+The tails of the Gaussian were truncated $\pm$ 2.5 Hz from its mean / target frequency.
+Alpha signals constructed were thus constructed by creating a weighted average of frequencies within this distribution; in other words, a Gaussian blur was applied to the frequency-domain signal in order to generate a mixture of alpha waves in the time domain.
 
 Constructed alpha signals were again combined with random pink noise signals at a specified SNR.
 This time, each composite alpha signal was replicated 9 times, and combined with an independently sampled pink noise signal.
