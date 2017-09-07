@@ -239,9 +239,9 @@ To avoid spurious estimates at the lower bound of $W_\alpha$, this routine evalu
 ### Mixture and multi-channel simulations
 Next, we investigated the performance of the SGF routine under more ecologically valid spectral conditions.
 This involved creating alpha signals that were comprised of a set of neighbouring frequency components from different channels.
-We did this by sampling an 'actual'/'measured' alpha frequency per channel from a truncated Gaussian distribution centered at the randomly target (selected as for the single component simulation) for each simulated (sub)component (targets chosen uniformly from the standard alpha band, as above).
+We did this by sampling an 'actual'/'measured' alpha frequency per channel from a truncated Gaussian distribution centered at the randomly sampled target (selected as for the single component simulation) for each simulated (sub)component (targets chosen uniformly from the standard alpha band, as above).
 The tails of the Gaussian were truncated $\pm$ 2.5 Hz from its mean / target frequency.
-Alpha signals constructed were thus constructed by creating a weighted average of frequencies within this distribution; in other words, a Gaussian blur was applied to the frequency-domain signal in order to generate a mixture of alpha waves in the time domain.
+Alpha signals were thus constructed by creating a weighted average of frequencies within this distribution; in other words, a Gaussian blur was applied to the frequency-domain signal in order to generate a mixture of alpha waves in the time domain.
 
 Constructed alpha signals were again combined with random pink noise signals at a specified SNR.
 This time, each composite alpha signal was replicated 9 times, and combined with an independently sampled pink noise signal.
