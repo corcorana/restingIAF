@@ -50,8 +50,11 @@ The data furnished in the above output table derives from data contained in the 
 A companion structure, *pSpec.chans*, contains information used to calculate these summary statistics.
 This data can be used to retrieve channel-specific alpha-band properties (e.g., channel PAF/CoG estimates, individual alpha-band window bounds), and to plot smoothed and unsmoothed power spectral density estimates (see *Visualising power spectra*).
 A summary of the channel data that can be accessed from *pSpec.chans* is provided in Table 3.
-Note, only 2 channel PAF estimates were extracted from the post-experiment recording for subject 03, which is < the cMin threshold for cross-channel averaging.
-Hence, the grand average PAF is simply the weighted average from the pre-experiment recording (note the standard deviation for this set of recordings returns NaN in the absence of a cross-channel mean estimate). 
+
+Note, only 2 PAF estimates were extracted from the post-experiment channel data for subject 03, which falls short of the $cMin$ threshold for cross-channel averaging.
+Consequently, the grand average PAF returned in the output table reflects the weighted average from the pre-experiment recording only (notice that the standard deviation for the second set of recordings returns NaN in the absence of any cross-channel mean PAF estimate).
+Re-running the script with $cMin$ set to 2 results in the computation of cross-channel mean PAF for the post-experiment recording, thus altering the grand average (11.572 Hz).
+Notice that CoG estimates remain unaffected by this manipulation.
 
 Table 3: Key explaining fields within *pSpec.chans* data structure (see Corcoran et al., 2017, for further explanation).
 
@@ -83,9 +86,11 @@ Example plots generated from the channel estimates derived above are displayed i
 ![](s1pre.png) ![](s1post.png)
 
 *Figure 1*. Pre- and post-experiment (smoothed) spectral estimates for Subject 1.
+
 Command line: plotSpec(f, pSpec, 1, 1, 'd0', 0); plotSpec(f, pSpec, 1, 2, 'd0', 0)
 
 ![](s2unsmoo.png) ![](s2smoo.png)
 
 *Figure 2*. Unsmoothed and smoothed spectral estimates (post-experiment recordings) for Subject 2.
+
 Command line: plotSpec(f, pSpec, 2, 2, 'pxx', 0); plotSpec(f, pSpec, 2, 2, 'd0', 0)
