@@ -4,7 +4,7 @@
 % EEGLAB to enable replicable analysis of multiple data files.
 %
 % The script analyses pre- and post-experiment eyes-closed resting-state
-% data from 2 subjects, and outputs the grand-averaged PAF and CoG
+% data from 3 subjects, and outputs the grand-averaged PAF and CoG
 % estimates and associated summary data (std dev of channel-wise estimates,
 % number of channels included in analysis) to the console.
 % 
@@ -23,6 +23,8 @@
 %   tute_01_2 == ali0039_azn
 %   tute_02_1 == ali0038_azv
 %   tute_02_2 == ali0038_azn
+%   tute_03_1 == ali0037_azv
+%   tute_03_2 == ali0037_azn
 %
 % This script (and all custom-designed dependencies) are part of the 
 % `restingIAF` package, (c) Andrew W. Corcoran, 2016-2017.
@@ -41,10 +43,10 @@ end
 pop_editoptions('option_single', 0);
 
 % define path to the data files
-dataPath = '~/tutorial/datasets/';
+dataPath = '~/restingIAF/code/tutorial/datasets/';
 
 % define required parameters
-n = 2;              % number of subjects for analysis
+n = 3;              % number of subjects for analysis
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window
 cmin = 3;           % minimum number of channel estimates required for cross-channel average (for these data: min == 1, max == 6)

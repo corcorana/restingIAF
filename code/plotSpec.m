@@ -18,7 +18,7 @@ function plotSpec(f, pSpec, ix, jx, psd, log)
 %   ix = participant number (for indexing structure)
 %   jx = recording number (for indexing structure)
 %   psd = char; plot unsmoothed ('pxx') or smoothed ('d0') PSDs
-%   log = logical; plot linear ('0') or log ('1') scale
+%   log = logical; plot linear (0) or log (1) scale
 
 %%
 nchan = length(pSpec(ix, jx).chans);    % calculate number of included channels

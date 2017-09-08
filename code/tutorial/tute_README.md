@@ -4,7 +4,7 @@
 This brief tutorial is designed to familiarise you with the functions provided in the `restingIAF` package, and demonstrate how these functions might be integrated within an analysis script for EEGLAB.
 
 ## Data files and preprocessing
-We provide 2 eyes-closed resting-state recordings (pre-/post-experiment) from 2 participants in an EEG study (Table 1).
+We provide 3 sets of eyes-closed resting-state EEG recordings (pre- & post-experiment; see Table 1).
 These files have been preprocessed in EEGLAB and saved as .set files.
 More information about this study, including minimially-processed versions of the data files included here, can be accessed from [figshare](https://figshare.com/articles/Muspelheim_data/3412312).
 
@@ -12,10 +12,12 @@ Table 1: Data files included in the tutorial and corresponding source files.
 
 | Processed | Source |
 |---|---|
-| tute_01_1.set | ali0039_azv.eeg |
-| tute_01_2.set | ali0039_azn.eeg |
-| tute_02_1.set | ali0038_azv.eeg |
-| tute_02_2.set | ali0038_azn.eeg |
+| tute_01_1 | ali0039_azv |
+| tute_01_2 | ali0039_azn |
+| tute_02_1 | ali0038_azv |
+| tute_02_2 | ali0038_azn |
+| tute_03_1 | ali0037_azv |
+| tute_03_2 | ali0037_azn |
 
 These files have been preprocessed to provide similar data to that reported in the empirical EEG dataset analysis of Corcoran et al. (2017).
 Recordings from 6 parietal leads were selected and trimmed to a 2 min duration.
@@ -41,12 +43,15 @@ Table 2: IAF summary statistic output furnished by tutorial script. **S**: subje
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 10.675 | 0.13372 | 0.10918 | 5 | 5 | 10.229 | 0.21824 | 0.16021 | 6 | 6 |
 | 2 | 9.7659 | 0.3245 | 0.21837 | 6 | 6 | 9.6555 | 0.11511 | 0.12073 | 6 | 6 |
+| 3 | 11.832 | 0.14095 | NaN | 4 | 2 | 10.762 | 0.044185 | 0.20114 | 6 | 4 |
 
 ## Extracting channel data
 The data furnished in the above output table derives from data contained in the *pSpec.sums* structure, which comprises summary statistics from each analysed recording (e.g., *pSpec(1,1).sums* corresponds to the summary data for Subject 1, recording 1).
 A companion structure, *pSpec.chans*, contains information used to calculate these summary statistics.
 This data can be used to retrieve channel-specific alpha-band properties (e.g., channel PAF/CoG estimates, individual alpha-band window bounds), and to plot smoothed and unsmoothed power spectral density estimates (see *Visualising power spectra*).
 A summary of the channel data that can be accessed from *pSpec.chans* is provided in Table 3.
+Note, only 2 channel PAF estimates were extracted from the post-experiment recording for subject 03, which is < the cMin threshold for cross-channel averaging.
+Hence, the grand average PAF is simply the weighted average from the pre-experiment recording (note the standard deviation for this set of recordings returns NaN in the absence of a cross-channel mean estimate). 
 
 Table 3: Key explaining fields within *pSpec.chans* data structure (see Corcoran et al., 2017, for further explanation).
 
@@ -78,7 +83,9 @@ Example plots generated from the channel estimates derived above are displayed i
 ![](s1pre.png) ![](s1post.png)
 
 *Figure 1*. Pre- and post-experiment (smoothed) spectral estimates for Subject 1.
+Command line: plotSpec(f, pSpec, 1, 1, 'd0', 0); plotSpec(f, pSpec, 1, 2, 'd0', 0)
 
 ![](s2unsmoo.png) ![](s2smoo.png)
 
 *Figure 2*. Unsmoothed and smoothed spectral estimates (post-experiment recordings) for Subject 2.
+Command line: plotSpec(f, pSpec, 2, 2, 'pxx', 0); plotSpec(f, pSpec, 2, 2, 'd0', 0)
