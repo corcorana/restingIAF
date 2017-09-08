@@ -111,7 +111,7 @@ The picture is even more complicated when relying on stimulus-induced reactivity
 One promising approach to spectral peak quantification exploits iterative curve-fitting techniques to parameterise the statistical properties of the PSD [@chiang2008; @lodder2011].
 The practical advantages of such methods is clearly evident from their application to large $n$ datasets [e.g., @chiang2011; @van_albada2013], while comparison of Lodder and Putten's [-@lodder2011] algorithm with subjectively-assessed PAF estimates indicated a high degree of agreement.
 It is puzzling then why such methods have not been taken up more widely in the IAF literature [cf. @haegens2014, for a notable exception].
-One possibility is that investigators are generally unaware of such techniques, given that they have mostly been applied in the domain of spectral modeling [indeed, neither @goljahani2012, nor @bazanova2014, mention the existence of these methods in their reviews of IAF estimators].
+One possibility is that investigators are generally unaware of such techniques, given that they have mostly been applied in the domain of spectral modeling [indeed, neither Goljahani et al., -@goljahani2012; nor Bazanova and Vernon, -@bazanova2014, mention the existence of these methods in their reviews of IAF estimators].
 Alternatively, investigators may be put off by the practical burden involved in accessing these programmes (which we have not been able to locate publically), and integrating them within their existing analysis pipelines (which may not be compatible such algorithms).
 We suggest that one of the critical steps towards achieving a more widespread adoption of automated IAF estimation routines is to make these tools as openly available as possible, in formats that are easily assimilated within popular methods of EEG data analysis.
 
@@ -478,7 +478,7 @@ It is also worth pointing out that the diverse age range of participants within 
 That our technique was able to extract estimates for the vast majority of sampled individuals, and that it did so using a fixed set of parameters defined a priori on the basis of preliminary testing in an independent dataset, speaks to its capacity to derive resting-state IAF estimates across a broad spectrum of the healthy population.
 
 Although a high proportion of channel data derived across both pre- and post-experiment recordings were available for grand averaging in most cases, individuals for whom only a subset of channel estimates could be derived tended to demonstrate stronger alpha peak activity in the second recording (see Figure 2).
-However, this trend was by no means universal, and it may therefore be prudent to collect both pre and post recordings to improve the probability of obtaining a valid IAF estimate.
+However, this trend was by no means universal [cf. @samaha2015 for similar findings], and it may therefore be prudent to collect both pre and post recordings to improve the probability of obtaining a valid IAF estimate .
 As expected, estimates from paired recordings were highly intercorrelated, thus suggesting that estimates relying on only a single recording are reliable indicators of IAF.
 Support for this view accrues from the observation that including single-recording PAF estimates amongst grand-averaged PAFs did not result in any marked deviation from the expected (approximately) Gaussian distribution reported previously [@klimesch1996].
 
