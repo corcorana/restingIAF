@@ -47,9 +47,10 @@ dataPath = '~/restingIAF/code/tutorial/datasets/';
 
 % define required parameters
 n = 3;              % number of subjects for analysis
+nr = 2;             % number of recordings per subject
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window
-cmin = 3;           % minimum number of channel estimates required for cross-channel average (for these data: min == 1, max == 6)
+cmin = 3;           % minimum number of channel estimates required for cross-channel average (for tutorial data: min == 1, max == 6)
 
 % initialise data matrices / structures
 pSpec = struct('chans', [], 'sums', []);
@@ -60,7 +61,7 @@ muCog = nan(n, 1);
 %% Analysis loops
 for ix = 1:n     % for each i-th subject
     
-    for jx = 1:2       % for each j-th resting-state recording
+    for jx = 1:nr       % for each j-th resting-state recording
         
         % setup filename / path
         fileName = sprintf(['tute_%02d_', num2str(jx), '.set'], ix);
@@ -76,6 +77,10 @@ for ix = 1:n     % for each i-th subject
             data = EEG.data;
             nchan(jx) = EEG.nbchan;
             Fs = EEG.srate;
+            % if data are epoched, concatenate
+            if length(size(data)) == 3
+                data = reshape(data, nchan(jx), []);
+            end
 
             % run restingIAF
             [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs);
@@ -92,7 +97,7 @@ for ix = 1:n     % for each i-th subject
     
 end
 
-%% Print summary of IAF estimates to console
+%% Print summary of IAF estimates to console (tabular structure assumes nr == 2)
 % find & fill in empties to enable struct fields to be concatenated
 emptySums = arrayfun(@(pSpec) isempty(pSpec.sums), pSpec);
 [pSpec(emptySums).sums] = deal(struct('paf', NaN, 'pafStd', NaN, 'pSel', NaN, 'cog', NaN, 'cogStd', NaN, 'gSel', NaN));
