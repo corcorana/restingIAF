@@ -23,18 +23,24 @@ If this software was useful for your work, please consider citing our methods pa
 
 The current release version can be cited as:
 
-> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restingIAF [![DOI](https://zenodo.org/badge/80904585.svg)](https://zenodo.org/badge/latestdoi/80904585)
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restingIAF. [doi]
 
 Each version release is issued a unique doi from [Zenodo](https://zenodo.org/record/846797#.WbEh4a2B2fQ).
 
 
 ## Releases
-`v1.0.1` includes IAW estimates in summary output.
+`v1.0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.888071.svg)](https://doi.org/10.5281/zenodo.888071)
+
+Includes IAW estimates in summary output.
 Also includes additional tutorial dataset showing output when 1 recording fails to satisfy $cMin$ for PAF estimation, tutorial script contingency for handling epoched data. 
 
-`v1.0` was released in conjunction with publication of Corcoran et al. bioRxiv preprint.
+`v1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.846797.svg)](https://doi.org/10.5281/zenodo.846797)
 
-`v0.1.0` formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
+Released in conjunction with publication of Corcoran et al. bioRxiv preprint.
+
+`v0.1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268602.svg)](https://doi.org/10.5281/zenodo.268602)
+
+Formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
 Additional analysis scripts customised for the purposes of this study are included in release `v0.1.1`.
 UPDATE (07/09/2017): The analysis for this paper was repeated using `v1.0` prior to submission.
 
