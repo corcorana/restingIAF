@@ -9,10 +9,10 @@ header-includes:
 - \usepackage{wrapfig}
 - \usepackage{pdflscape}
 output:
+  word_document:
+    toc: no
   pdf_document:
     number_sections: yes
-    toc: no
-  word_document:
     toc: no
 bibliography: libraryAC.bib
 ---
@@ -417,7 +417,7 @@ This windowing function comprised two overlapping Gaussians ($\alpha$ = 2.5), th
 The frequency offset between the two Gaussian peaks was equivalent to 1.6 Hz.
 The results of this analysis are summarised in Figure 6 and Table 3.
 
-![Box plots summarising spread of estimate deviation from the centre frequency of the sampling window. Centre marks indicate median deviation, edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero deviation (broken horizontal line) corresponds to estimating the midpoint between the two components. Peak locations indicated by dotted horizontal lines. *Left column*: Schematic of the sampling window used to construct composite alpha signals simulated in corrosponding row. The discrepancy between simulated peaks (higher relative to lower frequency bins) ranges from 0 (top row) to +0.50 (bottom row). *Central column*: SNR = 0.15. *Right column*: SNR = 0.40. *LM* and *SG*: Peak alpha frequency estimated via the Local Maximum and Savitzky-Golay routines, respectively. *CoG*: Centre of gravity estimated via the Savitzky-Golay routine.](figs/bimod.png){width=75%}
+![Box plots summarising spread of estimate deviation from the centre frequency of the sampling window. Centre marks indicate median deviation, edges indicate interquartile range (IQR), whiskers indicate approximately 1.5 $\times$ IQR. Zero deviation (broken horizontal line) corresponds to estimating the midpoint between the two components. Peak locations indicated by dotted horizontal lines. *Left column*: Schematic of the sampling window used to construct composite alpha signals simulated in corrosponding row. The discrepancy between simulated peaks (higher relative to lower frequency bins) ranges from 0 (top row) to +0.50 (bottom row). *LM* and *SG*: Local Maximum and Savitzky-Golay PAF estimates, respectively. *CoG*: Savitzky-Golay CoG estimates.](figs/bimod.png){width=75%}
 
 Table: Estimator performance as a function of SNR and relative weighting of bimodal peaks. Right-most Gaussian function was either 0, 0.25, or 0.50 times larger than the left (*PeakDiff*). *PAF$_{LM}$*: Local maximum PAF estimator; *PAF$_{SG}$*: Savitzky-Golay filter (SGF) PAF estimator; *CoG*: SGF CoG estimator; *RMSE*: root mean squared error (relative to centre frequency of sampled components); *maxDiff*: maximum absolute difference between estimates and centre frequency of sampled components; *n chans*: median (s.d.) channels furnishing PAF/IAW estimates per simulated dataset.
 
