@@ -163,7 +163,7 @@ We consider this strategy (which only influences results when channel estimates 
 \begin{landscape}
 \begin{figure}
   \begin{centering}
-    \includegraphics{figs/flow.eps}
+    \includegraphics{figs/flows.png}
   \end{centering}
   \caption{Flow diagrams summarising key steps of the analysis pipeline. (A) depicts processing of channel data, (B) depicts cross-channel averaging, assuming a sufficient number of estimates. See main text/Appendix for details. {\it PSD}: power spectral density; {\it f range}: frequency bins included in analysis; {\it P}: power estimate; {\it minP}: minimum power necessary to qualify as a candidate peak; {\it pDiff}: minimum power difference necessary to qualify as a PAF estimate; {\it Q weights}: quantification of relative peak quality; {\it cMin}: minimum number of channel estimates required for cross-channel averaging; {\it IAW}: individualised alpha-band window; $f_1$ and $f_2$: lower and upper bounds of IAW; $PAF_M$: mean PAF estimate; $CoG_M$: mean CoG estimate; $IAF_M$: $PAF_M$ or $CoG_M$; $IAF_{GA}$: grand average PAF/CoG estimate.}
 \end{figure}
