@@ -52,13 +52,13 @@ IBS is supported by an Australian Research Council Future Fellowship (FT16010043
 \end{center}
 Individual alpha frequency (IAF) is a promising electrophysiological marker of interindividual differences in cognitive function.
 IAF has been linked with trait-like differences in information processing and general intelligence, and provides an empirical basis for the definition of individualised frequency bands.
-Despite its widespread application, however, there is little consensus on the optimal method for estimating the IAF.
-Here, we describe an automated strategy for deriving two of the most commonly reported IAF estimators: peak alpha frequency (PAF) and centre of gravity (CoG).
+Despite its widespread application, however, there is little consensus on the optimal method for estimating IAF, and many common approaches are prone to bias and inconsistency.
+Here, we describe an automated strategy for deriving two of the most prevalent IAF estimators in the literature: peak alpha frequency (PAF) and centre of gravity (CoG).
 These indices are calculated from resting-state power spectra that have been smoothed using a Savitzky-Golay filter (SGF).
-We evaluate the performance characteristics of this analysis routine in both empirical and simulated EEG datasets.
-Applying the SGF technique to resting-state data from *n* = 63 healthy adults resulted in 61 PAF, and 62 CoG estimates.
-The statistical properties of these estimates were consistent with previous studies.
-Simulation analyses revealed that our automated SGF routine was able to reliably extract target alpha components even under relatively noisy spectral conditions.
+We evaluate the performance characteristics of this analysis procedure in both empirical and simulated EEG datasets.
+Applying the SGF technique to resting-state data from *n* = 63 healthy adults furnished 61 PAF, and 62 CoG estimates.
+The statistical properties of these estimates were consistent with previous reports.
+Simulation analyses revealed that the SGF routine was able to reliably extract target alpha components, even under relatively noisy spectral conditions.
 The routine consistently outperformed a simpler method of automated peak detection that did not involve spectral smoothing.
 The SGF technique is fast, open-source, and available in two popular programming languages (MATLAB and Python), and thus can easily be integrated within the most popular M/EEG toolsets (EEGLAB, FieldTrip and MNE-Python).
 As such, it affords a convenient tool for improving the reliability and replicability of future IAF-related research.
@@ -70,7 +70,7 @@ As such, it affords a convenient tool for improving the reliability and replicab
 
 # Introduction
 Alpha is the dominant rhythm in the human EEG, and its importance for cognitive processing has been recognised since Hans Berger's seminal work in the early 20th century [@berger1929; cf. @adrian1934].
-Interindividual differences in the predominant frequency of alpha band oscillations (i.e. individual alpha frequency; IAF) have been linked with variability in cognitive performance since the 1930s [see @vogel1964; for a more recent review, see @klimesch1999].
+Interindividual differences in the predominant frequency of alpha-band oscillations (i.e. individual alpha frequency; IAF) have been linked with variability in cognitive performance since the 1930s [see @vogel1964; for a more recent review, see @klimesch1999].
 More recent research has revealed that IAF predicts performance on a variety of perceptual [e.g., @cecere2015; @samaha2015] and cognitive [e.g., @bornkessel2004; @klimesch2006] tasks.
 Individuals with a low IAF process information more slowly [@klimesch1996b; @surwillo1961; @surwillo1963], and show reduced performance on memory tasks [@klimesch1999] and general intelligence measures [*g*; @grandy2013], in comparison to their high-IAF counterparts.
 IAF is a trait-like characteristic of the human EEG [@grandy2013a], which shows high heritability [@lykken1974; @malone2014; @smit2006] and test-retest reliability [@gasser1985; @kondacs1999; @naepflin2007].
@@ -78,11 +78,11 @@ However, IAF tends to decrease with age from young adulthood onwards [@chiang201
 Taken together, this evidence highlights the utility of the IAF as a neurophysiological marker of general brain functioning [@grandy2013; @grandy2013a].
 
 In addition to quantifying individual differences in the properties of the dominant alpha rhythm, IAF can also be used to derive individualised estimates of the canonical frequency bands beyond alpha [@klimesch2012].
-Such an empirically-driven approach to the definition of the classic frequency bands may help to sharpen the precision of frequency-domain analyses more broadly [@klimesch2012].
-Indeed, taking the IAF as a marker distinguishing subregions of the alpha band has revealed functional dissociations between lower- and higher-frequency alpha-rhythms [@klimesch1997].
-However, despite the potential advantages of using the IAF as a reference point for individualised spectral analysis, no clear consensus on the optimal method for quantifying IAF currently exists.
+Such empirically-driven approaches to frequency band definition have been proposed to sharpen the precision of frequency-domain analyses more generally [@klimesch2012].
+Indeed, using the IAF to distinguish subregions of the alpha band has revealed functional dissociations between lower- and higher-frequency alpha-rhythms [e.g., @klimesch1997].
+However, despite the potential advantages of deploying the IAF as a reference point for various kinds of individualised spectral analysis, no clear consensus on the optimal method for quantifying IAF currently exists.
 This paper thus sets out to develop a rigorous, automated strategy for estimating two of the most widely reported indices of IAF: peak alpha frequency (PAF) and alpha frequency centre of gravity (CoG).
-We begin by briefly describing some of the most common strategies for extracting these estimators, and some of their attendant problems.
+We begin by briefly describing some of the most common strategies for extracting these estimators, and their attendant problems.
 
 ## Peak alpha frequency
 IAF estimation typically depends on the delineation of a singular, prominent spectral peak within the alpha bandwidth [standardly defined as 8-13 Hz; @noachtar2004].
@@ -94,28 +94,28 @@ While conservative approaches to PAF identification in the context of ambiguous 
 One approach for improving the objectivity, replicability, and (for larger datasets) practicality of PAF estimation is to implement an automated peak-detection algorithm.
 While this strategy does not solve the basic problem of deciding the criteria by which valid PAF estimates are discriminated from split-peaks or spurious background fluctuations, it at least applies such criteria consistently across all subjects.
 Simple algorithms may however introduce new sources of bias.
-For instance, a basic routine that searches for local maxima within the alpha band may arbitrarily assign the PAF to the lower bound of the search window in the absence of any notable deviation from the inverse-power law (since the highest power estimate will be found at the lowest frequency bin).
-A more sophisticated implementation [e.g., the first-derivative test procedure, where the first derivative of the PSD is searched for downward going zero crossings; cf. @grandy2013a] avoids this problem, but is incapable of distinguishing substantive peaks from split-peaks or arbitrarily small deviations from background spectral activity.
-Such routines may therefore be too liberal with regard to which spectral features they classify as alpha peaks.
+For instance, a basic routine that searches for local maxima within the alpha band may arbitrarily assign the PAF to the lower bound of the search window in the absence of any notable deviation from the inverse-power law (since the highest power estimate will be found at the lowest frequency bin spanned by the window).
+A more sophisticated approach such as the first-derivative test [in which the first derivative of the PSD is searched for downward going zero crossings; cf. @grandy2013a] avoids this problem, but is still incapable of distinguishing substantive peaks from split-peaks or arbitrarily small deviations from background spectral activity.
+Such routines may therefore be too liberal with regard to the spectral features they classify as alpha peaks.
 
 ## Alpha-band centre of gravity and reactivity
 Klimesch, Schimke, and Pfurtscheller [-@klimesch1993; see also @klimesch1997] proposed the CoG as an alternative IAF estimator that circumvents some of the difficulties posed by the absence of a dominant alpha peak.
 The CoG takes into account the distribution of PSD estimates within the defined alpha interval, and may therefore be subject to bias if the bounds of the alpha-band are inaccurately specified.
-Since individuals show variation in the span and location of alpha-band activity [cf. @bazanova2014], Klimesch and colleagues [@klimesch1990] recommended computing CoG on the basis of bespoke frequency windows designed to capture this interval.
+Since individuals show variation in the span and location of alpha-band activity [cf. @bazanova2014], Klimesch and colleagues [@klimesch1990] recommended computing CoG on the basis of bespoke frequency windows designed to capture this range.
 However, the definition of such individualised alpha-band windows (IAWs) poses a nontrivial challenge, and may rely on subjective assessments or arbitrary criteria [@bazanova2014].
-One principled solution is to this problem is to derive the IAW from reactivity-based contrasts between two conditions [e.g., eyes-closed vs. eyes-open resting-states, @klimesch1999; pre- vs. peri-stimulus presentation, @goljahani2012].
-This approach is also vulnerable to bias, however, since alpha rhythms are not always substantially attentuated by opening the eyes [@gaal2010; @kreitman1965], and may only be partially attenuated [e.g., @klimesch2006] -- or indeed, *enhanced* [e.g., @rihs2007] -- during experimental tasks.
+One principled solution to this problem is to derive the IAW from reactivity-based contrasts between two conditions [e.g., eyes-closed vs. eyes-open resting-states, @klimesch1999; pre- vs. peri-stimulus presentation, @goljahani2012].
+This approach is not immune to bias, however, since alpha rhythms are not always substantially attentuated by opening the eyes [@gaal2010; @kreitman1965], and may only be partially attenuated [e.g., @klimesch2006] -- or even *enhanced* [e.g., @rihs2007] -- during experimental tasks.
 
 ## Curve-fitting approaches to alpha-rhythm quantification
-One promising approach to spectral peak quantification exploits iterative curve-fitting techniques to parameterise the statistical properties of the PSD [e.g., @chiang2008; @lodder2011].
-The practical advantages of such methods is clearly apparent from their application in large $n$ datasets [e.g., @chiang2011; @van_albada2013], while comparison of Lodder and Putten's [-@lodder2011] algorithm with subjectively-assessed PAF estimates indicated a high degree of agreement.
-It is puzzling then why such methods have not been taken up more widely in the IAF literature [cf. @haegens2014, for a notable exception].
-One possibility is that investigators are generally unaware of such techniques, given that they have mostly been applied in the broader context of spectral modeling [indeed, neither Goljahani et al., -@goljahani2012; nor Bazanova and Vernon, -@bazanova2014, mention the existence of such methods in their reviews of IAF estimation techniques].
-Alternatively, investigators may be put off by the practical burden involved in accessing these programmes (which we have not been able to locate publically), and integrating them within their existing analysis pipelines (which may not be compatible such algorithms).
-We suggest that one of the critical steps towards achieving a more widespread adoption of automated IAF estimators is to make these tools openly available in formats that can be easily assimilated within popular methods of M/EEG analysis.
+One promising approach to spectral peak quantification that avoids many of the issues highlighted above applies iterative curve-fitting techniques to parameterise the statistical properties of the PSD [e.g., @chiang2008; @lodder2011].
+The practical utility of such methods is clearly apparent from their application to large $n$ datasets [e.g., @chiang2011; @van_albada2013], while comparison of Lodder and Putten's [-@lodder2011] algorithm with human scorers revealed a high degree of estimator agreement.
+It is puzzling then why such methods have not been taken up more broadly within the IAF literature [cf. @haegens2014, for a notable exception].
+One possibility is that investigators are generally unaware of these approaches, given that they have mostly been applied in the context of spectral modeling rather than IAF research [indeed, neither Goljahani et al., -@goljahani2012; nor Bazanova and Vernon, -@bazanova2014, mention the existence of such methods in their reviews of IAF estimation techniques].
+Alternatively, investigators may be put off by the perceived burden involved in accessing these programmes (which we have not been able to locate publically) and integrating them within existing analysis pipelines (which may not be compatible with such algorithms).
+We suggest then that one of the critical steps towards achieving a more widespread adoption of automated IAF estimators is to make these tools openly available in formats that can be easily assimilated within popular methods of M/EEG analysis.
 
 ## Aims of the present study
-In sum, common methodological approaches to IAF estimation are either time-consuming and vulnerable to inconsistencies arising from subjective decision criteria, or at risk of producing spurious or biased estimates under certain plausible spectral conditions.
+In sum, common methodological approaches to IAF estimation are either (1) time-consuming and vulnerable to inconsistencies arising from subjective evaluation, or (2) at risk of producing spurious or biased estimates under certain plausible spectral conditions.
 More recent innovations that address these problems via the application of sophisticated curve-fitting algorithms have so far found limited uptake within the broader IAF literature, perhaps on account of practical barriers pertaining to software access and implementation.
 Consequently, we sought to develop an automated method of alpha-band quantification that provides fast, reliable, and easily replicated estimates of the resting-state IAF in two major programming languages: MATLAB^&reg;^ (The MathWorks, Inc., Natick, MA, USA) and Python&trade;.
 This goal is consistent with recent proposals to make the analysis of electrophysiological data as open, transparent, and amenable to replication as possible [@cohen2017].
