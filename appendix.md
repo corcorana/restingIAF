@@ -9,8 +9,7 @@ This appendix gives a more formal account of the estimators implemented in the a
 We also provide some additional advice regarding SGF parameter selection.
 
 # IAF indices
-Peak alpha frequency (PAF) typically involves the visual identification of a singular, prominant peak within a predefined alpha-band range.
-PAF can be formalised in terms of the local (i.e. relative) maximum within the alpha band
+Peak alpha frequency (PAF) can be formalised in terms of the local (i.e. relative) maximum within the alpha band
 
 $$ \text{PAF} =  
 \begin{cases}
@@ -23,8 +22,7 @@ where $\text{arg} \max$ returns the frequency bin (or subset of bins) $f$ contai
 Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $f$  with a corresponding power spectral density $\geq \varphi$, where $\varphi$ defines the minimum threshold value differentiating a substantive spectral peak from background noise.
 
 
-Klimesch and colleagues [@klimesch1990; @klimesch1993] suggest using the PSD-weighted mean alpha frequency (i.e. alpha centre of gravity; CoG) to estimate IAF.
-Mathematically, we can express the COG as
+Centre of gravity [CoG; @klimesch1990; @klimesch1993] is the PSD-weighted mean alpha frequency, which can be expressed as
 
 $$ \text{CoG} = \frac{\int_{f_1}^{f_2} \text{PSD}(f) \cdot f \; df}{\int_{f_1}^{f_2} \text{PSD}(f) \; df} , $$
 
@@ -36,14 +34,13 @@ The window is then shifted one point along the input signal, and the polynomial 
 The centre value of the polynomial fit is taken as the filter output at each iteration of the sliding window calculation, and these output values are concatenated to render the smoothed estimate of the input function.
 For a more detailed treatment of the SGF and its technical performance properties, see Schafer [-@schafer2011].
 
-Both polynomial degree $k$ and filter window frame width $F_w$ are required to define the least-squares minimisation operation.
+Both $F_w$ and polynomial degree $k$ are required to define the least-squares minimisation operation.
 $k$ must be $< F_w$, and $F_w$ must be odd to ensure an equal number of sample points either side of the centre coefficient.
 Also note that no smoothing will occur if $k = F_w - 1$.
 A convenient heuristic is to set the length of $F_w$ approximately 1 to 2 times the anticipated full width at half maximum (FWHM) of the PAF component [@enke1976; @press1992].
-Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981], and hence may be desirable in cases of noisy spectral densities.
-Note however that excessively flat peaks following application of the smoothing procedure are indicative of a suboptimally large $F_w$.
-We favour higher-order polynomials (e.g., $k = 5$) due to their peak-height preserving properties, but acknowledge that they might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992].
-This may be of particular concern when dealing (for instance) with elderly populations, given that spectral power (and relative peak dominance) is typically diminished in older adults [e.g., @chiang2011; @dustman1999].
+Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981].
+Excessively flat peaks following application of the SGF are indicative of a suboptimally large $F_w$.
+Higher-order polynomials (e.g., $k = 5$) are preferred due to their peak-height preserving properties, but might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992].
 
 # First- and second-derivative tests
 Derivatives describe the relative rate of change in the dependent variable or function $g(x)$ given some value of the independent variable $x$.
@@ -61,7 +58,7 @@ As such, positive to negative sign changes (i.e. downward going zero crossings) 
 Conversely, sign changes in the opposite direction (i.e. upward going zero crossings) can likewise be used to identify local minima.
 ^[A lack of sign change -- e.g., a positive derivative going to zero and then becoming strictly positive again -- corresponds to a plateau.]
 
-Differentiating the second-derivative of the PSD is achieved via differentiation of its first derivative:
+The second derivative of the PSD is derived by differentiating the first derivative:
 
 $$ g''(x) = \lim_{ \Delta{x} \rightarrow{} 0}  \frac {\Delta g'(x)} {\Delta x} , $$
 
@@ -69,7 +66,7 @@ where $g''(x)$ is the derivative of the first derivative $g'(x)$ at frequency bi
 In other words, the second derivative is simply the rate of change of the first derivative of some function $g(x)$.
 Second derivatives are useful for evaluating whether the curvature of a function is concave up (i.e. convex) or concave down at any given value of $x$.
 The transition of a curve's direction between concave up and concave down is characterised by an inflection point, which registers a second derivative value of zero.
-Consequently, inflection points can be identified by applying the same zero-crossing procedure described for locating optima within the first derivative.
+Consequently, inflection points can be identified by applying the same zero-crossing procedure described for locating optima in the first derivative.
 
 # Quantifying peak quality
 Having defined both the height and width of the putative alpha peak by means of the first- and second-derivative test, relative peak quality is quantified as
