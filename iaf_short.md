@@ -260,7 +260,7 @@ This left a total 1096 PSDs to estimate across the sample (pre = 561, post = 535
 Of these, a total 944 PAF (pre = 480, post = 464) and 1003 CoG (pre = 507, post = 496) estimates were extracted.
 As Figure 2 indicates, the estimation routine extracted a high proportion of PAF and CoG estimates across most individuals.
 Two participants failed to surpass the $cMin$ threshold for both recordings and were therefore excluded from the PAF analysis.
-Visual inspection of channel spectra (see supplementary materials) confirmed the absence of any consistent alpha peak.
+Visual inspection of channel spectra confirmed the absence of any consistent alpha peak.
 The CoG was however estimated for one of these individuals.
 
 ### Statistical properties of IAF estimates
