@@ -5,11 +5,10 @@ output:
     number_sections: yes
 bibliography: libraryAC.bib
 ---
-This appendix gives a more formal account of the estimators implemented in the algorithm, and technical details about the operations we use to derive them. 
-We also provide some additional advice regarding SGF parameter selection.
+This appendix gives a more formal account of the estimators implemented in the algorithm.
 
-# IAF indices
-Peak alpha frequency (PAF) can be formalised in terms of the local (i.e. relative) maximum within the alpha band
+# Peak alpha frequency
+Peak alpha frequency (PAF) can be formalised in terms of the local maximum within the alpha band:
 
 $$ \text{PAF} =  
 \begin{cases}
@@ -18,29 +17,8 @@ $$ \text{PAF} =
 \end{cases}
 $$
 
-where $\text{arg} \max$ returns the frequency bin (or subset of bins) $f$ containing the maximal power value $\max \text{PSD}(f)$ registered within the set of frequency bins constituting the alpha band.
+where $\text{arg} \max$ returns the frequency bin (or subset of bins) $f$ containing the maximal power value $\max \text{PSD}(f)$ registered within the set of frequency bins spanning the alpha band.
 Note that, for the output of $\text{arg max}$ to qualify as an estimate of PAF, it must return a single frequency bin $f$  with a corresponding power spectral density $\geq \varphi$, where $\varphi$ defines the minimum threshold value differentiating a substantive spectral peak from background noise.
-
-
-Centre of gravity [CoG; @klimesch1990; @klimesch1993] is the PSD-weighted mean alpha frequency, which can be expressed as
-
-$$ \text{CoG} = \frac{\int_{f_1}^{f_2} \text{PSD}(f) \cdot f \; df}{\int_{f_1}^{f_2} \text{PSD}(f) \; df} , $$
-
-where $f_1$ and $f_2$ index the frequency bins bounding the alpha-band interval.
-
-# Savitzky-Golay curve-fitting procedure
-SGFs work by centring a sampling window frame of length $F_w$ on a portion of the input signal and computing the least-squares fit of a specified polynomial to each $i$^th^ data point spanned by $F_w$.
-The window is then shifted one point along the input signal, and the polynomial fit recalculated accordingly.
-The centre value of the polynomial fit is taken as the filter output at each iteration of the sliding window calculation, and these output values are concatenated to render the smoothed estimate of the input function.
-For a more detailed treatment of the SGF and its technical performance properties, see Schafer [-@schafer2011].
-
-Both $F_w$ and polynomial degree $k$ are required to define the least-squares minimisation operation.
-$k$ must be $< F_w$, and $F_w$ must be odd to ensure an equal number of sample points either side of the centre coefficient.
-Also note that no smoothing will occur if $k = F_w - 1$.
-A convenient heuristic is to set the length of $F_w$ approximately 1 to 2 times the anticipated full width at half maximum (FWHM) of the PAF component [@enke1976; @press1992].
-Relatively higher $F_w$ lengths are expected to result in more aggressive smoothing of the input function [@bromba1981].
-Excessively flat peaks following application of the SGF are indicative of a suboptimally large $F_w$.
-Higher-order polynomials (e.g., $k = 5$) are preferred due to their peak-height preserving properties, but might render suboptimal fits (and less smoothing) in the context of relatively broad component structures [@press1992].
 
 # First- and second-derivative tests
 Derivatives describe the relative rate of change in the dependent variable or function $g(x)$ given some value of the independent variable $x$.
@@ -77,22 +55,14 @@ where $Q$ is the scaled average power within the peak interval $[i_1,i_2]$.
 ^[Notice that the interval bounded by $[i_1,i_2]$ is distinct from that bounded by $[f_1,f_2]$, the estimated span of the individualised alpha-band window.
 The former yields a narrower frequency range than the latter, and does not take into account secondary peaks within the alpha band.]
 (In a very strict sense, $Q$ is the mean value of the power spectral density function on the peak interval as given by the Mean Value Theorem.)
-Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.  
-Given equal values of $\int_{i_1}^{i_2}\text{PSD}(f)$, the denominator adjusts the integrand such that narrower, sharper peaks are assigned a larger $Q$ value than their broader, flatter counterparts.
-This formulation thus penalises 'less peaky' components by assigning a heavier weighting to those estimates containing evidence of a relatively more dominant spectral peak.
+Note that the inclusion of the denominator ensures that spectral width is taken into account when calculating $Q$.
 
-# Analysis procedure
-For each channel subjected to analysis, the PSD is estimated, and extraneous frequency bins beyond the span of the filter passband excluded.
-Spectral data are then normalised by dividing each power estimate by the mean power of the truncated spectrum.
-A log-transformed version of the PSD is derived in order to fit the regression model that will be used to estimate an upper bound on background spectral activity (i.e. $minP$).
-The SGF is applied to the (nontransformed) PSD to estimate its zeroth (i.e. smoothed function), first, and second derivatives.
+# Centre of gravity
+The centre of gravity (CoG) is the PSD-weighted mean alpha frequency, which can be expressed as
 
-Initially, the first derivative is searched for downward going zero crossings within the frequency domain defined by $W_\alpha$.
-If no zero crossings are identified, or if candidate zero crossings fail to exceed the corresponding  power predicted by the regression fit by more than 1 standard deviation of the estimated prediction error, the channel is excluded from further PAF-based analysis (see supplementary materials for examples of this $minP$ criterion).
-If more than one peak satisfies $minP$ within $W_\alpha$, these candidates are rank ordered according to their normalised power estimates, and the magnitude of the difference between the two largest peaks compared.
-The primary peak must exceed the height of its closest competitor by more than the proportion defined by $pDiff$ in order to qualify as the channel PAF estimate.
-If the primary peak satisfies this condition, the second derivative is examined to determine the location of its associated inflection points, and the $Q$ value subsequently computed.
-If not, the channel is excluded from PAF analysis.
+$$ \text{CoG} = \frac{\int_{f_1}^{f_2} \text{PSD}(f) \cdot f \; df}{\int_{f_1}^{f_2} \text{PSD}(f) \; df} , $$
+
+where $f_1$ and $f_2$ index the frequency bins bounding the alpha-band interval.
 
 CoG calculation follows the standard procedure described by Klimesch and colleagues [-@klimesch1990; -@klimesch1993], with the exception that the bounds of each channel's alpha interval are detected automatically.
 The analysis routine derives these bounds by taking the left- and right-most peaks within $W_\alpha$ (i.e. those peaks in the lowest and highest frequency bins, respectively; these may coincide with the PAF), and searching the first derivative for evidence of the nearest local minimum (1) prior to the left-most peak ($f_1$), and (2) following the right-most peak ($f_2$).
@@ -107,6 +77,7 @@ $$f_2 = \text{arg} \min_{f > \text{PAF}} |PSD'(f)| < 1 . $$
 $f_1$ and $f_2$ estimates from each eligible channel are averaged to yield the individualised alpha-band window.
 This window defines the index of summation (i.e. frequency band coverage) used to calculate the CoG across all available channels.
 
+# Summary statistics
 If a sufficient number of channels (as stipulated by $cMin$) furnish PAF and individualised alpha window estimates, channel PAF and CoG estimates are averaged to generate IAF summary statistics.
 Mean PAF (PAF$_M$) is a weighted average that takes into account the $Q$ values associated with each peak estimate:
 
@@ -116,7 +87,7 @@ where $c$ identifies the channel drawn from the set of all available channels $C
 In contrast to PAF$_M$, all CoG channel estimates contribute equally to the calculation of mean CoG (CoG$_M$).
 If there are an insufficient number of channel estimates to satisfy $cMin$, no PAF$_M$ or CoG$_M$ estimates are returned (in some cases, $cMin$ will be satisfied for CoG$_M$, but not PAF$_M$, on account of the latter's more stringent criteria).
 
-Since pre/post-experiment recordings may not be equivalent in terms of quantity of information rendered [e.g., @samaha2015], grand averaged IAF estimates (IAF$_{GA}$) are calculated using a weighted mean which takes into account the proportion of channels that contributed to each constituent summary statistic:
+Since pre/post-experiment recordings may not be equivalent in terms of quantity of information rendered, grand averaged IAF estimates (IAF$_{GA}$) are calculated using a weighted mean which takes into account the proportion of channels that contributed to each constituent summary statistic:
 
 $$ \text{IAF}_{GA} = \frac{ \text{IAF}_1 \beta_1 + \text{IAF}_2 \beta_2 } {\beta_1 + \beta_2} , $$
 
