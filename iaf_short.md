@@ -1,6 +1,12 @@
 ---
 title: "Towards a reliable, automated method of individual alpha frequency (IAF) quantification"
 geometry: margin = 2.5cm
+output:
+  pdf_document:
+    number_sections: yes
+    toc: no
+  word_document:
+    toc: no
 header-includes:
 - \usepackage{lineno}
 - \linenumbers
@@ -8,14 +14,7 @@ header-includes:
 - \doublespacing
 - \usepackage{wrapfig}
 - \usepackage{pdflscape}
-output:
-  word_document:
-    toc: no
-  pdf_document:
-    number_sections: yes
-    toc: no
 bibliography: libraryAC.bib
-csl: apa.csl
 ---
 \begin{center}
 \textbf{Andrew W. Corcoran\textsuperscript{a,b}, Phillip M. Alday\textsuperscript{c,b},}
@@ -100,16 +99,16 @@ A more sophisticated approach such as the first-derivative test [in which the fi
 Such routines may therefore be too liberal with regard to the spectral features they classify as alpha peaks.
 
 ## Alpha-band centre of gravity and reactivity
-Klimesch, Schimke, and Pfurtscheller [-@klimesch1993; see also @klimesch1997] proposed the CoG as an alternative IAF estimator that circumvents some of the difficulties posed by the absence of a dominant alpha peak.
-The CoG takes into account the distribution of PSD estimates within the defined alpha interval, and may therefore be subject to bias if the bounds of the alpha-band are inaccurately specified.
-Since individuals show variation in the span and location of alpha-band activity [cf. @bazanova2014], Klimesch and colleagues [@klimesch1990] recommended computing CoG on the basis of bespoke frequency windows designed to capture this range.
+The alpha mean or CoG frequency [@klimesch1990] has been proposed as an alternative method of IAF estimation that circumvents some of the difficulties posed by the absence of a dominant alpha peak [@klimesch1993; @klimesch1997].
+This estimator computes a weighted average of the power contained within the alpha-band, thus rendering a summary measure that is sensitive to the spectral distribution of alpha components.
+Given that the span and location of alpha-rhythm activity vary across individuals [@bazanova2014], Klimesch and colleagues [-@klimesch1990] recommended computing the CoG using bespoke frequency windows designed to capture such variation.
 However, the definition of such individualised alpha-band windows (IAWs) poses a nontrivial challenge, and may rely on subjective assessments or arbitrary criteria [@bazanova2014].
 One principled solution to this problem is to derive the IAW from reactivity-based contrasts between two conditions [e.g., eyes-closed vs. eyes-open resting-states, @klimesch1999; pre- vs. peri-stimulus presentation, @goljahani2012].
 This approach is not immune to bias, however, since alpha rhythms are not always substantially attenuated by opening the eyes [@gaal2010; @kreitman1965], and may only be partially attenuated [e.g., @klimesch2006] -- or even *enhanced* [e.g., @rihs2007] -- during experimental tasks.
 
 ## Curve-fitting approaches to alpha-rhythm quantification
 One promising approach to spectral peak quantification that avoids many of the issues highlighted above applies iterative curve-fitting techniques to parameterise the statistical properties of the PSD [e.g., @chiang2008; @lodder2011].
-The practical utility of such methods is clearly apparent from their application to large $n$ datasets [e.g., @chiang2011; @van_albada2013], while comparison of Lodder and van Putten's [-@lodder2011] algorithm with human scorers revealed a high degree of estimator agreement.
+The practical utility of such methods is clearly apparent from their application to large *n* datasets [e.g., @chiang2011; @van_albada2013], while comparison of Lodder and van Putten's [-@lodder2011] algorithm with human scorers revealed a high degree of estimator agreement.
 It is puzzling then why such methods have not been taken up more broadly within the IAF literature [cf. @haegens2014, for a notable exception].
 One possibility is that investigators are generally unaware of these approaches, given that they have mostly been applied in the context of spectral modeling rather than IAF research [indeed, neither Goljahani et al., -@goljahani2012; nor Bazanova and Vernon, -@bazanova2014, mention the existence of such methods in their reviews of IAF estimation techniques].
 Alternatively, investigators may be put off by the perceived burden involved in accessing these programmes (which we have not been able to locate publically) and integrating them within existing analysis pipelines (which may not be compatible with such algorithms).

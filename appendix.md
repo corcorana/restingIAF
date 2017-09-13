@@ -4,6 +4,7 @@ output:
   pdf_document:
     number_sections: yes
 bibliography: libraryAC.bib
+csl: apa.csl
 ---
 This appendix gives a more formal account of the estimators implemented in the algorithm.
 
