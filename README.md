@@ -1,14 +1,14 @@
 # restingIAF
 ## General information
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
-Repo also contains a manuscript (submitted) outlining rationale for programme development and its performance across simulated and non-simulated EEG datasets.
+Repo also contains a manuscript (under revision) outlining rationale for programme development and its performance across simulated and non-simulated EEG datasets.
 Materials required to replicate the simulation analyses reported in the manuscipt can be found in the [simulations](https://github.com/corcorana/restingIAF/tree/master/code/simulations) subdirectory.
 A [tutorial](https://github.com/corcorana/restingIAF/tree/master/code/tutorial) analysis routine (including sample EEG data) is provided to familiarise you with various features of the package.
 If you experience any difficulties implementing `restingIAF`, please attempt to replicate the analysis detailed in the [tutorial readme](https://github.com/corcorana/restingIAF/tree/master/code/tutorial/tute_README.md) before contacting us for assistance.
 
 NOTE: All functions were developed and tested in MATLAB 2014b/2015a, and may not be backward compatible with older versions of MATLAB. The algorithm is also dependent on the Signal Processing Toolbox.
 
-Software developed in collaboration with Dr. Phillip Alday, Prof. Matthias Schlesewsky, & Prof. Ina Bornkessel-Schlesewsky, University of South Australia Cognitive Neuroscience Laboratory.
+Software developed in collaboration with Dr. Phillip Alday, Prof. Matthias Schlesewsky, & Prof. Ina Bornkessel-Schlesewsky at the Centre for Cognitive and Systems Neuroscience, University of South Australia.
 
 Constructive criticism, corrections, and potential improvements are most welcome.
 E-mail: andrew.corcoran1\@monash.edu

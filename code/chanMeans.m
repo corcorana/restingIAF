@@ -1,4 +1,4 @@
-function [selP, sums] = chanMeans(chanCogs, selG, peaks, qf, cmin)
+function [selP, sums] = chanMeans(chanCogs, selG, peaks, specs, qf, cmin)
 % Takes channel-wise estimates of peak alpha frequency (PAF) / centre of
 % gravity (CoG) and calculates mean and standard deviation if cmin 
 % condition satisfied. PAFs are weighted in accordance with qf, which aims
@@ -16,6 +16,7 @@ function [selP, sums] = chanMeans(chanCogs, selG, peaks, qf, cmin)
 %   chanCogs = vector of channel-wise CoG estimates
 %   selG = vector (logical) of channels selected for individual alpha band estimation
 %   peaks = vector of channel-wise PAF estimates
+%   specs = matrix of smoothed spectra (helpful for plotting weighted estimates)
 %   qf = vector of peak quality estimates (area bounded by inflection points)
 %   cmin = min number of channels required to generate cross-channel mean
 
@@ -58,10 +59,15 @@ end
 if sum(selG) < cmin
     sums.cog = NaN;
     sums.cogStd = NaN;
+    sums.muSpec = NaN;
 else
     sums.cog = nanmean(chanCogs, 2);
     sums.cogStd = nanstd(chanCogs);
+    wtSpec = bsxfun(@times, specs, chanWts);
+    sums.muSpec = nansum(wtSpec, 2)/nansum(chanWts);
 end
+
+
 
 
 end

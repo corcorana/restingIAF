@@ -105,7 +105,7 @@ pChans = struct('pxx', [], 'minPow', [], 'd0', [], 'd1', [], 'd2', [], 'peaks', 
 
 for kx = 1:nchan
 	% perform pwelch routine to extract PSD estimates by channel
-    [pxx, f] = pwelch(data(kx,:), hamming(tlen), tover, nfft, Fs, 'psd');
+    [pxx, f] = pwelch(data(kx,:), hamming(tlen), tover, nfft, Fs);
 
   	% delimit range of freq bins to be included in analysis
  	frex = dsearchn(f, fRange(1)):dsearchn(f, fRange(2));      
@@ -140,7 +140,7 @@ end
 [ gravs, selG, iaw ] = chanGravs([pChans(:).d0], f, [pChans(:).f1], [pChans(:).f2] );
 
 % calculate average pt estimates/spectra across k-th channels for each j-th recording
-[ selP, pSum ] = chanMeans(gravs, selG, [pChans(:).peaks], [pChans(:).Qf], cmin); 
+[ selP, pSum ] = chanMeans(gravs, selG, [pChans(:).peaks], [pChans(:).d0], [pChans(:).Qf], cmin); 
 
 % retain gravity estimates and selected channels in channel data struct
 for ix = 1:nchan
