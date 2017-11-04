@@ -43,6 +43,30 @@ for snr = 1:8
     end
 end
 
+% null simulation (no target alpha)
+simN = struct('chans', [], 'sums', [], 'maxi', []);
+
+[simNull, rdm] = simSNR(ts,fc_vec,0,1000);
+cMin = 1;
+
+data = simNull(:,:,3);                  % select combined alpha/pinknoise matrix for analysis
+nbchan = size(data, 1);                 % treat each simulated signal as a channel
+[simN.sums, simN.chans, f] = restingIAF(data, nbchan, cMin, fRange, Fs);  
+
+% also collect peak estimates using local maximum (LM) technique
+for kx = 1:nbchan
+ 	[simN.maxi(kx).a, simN.maxi(kx).b] = findPeak(f, simN.chans(kx).pxx, [7 13]);
+end
+
+% number of (false) alpha component estimates extracted
+n_pafsN = zeros(2, 1);
+n_pafsN(2) = sum(([simN.maxi(:).b]==1));
+n_pafsN(1) = simN.sums.pSel;
+
+% eliminate spurious lower bound estimates
+[simN.maxi([simN.maxi(:).b]==0).a] = deal(NaN);  
+fpos = [simN.maxi(:).a];
+hfpos = hist(fpos, 7:.25:13);
 
 % table 1
 % number of PAF component estimates extracted (of 1000 sims)
@@ -86,7 +110,8 @@ sum(abs(errLm1(:,2:9))>=1 & abs(errLm1(:,2:9))<2.6);
 sum(abs(errLm1(:,2:9))>2.5);
 
 
-% figure 16: boxplots comparing LM/SGF estimate error across SNR levels
+
+% boxplots comparing LM/SGF estimate error across SNR levels
 figure
 titvec = {'SNR = 0.05'; 'SNR = 0.10'; 'SNR = 0.15'; 'SNR = 0.20'; 'SNR = 0.25'; 'SNR = 0.30'; 'SNR = 0.40'; 'SNR = 0.50'};
 for bp = 1:2
@@ -138,7 +163,7 @@ for bp = 3:8
 end
 
 
-% figure 17: visualise smoothed/unsmoothed PSD estimates across SNR levels
+% figure 5: visualise smoothed/unsmoothed PSD estimates across SNR levels
 figure
 indvec = [614 346 988 359 711 110 44 282 906 263];      % randomly sampled
 for ix = 1:4
@@ -210,7 +235,7 @@ errLm2 = bsxfun(@minus, pafLm, ta2');
 errSg2 = bsxfun(@minus, pafSg, ta2');
 errCg2 = bsxfun(@minus, cog, ta2');
 
-% figure 18: boxplots of estimate error (SNR x alpha)
+% figure 6: boxplots of estimate error (SNR x alpha)
 figure
 for bp = 1:3
     subplot(1,3,bp)
@@ -342,7 +367,7 @@ errSg3 = bsxfun(@minus, pafSg, ta3');
 errCg3 = bsxfun(@minus, cog, ta3');
 
 
-% figure 19: boxplot estimate spread (centred on sampling window)
+% figure 7: boxplot estimate spread (centred on sampling window)
 % get deviations (relative to centre of window function)
 figure
 bp = 1;
