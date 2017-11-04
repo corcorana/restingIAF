@@ -43,7 +43,7 @@ end
 pop_editoptions('option_single', 0);
 
 % define path to the data files
-dataPath = '~/restingIAF/code/tutorial/datasets/';
+dataPath = '~/Documents/R/restingIAF/code/tutorial/datasets/';
 
 % define required parameters
 n = 3;              % number of subjects for analysis
@@ -100,7 +100,7 @@ end
 %% Print summary of IAF estimates to console (tabular structure assumes nr == 2)
 % find & fill in empties to enable struct fields to be concatenated
 emptySums = arrayfun(@(pSpec) isempty(pSpec.sums), pSpec);
-[pSpec(emptySums).sums] = deal(struct('paf', NaN, 'pafStd', NaN, 'pSel', NaN, 'cog', NaN, 'cogStd', NaN, 'gSel', NaN));
+[pSpec(emptySums).sums] = deal(struct('paf', NaN, 'pafStd', NaN, 'cog', NaN, 'cogStd', NaN, 'muSpec', NaN, 'pSel', NaN, 'gSel', NaN, 'iaw', [1 1]));
 
 % pull out 1st and 2nd recording estimates
 sum_1 = [pSpec(:,1).sums];
