@@ -1,7 +1,7 @@
 # restingIAF
 ## General information
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
-Repo also contains a manuscript (long and shorter versions, also available on bioRxiv) outlining rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
+Repo also contains a manuscript (long and short(er) versions, also archived on bioRxiv) outlining rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
 Materials required to replicate the simulation analyses reported in the manuscipt can be found in the [simulations](https://github.com/corcorana/restingIAF/tree/master/code/simulations) subdirectory.
 A [tutorial](https://github.com/corcorana/restingIAF/tree/master/code/tutorial) analysis routine (including sample EEG data) is provided to familiarise you with various features of the package.
 If you experience any difficulties implementing `restingIAF`, please attempt to replicate the analysis detailed in the [tutorial readme](https://github.com/corcorana/restingIAF/tree/master/code/tutorial/tute_README.md) before contacting us for assistance.
@@ -28,12 +28,13 @@ The current release version can be cited as:
 Each version release is issued a unique doi from [Zenodo](https://zenodo.org/record/846797#.WbEh4a2B2fQ).
 
 
-## Releases
+## Current release
 `v1.0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.888071.svg)](https://doi.org/10.5281/zenodo.888071)
 
 Includes IAW estimates in summary output.
 Also includes additional tutorial dataset showing output when 1 recording fails to satisfy $cMin$ for PAF estimation, tutorial script contingency for handling epoched data. 
 
+### Previous releases
 `v1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.846797.svg)](https://doi.org/10.5281/zenodo.846797)
 
 Released in conjunction with publication of Corcoran et al. bioRxiv preprint.
