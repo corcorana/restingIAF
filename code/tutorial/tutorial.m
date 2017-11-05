@@ -45,21 +45,24 @@ pop_editoptions('option_single', 0);
 % define path to the data files
 dataPath = '~/Documents/R/restingIAF/code/tutorial/datasets/';
 
-% define required parameters
-n = 3;              % number of subjects for analysis
+% define initial parameters
+ns = 3;             % number of subjects for analysis
 nr = 2;             % number of recordings per subject
-fRange = [1 40];    % spectral range (set to filter passband)
-w = [7 13];         % alpha peak search window
+
 cmin = 3;           % minimum number of channel estimates required for cross-channel average (for tutorial data: min == 1, max == 6)
+fRange = [1 40];    % spectral range (set to filter passband)
+w = [7 13];         % alpha peak search window (Hz)
+Fw = 11;            % SGF frame width (11 for ~0.24 Hz resolution)
+
 
 % initialise data matrices / structures
 pSpec = struct('chans', [], 'sums', []);
 nchan = nan(1, 2);
-muPaf = nan(n, 1);
-muCog = nan(n, 1); 
+muPaf = nan(ns, 1);
+muCog = nan(ns, 1); 
 
 %% Analysis loops
-for ix = 1:n     % for each i-th subject
+for ix = 1:ns     % for each i-th subject
     
     for jx = 1:nr       % for each j-th resting-state recording
         
@@ -82,8 +85,9 @@ for ix = 1:n     % for each i-th subject
                 data = reshape(data, nchan(jx), []);
             end
 
-            % run restingIAF
-            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs);
+            % run `restingIAF`
+            % NOTE: only required inputs specified, optional inputs are available (see `restingIAF` help) 
+            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs, w, Fw);
 
         else
             sprintf(['unable to find ', fileName, ', skipping file'])
@@ -107,7 +111,7 @@ sum_1 = [pSpec(:,1).sums];
 sum_2 = [pSpec(:,2).sums];
 
 % tabulate summary statistics
-S_num = (1:n)';
+S_num = (1:ns)';
 colnames = { 'S', 'PAF', 'sd1', 'sd2', 'nPafs1', 'nPafs2', 'CoG', 'sd_1', 'sd_2', 'nGravs1', 'nGravs2' };
 IAF_estimates = array2table([S_num, muPaf, [sum_1(:).pafStd]', [sum_2(:).pafStd]', [sum_1(:).pSel]', [sum_2(:).pSel]', muCog, [sum_1(:).cogStd]', [sum_2(:).cogStd]', [sum_1(:).gSel]', [sum_2(:).gSel]' ], 'VariableNames', colnames)
 fprintf('Estimates derived via pwelch method, initial alpha window = %.1f - %.1f Hz.', w(1), w(2));
