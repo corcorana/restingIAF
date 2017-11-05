@@ -1,4 +1,4 @@
-function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, varargin)
+function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, w, Fw, varargin)
 % Primary function for running `restingIAF` analysis routine for estimating
 % two indices of individual alpha frequency (IAF): Peak alpha frequency 
 % (PAF) and the alpha mean frequency / centre of gravity (CoG).
@@ -28,15 +28,18 @@ function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, varargin)
 %          order to calculate average PAF/CoG estimates
 %   fRange = frequency range to be included in analysis (e.g., 1-40 Hz )
 %   Fs = EEG sampling rate
+%   w = bounds of alpha peak search window (e.g., [7 13])
+%   Fw = frame width, Savitzky-Golay filter (corresponds to number of freq. 
+%          bins spanned by filter, must be odd)
 %
 %% Optional inputs:
-%   w = bounds of alpha peak search window (default = [7 13])
-%   Fw = frame width, Savitzky-Golay filter (default = 11, must be odd)
+%
 %   k = polynomial order, Savitzky-Golay filter (default = 5, must be < Fw)
 %   mpow = error bound (standard deviation) used to determine threshold differentiating 
 %          substantive peaks from background spectral noise (default = 1)
 %   mdiff = minimal height difference distinguishing a primary peak from
 %           competing peaks (default = 0.20)
+%   taper = taper window function applied by `pwelch` (default = 'hamming')
 %   tlen = length of taper window applied by `pwelch` (default = 4*Fs)
 %   tover = length of taper window overlap in samples (default = 50% window length)
 %   nfft = specify number of FFT points used to calculate PSD (default = next power of 2 above window length)
@@ -59,22 +62,25 @@ p.addRequired('fRange',...
 p.addRequired('Fs',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive', '>=', 2*fRange(2)}));
-
-p.addOptional('w', [7 13],...
+p.addRequired('w',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'nonnegative', 'increasing', 'size', [1,2], '>', fRange(1), '<', fRange(2)}));
-p.addOptional('Fw', 11,...
+p.addRequired('Fw',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive', 'odd'}));
+
 p.addOptional('k', 5,...
                 @(x) validateattributes(x, {'numeric'}, ...
-                {'scalar', 'integer', 'positive', '<', varargin{2} }));
+                {'scalar', 'integer', 'positive', '<', Fw }));
 p.addOptional('mpow', 1,...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'positive'}));
 p.addOptional('mdiff', .20,...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', '>=', 0, '<=', 1}));
+p.addOptional('taper', 'hamming',...
+                @(x) validateattributes(x, {'char'}, ...
+                {}));
 p.addOptional('tlen', (Fs*4),...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive'}));
@@ -88,13 +94,12 @@ p.addOptional('norm', 1,...
                 @(x) validateattributes(x, {'logical'}, ...
                 {'scalar'}));
             
-p.parse(data, nchan, cmin, fRange, Fs, varargin{:})
+p.parse(data, nchan, cmin, fRange, Fs, w, Fw, varargin{:})
 
-w = p.Results.w;
-Fw = p.Results.Fw;
 k = p.Results.k;
 mpow = p.Results.mpow;
 mdiff = p.Results.mdiff;
+taper = p.Results.taper;
 tlen = p.Results.tlen;
 tover = p.Results.tover;
 nfft = p.Results.nfft;
@@ -105,7 +110,8 @@ pChans = struct('pxx', [], 'minPow', [], 'd0', [], 'd1', [], 'd2', [], 'peaks', 
 
 for kx = 1:nchan
 	% perform pwelch routine to extract PSD estimates by channel
-    [pxx, f] = pwelch(data(kx,:), hamming(tlen), tover, nfft, Fs);
+    fh = str2func(taper);
+    [pxx, f] = pwelch(data(kx,:), fh(tlen), tover, nfft, Fs);
 
   	% delimit range of freq bins to be included in analysis
  	frex = dsearchn(f, fRange(1)):dsearchn(f, fRange(2));      
