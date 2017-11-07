@@ -1,8 +1,13 @@
 # restingIAF
 ## General information
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
-Repo also contains a manuscript (long and short(er) versions, also archived on bioRxiv) outlining rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
+
+Repo also contains a manuscript (long and short(er) versions, archived on bioRxiv) outlining rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
+The long version contains additional details concerning some of the problematic aspects of many common approaches to IAF estimation.
+The short version (currently under review) omits some technical details, most of which have been summarised in the accompanying appendix.
+
 Materials required to replicate the simulation analyses reported in the manuscipt can be found in the [simulations](https://github.com/corcorana/restingIAF/tree/master/code/simulations) subdirectory.
+
 A [tutorial](https://github.com/corcorana/restingIAF/tree/master/code/tutorial) analysis routine (including sample EEG data) is provided to familiarise you with various features of the package.
 If you experience any difficulties implementing `restingIAF`, please attempt to replicate the analysis detailed in the [tutorial readme](https://github.com/corcorana/restingIAF/tree/master/code/tutorial/tute_README.md) before contacting us for assistance.
 
@@ -41,7 +46,7 @@ Released in conjunction with publication of Corcoran et al. bioRxiv preprint.
 
 `v0.1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268602.svg)](https://doi.org/10.5281/zenodo.268602)
 
-Formed the basis of Cross et al's (manuscript in preparation) resting-state IAF analysis. 
+Formed the basis of [Cross et al's (2017)](https://www.biorxiv.org/content/early/2017/10/12/202176) resting-state IAF analysis. 
 Additional analysis scripts customised for the purposes of this study are included in release `v0.1.1`.
 UPDATE (07/09/2017): The analysis for this paper was repeated using `v1.0` prior to submission.
 
