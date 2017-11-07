@@ -1,4 +1,4 @@
-function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, w, Fw, varargin)
+function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, w, Fw, k, varargin)
 % Primary function for running `restingIAF` analysis routine for estimating
 % two indices of individual alpha frequency (IAF): Peak alpha frequency 
 % (PAF) and the alpha mean frequency / centre of gravity (CoG).
@@ -31,10 +31,10 @@ function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, w, Fw, va
 %   w = bounds of alpha peak search window (e.g., [7 13])
 %   Fw = frame width, Savitzky-Golay filter (corresponds to number of freq. 
 %          bins spanned by filter, must be odd)
+%   k = polynomial order, Savitzky-Golay filter (must be < Fw)
 %
 %% Optional inputs:
 %
-%   k = polynomial order, Savitzky-Golay filter (default = 5, must be < Fw)
 %   mpow = error bound (standard deviation) used to determine threshold differentiating 
 %          substantive peaks from background spectral noise (default = 1)
 %   mdiff = minimal height difference distinguishing a primary peak from
@@ -68,10 +68,10 @@ p.addRequired('w',...
 p.addRequired('Fw',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive', 'odd'}));
-
-p.addOptional('k', 5,...
+p.addRequired('k',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive', '<', Fw }));
+
 p.addOptional('mpow', 1,...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'positive'}));
@@ -94,9 +94,8 @@ p.addOptional('norm', 1,...
                 @(x) validateattributes(x, {'logical'}, ...
                 {'scalar'}));
             
-p.parse(data, nchan, cmin, fRange, Fs, w, Fw, varargin{:})
+p.parse(data, nchan, cmin, fRange, Fs, w, Fw, k, varargin{:})
 
-k = p.Results.k;
 mpow = p.Results.mpow;
 mdiff = p.Results.mdiff;
 taper = p.Results.taper;

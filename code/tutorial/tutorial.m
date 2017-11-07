@@ -53,7 +53,7 @@ cmin = 3;           % minimum number of channel estimates required for cross-cha
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window (Hz)
 Fw = 11;            % SGF frame width (11 for ~0.24 Hz resolution)
-
+k = 5;              % SGF polynomial order
 
 % initialise data matrices / structures
 pSpec = struct('chans', [], 'sums', []);
@@ -87,7 +87,7 @@ for ix = 1:ns     % for each i-th subject
 
             % run `restingIAF`
             % NOTE: only required inputs specified, optional inputs are available (see `restingIAF` help) 
-            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs, w, Fw);
+            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs, w, Fw, k);
 
         else
             sprintf(['unable to find ', fileName, ', skipping file'])
