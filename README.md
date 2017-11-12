@@ -9,6 +9,8 @@ Most of these details have been collated in an accompanying [appendix](https://g
 
 ## Simulation analyses
 Materials required to replicate the simulation analyses reported in the manuscipt can be found in the [simulations](https://github.com/corcorana/restingIAF/tree/master/simulations) directory.
+Run `simsSingle` to replicate the preliminary (single component) analysis; run `simsMulti` for the multiple channels / mixed components analyses.
+These scripts include code to reproduce the tables and figures included in the results section of the manuscript.
 
 ## Tutorial analysis
 A [tutorial](https://github.com/corcorana/restingIAF/tree/master/tutorial) analysis routine (including sample EEG data) is provided to familiarise you with various features of the package.
