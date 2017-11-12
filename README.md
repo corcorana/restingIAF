@@ -25,7 +25,8 @@ The algorithm is dependent on the `Signal Processing Toolbox`.
 Software developed in collaboration with Dr. Phillip Alday, Prof. Matthias Schlesewsky, & Prof. Ina Bornkessel-Schlesewsky at the Centre for Cognitive and Systems Neuroscience, University of South Australia.
 
 Constructive criticism, corrections, and potential improvements are most welcome.
-E-mail: andrew.corcoran1\@monash.edu
+
+E-mail: andrew{dot}corcoran1{at}monash{dot}edu | Twitter: {at}mr_corcorana
 
 ## Python implementation
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
