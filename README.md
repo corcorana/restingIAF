@@ -68,9 +68,9 @@ Minor modifications on `v1.0`, including:
 - UPDATE (07/09/2017): The analysis for this paper was repeated using `v1.0` prior to submission.
 
 ## Licence & Copyright
-This software was developed in the hope that it would be of some use to the EEG research community, and is freely available for redistribution and/or modification under the terms of the GNU General Public Licence. 
+This software was developed in the hope that it would be of some use to the EEG research community, and is freely available for redistribution and/or modification under the terms of the GNU General Public Licence.
 It is distributed WITHOUT WARRANTY; without even the implied warranty of merchantability or fitness for a particular purpose. 
-See the GNU General Public License (LICENCE.md) for more details.
+See the [GNU General Public License](https://github.com/corcorana/restingIAF/tree/master/LICENCE.md) for more details.
 
 Copyright (c) 2016-2017 Andrew W. Corcoran.
 (Any coding errors or inelegancies are solely his fault.)
