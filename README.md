@@ -12,7 +12,7 @@ Materials required to replicate the simulation analyses reported in the manuscip
 Run `simsSingle` to replicate the preliminary (single component) analysis; run `simsMulti` for the multiple channels / mixed components analyses.
 These scripts include code to reproduce the tables and figures included in the results section of the manuscript.
 
-Simulations depend on the `pinknoise` function (v1.5) included with simulation materials.
+Simulations depend on the `pinknoise` function (v1.5), which has been included as part of the simulation materials.
 Please see the [LICENSE](https://github.com/corcorana/restingIAF/tree/master/simulations/pinknoise_LICENSE.txt) associated with this source code for terms and conditions of its use and distribution.
 Updates and more information about the function (along with others for generating red, blue, and violet noise signal) can be accessed from the [MATLAB File Exchange](https://au.mathworks.com/matlabcentral/fileexchange/42919-pink--red--blue-and-violet-noise-generation-with-matlab-implementation).
 
@@ -23,7 +23,7 @@ This script may serve as a useful model for integrating `restingIAF` within your
 If you experience any difficulties implementing `restingIAF`, please attempt to replicate the analysis detailed in the [tutorial readme](https://github.com/corcorana/restingIAF/tree/master/tutorial/tute_README.md) before contacting us for assistance.
 
 ## Development
-All functions were developed and tested in MATLAB 2014b/2015a, and may not be compatible with older versions of MATLAB. 
+All functions were developed and tested in MATLAB 2014b/2015a, and may not be fully compatible with other versions of MATLAB. 
 The algorithm is dependent on the `Signal Processing Toolbox`.
 
 Software developed in collaboration with Dr. Phillip Alday, Prof. Matthias Schlesewsky, & Prof. Ina Bornkessel-Schlesewsky at the Centre for Cognitive and Systems Neuroscience, University of South Australia.
