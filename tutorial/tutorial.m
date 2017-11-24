@@ -43,7 +43,7 @@ end
 pop_editoptions('option_single', 0);
 
 % define path to the data files
-dataPath = '~/Documents/R/restingIAF/code/tutorial/datasets/';
+dataPath = '~/Documents/R/restingIAF/tutorial/datasets/';
 
 % define initial parameters
 ns = 3;             % number of subjects for analysis
@@ -97,7 +97,7 @@ for ix = 1:ns     % for each i-th subject
     end         % end j-th recording loop
 
     % weighted average of mean IAF estimates across (j-th) recordings
-    [muPaf(ix, :), muCog(ix, :)] = meanIAF([pSpec(ix, :).sums], nchan);
+    [muPaf(ix, :), muCog(ix, :)] = meanIAF([pSpec(ix, :).sums], nchan, cmin);
     
 end
 
