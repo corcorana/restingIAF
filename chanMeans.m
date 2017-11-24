@@ -50,21 +50,22 @@ chanWts = qf/max(qf);               % channel weightings scaled in proportion to
 if sum(selP) < cmin                 % if number of viable channels < cmin threshold, don't calculate cross-channel mean & std
     sums.paf = NaN;
     sums.pafStd = NaN;
+    sums.muSpec = NaN;
 else                                % else compute (weighted) cross-channel average PAF estimate and corresponding std of channel PAFs
     sums.paf = nansum(bsxfun(@times, peaks, chanWts))/nansum(chanWts);
     sums.pafStd = nanstd(peaks);
+    % estimate averaged spectra for plotting
+    wtSpec = bsxfun(@times, specs, chanWts);
+    sums.muSpec = nansum(wtSpec, 2)/nansum(chanWts);
 end
 
 % now for the gravs (no channel weighting, all channels included if cmin satisfied)
 if sum(selG) < cmin
     sums.cog = NaN;
     sums.cogStd = NaN;
-    sums.muSpec = NaN;
 else
     sums.cog = nanmean(chanCogs, 2);
     sums.cogStd = nanstd(chanCogs);
-    wtSpec = bsxfun(@times, specs, chanWts);
-    sums.muSpec = nansum(wtSpec, 2)/nansum(chanWts);
 end
 
 
