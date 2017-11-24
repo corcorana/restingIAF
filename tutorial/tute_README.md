@@ -79,9 +79,11 @@ Table 3: Key explaining fields within *pSpec.chans* data structure (see Corcoran
 | *selG* | Logical | Selected for cross-channel CoG averaging |
 
 ## Visualising power spectra
-We have included a fairly simple plotting function, `plotSpec`, for visualising channel spectra using the frequency vector *f* and the data structure *pSpec* output by `restingIAF`.
+We have included two simple plotting functions, `plotSpec` and `plotAvSpec`, for visualising channel-wise PSD estimates and their Q-weighted averages.
 Plotting spectral estimates may prove useful for evaluating how well the Savitzky-Golay smoothing routine is performing.
-Example plots generated from the channel estimates derived above are displayed in Figures 1 and 2 (plots linearly-scaled).
+Example plots generated from the channel estimates derived above are displayed in Figures 1 and 2.
+Comparisons of weighted channel spectra from pre- and post-experiment recordings are displayed in Figure 3.
+All plotted functions are linearly-scaled.
 
 ![](s1pre.png) ![](s1post.png)
 
@@ -94,3 +96,9 @@ Command line: plotSpec(f, pSpec, 1, 1, 'd0', 0); plotSpec(f, pSpec, 1, 2, 'd0', 
 *Figure 2*. Unsmoothed and smoothed spectral estimates (post-experiment recordings) for Subject 2.
 
 Command line: plotSpec(f, pSpec, 2, 2, 'pxx', 0); plotSpec(f, pSpec, 2, 2, 'd0', 0)
+
+![](s1avs.png) ![](s2avs.png)
+
+*Figure 3*. Pre- (blue) and post- (red) experiment averages from Subjects 1 and 2.
+
+Command line: plotAvSpec(f, pSpec, 1, 0); plotAvSpec(f, pSpec, 2, 0)
