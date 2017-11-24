@@ -1,4 +1,4 @@
-function [paf, cog] = meanIAF(sums, nchan)
+function [paf, cog] = meanIAF(sums, nchan, cmin)
 % Average 2 repeated-measures PAF and CoG means in proportion to number of
 % channels that contributed to calculation of each respective mean.
 % No averaging performed if only one valid estimate provided per subject.
@@ -15,7 +15,8 @@ function [paf, cog] = meanIAF(sums, nchan)
 % Required inputs:
 %   sums = structure containing mean PAF/CoG estimates and number of
 %          channels from which estimates derived
-%   nchan = number of channels included in analysis (all available channels)
+%   nchan = vector containing number of channels per recording
+%   cmin = minimum number of channel estimates required for inclusion
 
 %% setup variable check
 if ~exist('sums', 'var')
@@ -23,39 +24,27 @@ if ~exist('sums', 'var')
 end
 if ~exist('nchan', 'var')
     error('Provide vector containing number of channels in each recording')
-elseif length(nchan) ~= 2
-    error('Length of nchan vector ~= 2');
 end
 %%
-
-if length(sums) == 2
-    
-    % do peaks
-    if isnan(sums(1).paf) && isnan(sums(2).paf)
-        paf = NaN;
-    elseif isnan(sums(1).paf) || isnan(sums(2).paf)
-        paf = nansum([sums(1).paf, sums(2).paf]);
-    else
-        paf = sum([sums(1).paf * (sums(1).pSel/nchan(1)), sums(2).paf * (sums(2).pSel/nchan(2))]) / ((sums(1).pSel/nchan(1)) + (sums(2).pSel/nchan(2)));
-    end
-    
-    % do gravs
-    if isnan(sums(1).cog) && isnan(sums(2).cog)
-        cog = NaN;
-    elseif isnan(sums(1).cog) || isnan(sums(2).cog)
-        cog = nansum([sums(1).cog, sums(2).cog]);
-    else
-        cog = sum([sums(1).cog * (sums(1).gSel/nchan(1)), sums(2).cog * (sums(2).gSel/nchan(2))]) / ((sums(1).gSel/nchan(1)) + (sums(2).gSel/nchan(2)));
-    end
-    
-elseif length(sums) == 1        % if only one set of estimates, cannot average
-    paf = sums.paf;
-    cog = sums.cog;
-
-else
+  
+% peaks
+select = [sums.pSel] >= cmin;
+if sum(select) == 0
     paf = NaN;
-    cog = NaN;
+else
+    paf = sum([sums(select).paf].*([sums(select).pSel]./nchan(select)))...
+        / sum([sums(select).pSel]./nchan(select));
 end
+    
+% gravs
+select = [sums.gSel] >= cmin;
+if sum(select) == 0
+    cog = NaN;
+else
+    cog = sum([sums(select).cog].*([sums(select).gSel]./nchan(select)))...
+        / sum([sums(select).gSel]./nchan(select));
+end
+
 
 end
 
