@@ -44,28 +44,28 @@ The current release version can also be cited:
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restingIAF. [doi]
 
-Each version release is issued a unique doi from [Zenodo](https://zenodo.org/record/846797#.WbEh4a2B2fQ).
-
+Each version release is issued a unique doi from [Zenodo](https://zenodo.org/).
 
 ## Current release
-`v1.0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.888071.svg)](https://doi.org/10.5281/zenodo.888071)
+`v1.0.2` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1066004.svg)](https://doi.org/10.5281/zenodo.1066004)
 
-Minor modifications on `v1.0`, including:
+Various updates and minor bug fixes, including:
 
-- Output IAW estimates in sums data structure.
-- Additional tutorial dataset showing output when 1 recording fails to satisfy cMin for PAF estimation.
-- Tutorial script contingency for handling epoched data. 
+- SGF parameters must now be specified (i.e. no default setting);
+- 'psd' argument removed from call to pwelch in restingIAF;
+option to implement pwelch using an alternative taper to the default Hamming window;
+- meanIAF reconfigured to cope with >2 sets of intraindividual recordings;
+- plotAvSpec added to enable plotting of Q-weighted averaged channel spectra;
+- tutorial updated to include example figures from plotAvSpec;
+- simulation script separated into separate scripts for single/multi-component analyses;
+- tutorial and simulation scripts updated in line with above modifications.
 
 ### Previous releases
+`v1.0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.888071.svg)](https://doi.org/10.5281/zenodo.888071)
+
 `v1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.846797.svg)](https://doi.org/10.5281/zenodo.846797)
 
-- Released in conjunction with Corcoran et al. (2017) bioRxiv preprint.
-
-`v0.1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268602.svg)](https://doi.org/10.5281/zenodo.268602)
-
-- Formed the basis of [Cross et al's (2017)](https://www.biorxiv.org/content/early/2017/10/12/202176) resting-state IAF analysis. 
-- Additional analysis scripts customised for the purposes of this study are included in release `v0.1.1`.
-- UPDATE (07/09/2017): The analysis for this paper was repeated using `v1.0` prior to submission.
+`v0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.268602.svg)](https://doi.org/10.5281/zenodo.268602)
 
 ## Licence & Copyright
 This software was developed in the hope that it would be of some use to the EEG research community, and is freely available for redistribution and/or modification under the terms of the GNU General Public Licence.
