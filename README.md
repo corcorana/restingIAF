@@ -52,12 +52,12 @@ Each version release is issued a unique doi from [Zenodo](https://zenodo.org/).
 Various updates and minor bug fixes, including:
 
 - SGF parameters must now be specified (i.e. no default setting);
-- 'psd' argument removed from call to pwelch in restingIAF;
-option to implement pwelch using an alternative taper to the default Hamming window;
-- meanIAF reconfigured to cope with >2 sets of intraindividual recordings;
-- plotAvSpec added to enable plotting of Q-weighted averaged channel spectra;
-- tutorial updated to include example figures from plotAvSpec;
-- simulation script separated into separate scripts for single/multi-component analyses;
+- 'psd' argument removed from call to `pwelch` in `restingIAF`;
+- option to implement `pwelch` using an alternative taper to the default Hamming window;
+- `meanIAF` reconfigured to cope with >2 sets of intraindividual recordings;
+- `plotAvSpec` added to enable plotting of (Q-weighted) averaged channel spectra;
+- tutorial updated to include example figures from `plotAvSpec`;
+- simulation script separated into single & multi-component analyse scripts;
 - tutorial and simulation scripts updated in line with above modifications.
 
 ### Previous releases
