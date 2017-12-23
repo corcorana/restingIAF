@@ -2,10 +2,10 @@
 ## General information
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
 
-Repo also contains a manuscript (long and short(er) versions, archived on bioRxiv) outlining rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
-The [long version](https://github.com/corcorana/restingIAF/blob/master/MS_long.pdf) contains additional details concerning some of the problematic aspects of many common approaches to IAF estimation.
-The [short version](https://github.com/corcorana/restingIAF/blob/master/MS_short.pdf) (currently under review) also omits some of the technical details included in the long version.
-Most of these details have been collated in an accompanying [appendix](https://github.com/corcorana/restingIAF/blob/master/MS_short_appendix.pdf).
+Repo also contains a manuscript preprint (long and short(er) versions, archived on bioRxiv) outlining the rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
+The [long version](https://github.com/corcorana/restingIAF/blob/master/MS_long.pdf) includes a detailed examination of some of the problematic aspects that afflict many common approaches to IAF estimation.
+It also contains certain technical methodological details that were omitted from the [short version](https://github.com/corcorana/restingIAF/blob/master/MS_short.pdf).
+Most of these details are collated in the latter's accompanying [appendix](https://github.com/corcorana/restingIAF/blob/master/MS_short_appendix.pdf).
 
 ## Simulation analyses
 Materials required to replicate the simulation analyses reported in the manuscipt can be found in the [simulations](https://github.com/corcorana/restingIAF/tree/master/simulations) directory.

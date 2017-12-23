@@ -169,7 +169,7 @@ end
 
 %% figure 5: visualise e.g. smoothed/unsmoothed PSD estimates across SNR levels
 figure
-indvec = [614 346 988 359 711 110 44 282 906 263];      % randomly sampled
+indvec = [614 346 988 359 711 110 44 282];      % randomly sampled
 for ix = 1:4
     subplot(2,4,ix)
     plot(f, simSnr(ix).chans(indvec(ix)).pxx, 'Color', [0 .3 .7], 'LineWidth',2)
