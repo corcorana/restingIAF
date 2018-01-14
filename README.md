@@ -2,9 +2,9 @@
 ## General information
 Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
 
-Repo also contains a manuscript preprint (long and short(er) versions, archived on bioRxiv) outlining the rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
-The [long version](https://github.com/corcorana/restingIAF/blob/master/MS_long.pdf) includes a detailed examination of some of the problematic aspects that afflict many common approaches to IAF estimation.
-It also contains certain technical methodological details that were omitted from the [short version](https://github.com/corcorana/restingIAF/blob/master/MS_short.pdf).
+Repo also contains manuscript preprints (long and short(er) versions, archived on *bioRxiv*) outlining the rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
+The [long version](https://github.com/corcorana/restingIAF/blob/master/MS_long.pdf) includes a detailed examination of some of the problematical features of conventional approaches to IAF estimation.
+It also contains additional technical details that were omitted from the [short version](https://github.com/corcorana/restingIAF/blob/master/MS_short.pdf).
 Most of these details are collated in the latter's accompanying [appendix](https://github.com/corcorana/restingIAF/blob/master/MS_short_appendix.pdf).
 
 ## Simulation analyses
@@ -36,15 +36,15 @@ E-mail: andrew{dot}corcoran1{at}monash{dot}edu | Twitter: {at}mr_corcorana
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
 
 ## Citation
-If this software was useful for your work, please consider citing our methods paper: 
+If this software was useful for your work, please help others to discover it by citing our methods paper: 
 
-> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). Towards a reliable, automated method of individual alpha frequency (IAF) quantification. bioRxiv. doi: https://doi.org/10.1101/176792
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2018). Toward a reliable, automated method of individual alpha frequency (IAF) quantification. *Psychophysiology*. doi: 10.1111/psyp.13064
 
-The current release version can also be cited:
+Current/previous release versions may also be cited:
 
-> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2017). restingIAF (version number) [Software]. Retrieved from https://github.com/corcorana/restingIAF. [doi]
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. {*year*}. restingIAF {*version*} [Software]. Retrieved from https://github.com/corcorana/restingIAF. {*doi*}
 
-Each version release is issued a unique doi from [Zenodo](https://zenodo.org/).
+Each release is issued a unique doi from [Zenodo](https://zenodo.org/).
 
 ## Current release
 `v1.0.2` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1066004.svg)](https://doi.org/10.5281/zenodo.1066004)
