@@ -36,7 +36,7 @@ E-mail: andrew{dot}corcoran1{at}monash{dot}edu | Twitter: {at}mr_corcorana
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
 
 ## Citation
-If this software was useful for your work, please help others to discover it by citing our methods paper: 
+If this software was useful for your work, please help others discover it by citing our methods paper: 
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2018). Toward a reliable, automated method of individual alpha frequency (IAF) quantification. *Psychophysiology*, e13064. doi: 10.1111/psyp.13064
 
@@ -57,7 +57,7 @@ Various updates and minor bug fixes, including:
 - `meanIAF` reconfigured to cope with >2 sets of intraindividual recordings;
 - `plotAvSpec` added to enable plotting of (Q-weighted) averaged channel spectra;
 - tutorial updated to include example figures from `plotAvSpec`;
-- simulation script separated into single & multi-component analyse scripts;
+- simulation script separated into single & multi-component analysis scripts;
 - tutorial and simulation scripts updated in line with above modifications.
 
 ### Previous releases
@@ -72,5 +72,5 @@ This software was developed in the hope that it would be of some use to the EEG 
 It is distributed WITHOUT WARRANTY; without even the implied warranty of merchantability or fitness for a particular purpose. 
 See the [GNU General Public License](https://github.com/corcorana/restingIAF/tree/master/LICENCE.md) for more details.
 
-Copyright (c) 2016-2017 Andrew W. Corcoran.
+Copyright (c) 2016--2018 Andrew W. Corcoran.
 (Any coding errors or inelegancies are solely his fault.)
