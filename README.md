@@ -1,6 +1,6 @@
 # restingIAF
 ## General information
-Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in EEGLAB. 
+Source code for `restingIAF`, an automated resting-state individual alpha frequency (IAF) estimation routine implemented in MATLAB. 
 
 Repo also contains manuscript preprints (long and short(er) versions, archived on *bioRxiv*) outlining the rationale for programme development, its performance across simulated and non-simulated EEG datasets, and guidelines for parameter settings.
 The [long version](https://github.com/corcorana/restingIAF/blob/master/MS_long.pdf) includes a detailed examination of some of the problematical features of conventional approaches to IAF estimation.
@@ -36,7 +36,7 @@ E-mail: andrew{dot}corcoran1{at}monash{dot}edu | Twitter: {at}mr_corcorana
 A preliminary implementation in Python for use with [MNE-Python](https://martinos.org/mne/) is available as part of the [`philistine` package](https://gitlab.com/palday/philistine).
 
 ## Citation
-If this software was useful for your work, please help others discover it by citing our methods paper: 
+If this software was useful for your work, please credit it by citing our methods paper: 
 
 > Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2018). Toward a reliable, automated method of individual alpha frequency (IAF) quantification. *Psychophysiology*, e13064. doi: 10.1111/psyp.13064
 
