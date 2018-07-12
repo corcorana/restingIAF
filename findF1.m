@@ -62,7 +62,7 @@ else leftPeak = bin;                % if no other peaks were identified, take bi
 end
     
 cnt = 0;                        % start counter at 0
-for k = 1:leftPeak-1            % step through frequency bins up to left-most peak in search window
+for k = 2:leftPeak-1            % step through frequency bins up to left-most peak in search window
 	if sign(d1(k)) < sign(d1(k+1))        % look for switch from negative to positive derivative values (i.e. upward/positive zero-crossing)
     	[~, mink] = min(abs([d0(k-1), d0(k), d0(k+1)]));    % search around crossing for local minimum in d0 (indexing 1st derivative sometimes results in small errors)
         if mink == 1

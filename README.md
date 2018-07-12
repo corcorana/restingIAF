@@ -38,7 +38,7 @@ A preliminary implementation in Python for use with [MNE-Python](https://martino
 ## Citation
 If this software was useful for your work, please credit it by citing our methods paper: 
 
-> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2018). Toward a reliable, automated method of individual alpha frequency (IAF) quantification. *Psychophysiology*, e13064. doi: 10.1111/psyp.13064
+> Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, I. (2018). Toward a reliable, automated method of individual alpha frequency (IAF) quantification. *Psychophysiology, 55*(7), e13064. doi: 10.1111/psyp.13064
 
 Current/previous release versions may also be cited:
 
