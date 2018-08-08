@@ -1,7 +1,7 @@
-function [pSum, pChans, f] = restingIAF(data, cmin, fRange, Fs, w, Fw, k, varargin)
+function [pSum, pChans, f] = restingIAF(data, nchan, cmin, fRange, Fs, w, Fw, k, varargin)
 % Primary function for running `restingIAF` analysis routine for estimating
 % two indices of individual alpha frequency (IAF): Peak alpha frequency 
-% (PAF) and the alpha mean frequency / centre of gravity (CoG).
+% (PAF) and the alpha centre of gravity (CoG) or mean frequency.
 %
 % Calls on the Signal Processing Toolbox function `pwelch` to derive power 
 % spectral density estimates of one or more vectors of EEG channel data, 
@@ -11,19 +11,19 @@ function [pSum, pChans, f] = restingIAF(data, cmin, fRange, Fs, w, Fw, k, vararg
 % channels by `chanMeans`.
 %
 % This function and all custom-designed dependencies are part of the 
-% `restingIAF` package, (c) Andrew W. Corcoran, 2016--2018.
+% `restingIAF` package, (c) Andrew W. Corcoran, 2016-2018.
 %
-% Please consult our methods paper for information about recommended 
-% parameter settings and performance on empirical and simulated EEG
-% signals (please cite this paper if our code was useful for your work): 
+% Please consult our methods paper for a more detailed exposition of the
+% analysis routine, factors to consider when selecting parameter settings,
+% and a study of its performance on empirical and simulated EEG signals: 
 %
 % Corcoran, A.W., Alday, P.M., Schlesewsky, M., & Bornkessel-Schlesewsky, 
 %   I. (2018). Toward a reliable, automated method of individual alpha 
 %   frequency (IAF) quantification. Psychophysiology, 55(7), e13064. 
 %   doi: 10.1111/psyp.13064. 
 %
-% You may also cite the code version used in your analysis so that others 
-% may be able to fully replicate your results (see README.md).
+% Each release version is also citable and archived on GitHub, making it
+% easier for others to fully replicate your analysis (see README.md).
 %
 % Visit github.com/corcorana/restingIAF for further info on licencing and
 % updates on package development.
@@ -36,6 +36,7 @@ function [pSum, pChans, f] = restingIAF(data, cmin, fRange, Fs, w, Fw, k, vararg
 %% Required inputs:
 %   data    = vector or matrix containing continuous EEG channel data
 %             (matrix rows = channels, cols = sample points)
+%   nchan   = number of channels in data array
 %   cmin    = minimum number of channel estimtes that must be resolved in
 %             order to calculate average PAF/CoG estimates
 %   fRange  = frequency range to be included in analysis (e.g., [1, 40] Hz)
@@ -63,6 +64,9 @@ p = inputParser;
 p.addRequired('data',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'2d', 'nonempty'}));
+p.addRequired('nchan',...
+                @(x) validateattributes(x, {'numeric'}, ...
+                {'scalar', 'integer', 'positive'}));
 p.addRequired('cmin',...
                 @(x) validateattributes(x, {'numeric'}, ...
                 {'scalar', 'integer', 'positive', '<=', size(data, 1)}));
@@ -104,7 +108,7 @@ p.addOptional('norm', true,...
                 @(x) validateattributes(x, {'logical'}, ...
                 {'scalar'}));
             
-p.parse(data, cmin, fRange, Fs, w, Fw, k, varargin{:})
+p.parse(data, nchan, cmin, fRange, Fs, w, Fw, k, varargin{:})
 
 mpow    = p.Results.mpow;
 mdiff   = p.Results.mdiff;
@@ -119,7 +123,6 @@ pChans = struct('pxx', [], 'minPow', [], 'd0', [], 'd1', [], 'd2', [],...
     'peaks', [], 'pos1', [], 'pos2', [], 'f1', [], 'f2', [], 'inf1', [], 'inf2', [],...
     'Q', [],'Qf', [], 'gravs', [], 'selP', [], 'selG', [] );      
 
-nchan = size(data, 1);      % number of channels in data matrix
 
 for kx = 1:nchan
     if sum(isnan(data(kx,:)))==0      % ensure no channel NaNs

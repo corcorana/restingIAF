@@ -27,7 +27,7 @@
 %   tute_03_2 == ali0037_azn
 %
 % This script (and all custom-designed dependencies) are part of the 
-% `restingIAF` package, (c) Andrew W. Corcoran, 2016-2017.
+% `restingIAF` package, (c) Andrew W. Corcoran, 2016-2018.
 %
 % Visit github.com/corcorana/restingIAF for licence, updates, and further
 % information about package development and testing.
