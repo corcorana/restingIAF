@@ -33,8 +33,12 @@
 % information about package development and testing.
 
 %% Preliminary setup
+ 
+% this command ensures restingIAF functions and tutorial files are
+% accessible to my path (NB: may not work with all operating systems)
+addpath(genpath('../'))    
 
-% fire up eeglab (ensure it is accessible from your path)
+% fire up eeglab (may also need to add to path)
 if ~exist('EEG','var')
     eeglab;
 end
@@ -42,14 +46,16 @@ end
 % ensure double precision is switched on
 pop_editoptions('option_single', 0);
 
-% define path to the data files
-dataPath = '~/Documents/R/restingIAF/tutorial/datasets/';
+% define path to the data files -- useful if files not stored in current
+% path; redundant here (note syntax conventions may differ across systems)
+dataPath = './datasets/';
 
 % define initial parameters
 ns = 3;             % number of subjects for analysis
 nr = 2;             % number of recordings per subject
 
-cmin = 3;           % minimum number of channel estimates required for cross-channel average (for tutorial data: min == 1, max == 6)
+cmin = 3;           % minimum number of channel estimates required for 
+                    % cross-channel averages (for tutorial data: min == 1, max == 6)
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window (Hz)
 Fw = 11;            % SGF frame width (11 for ~0.24 Hz resolution)
@@ -70,7 +76,7 @@ for ix = 1:ns     % for each i-th subject
         fileName = sprintf(['tute_%02d_', num2str(jx), '.set'], ix);
         filePattern = fullfile(dataPath, fileName);
     
-        if exist(filePattern, 'file');      % check if filename in dir
+        if exist(filePattern, 'file')       % check if filename in dir
             
             % load pre-processed data file
             EEG = pop_loadset('filename', fileName, 'filepath', dataPath);
@@ -86,8 +92,10 @@ for ix = 1:ns     % for each i-th subject
             end
 
             % run `restingIAF`
-            % NOTE: only required inputs specified, optional inputs are available (see `restingIAF` help) 
-            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f] = restingIAF(data, nchan(jx), cmin, fRange, Fs, w, Fw, k);
+            % NOTE: only required inputs specified, further optional inputs 
+            % are also available (see `restingIAF` help) 
+            [pSpec(ix, jx).sums, pSpec(ix, jx).chans, f]...
+                = restingIAF(data, nchan(jx), cmin, fRange, Fs, w, Fw, k);
 
         else
             sprintf(['unable to find ', fileName, ', skipping file'])
@@ -104,7 +112,8 @@ end
 %% Print summary of IAF estimates to console (tabular structure assumes nr == 2)
 % find & fill in empties to enable struct fields to be concatenated
 emptySums = arrayfun(@(pSpec) isempty(pSpec.sums), pSpec);
-[pSpec(emptySums).sums] = deal(struct('paf', NaN, 'pafStd', NaN, 'cog', NaN, 'cogStd', NaN, 'muSpec', NaN, 'pSel', NaN, 'gSel', NaN, 'iaw', [1 1]));
+[pSpec(emptySums).sums] = deal(struct('paf', NaN, 'pafStd', NaN, 'cog', NaN,...
+    'cogStd', NaN, 'muSpec', NaN, 'pSel', NaN, 'gSel', NaN, 'iaw', [1 1]));
 
 % pull out 1st and 2nd recording estimates
 sum_1 = [pSpec(:,1).sums];
@@ -112,6 +121,9 @@ sum_2 = [pSpec(:,2).sums];
 
 % tabulate summary statistics
 S_num = (1:ns)';
-colnames = { 'S', 'PAF', 'sd1', 'sd2', 'nPafs1', 'nPafs2', 'CoG', 'sd_1', 'sd_2', 'nGravs1', 'nGravs2' };
-IAF_estimates = array2table([S_num, muPaf, [sum_1(:).pafStd]', [sum_2(:).pafStd]', [sum_1(:).pSel]', [sum_2(:).pSel]', muCog, [sum_1(:).cogStd]', [sum_2(:).cogStd]', [sum_1(:).gSel]', [sum_2(:).gSel]' ], 'VariableNames', colnames)
+colnames = { 'S', 'PAF', 'sd1', 'sd2', 'nPafs1', 'nPafs2', 'CoG',...
+    'sd_1', 'sd_2', 'nGravs1', 'nGravs2' };
+IAF_estimates = array2table([S_num, muPaf, [sum_1(:).pafStd]', [sum_2(:).pafStd]',...
+    [sum_1(:).pSel]', [sum_2(:).pSel]', muCog, [sum_1(:).cogStd]', [sum_2(:).cogStd]',...
+    [sum_1(:).gSel]', [sum_2(:).gSel]' ], 'VariableNames', colnames)
 fprintf('Estimates derived via pwelch method, initial alpha window = %.1f - %.1f Hz.', w(1), w(2));
