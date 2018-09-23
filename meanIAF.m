@@ -1,5 +1,5 @@
 function [paf, cog] = meanIAF(sums, nchan, cmin)
-% Average 2 repeated-measures PAF and CoG means in proportion to number of
+% Average repeated-measures PAF and CoG means in proportion to number of
 % channels that contributed to calculation of each respective mean.
 % No averaging performed if only one valid estimate provided per subject.
 %
