@@ -47,20 +47,21 @@ Current/previous release versions may also be cited:
 Each release is issued a unique doi from [Zenodo](https://zenodo.org/).
 
 ## Current release
-`v1.0.2` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1066004.svg)](https://doi.org/10.5281/zenodo.1066004)
+`v1.0.3` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2575868.svg)](https://doi.org/10.5281/zenodo.2575868)
 
-Various updates and minor bug fixes, including:
 
-- SGF parameters must now be specified (i.e. no default setting);
-- 'psd' argument removed from call to `pwelch` in `restingIAF`;
-- option to implement `pwelch` using an alternative taper to the default Hamming window;
-- `meanIAF` reconfigured to cope with >2 sets of intraindividual recordings;
-- `plotAvSpec` added to enable plotting of (Q-weighted) averaged channel spectra;
-- tutorial updated to include example figures from `plotAvSpec`;
-- simulation script separated into single & multi-component analysis scripts;
-- tutorial and simulation scripts updated in line with above modifications.
+
+A few minor bug fixes and documentation updates:
+
+- Update publication citation info
+- Correct parsing error for `restingIAF` 'norm' input
+- Enable zero overlap for `pwelch` function
+- Adjust search range in `findF1` to prevent potential error
+
 
 ### Previous releases
+`v1.0.2` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1066004.svg)](https://doi.org/10.5281/zenodo.1066004)
+
 `v1.0.1` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.888071.svg)](https://doi.org/10.5281/zenodo.888071)
 
 `v1.0` [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.846797.svg)](https://doi.org/10.5281/zenodo.846797)
@@ -72,5 +73,5 @@ This software was developed in the hope that it would be of some use to the EEG 
 It is distributed WITHOUT WARRANTY; without even the implied warranty of merchantability or fitness for a particular purpose. 
 See the [GNU General Public License](https://github.com/corcorana/restingIAF/tree/master/LICENCE.md) for more details.
 
-Copyright (c) 2016--2018 Andrew W. Corcoran.
+Copyright (c) 2016--2019 Andrew W. Corcoran.
 (Any coding errors or inelegancies are solely his fault.)
