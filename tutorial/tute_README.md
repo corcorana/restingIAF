@@ -26,7 +26,7 @@ They were then downsampled from 500 Hz to 250 Hz, resulting in channel vectors c
 
 ## Analysis parameters
 The `tutorial` script is designed to perform a self-contained analysis of the provided datasets (note however that some minor editing may be required in order to ensure that the script can find EEGLAB and the relevant files/functions).
-Analysis parameters are set to analyse both recordings of both participants, searching for evidence of alpha peaks in the range of 7--13 Hz.
+Analysis parameters are set to analyse both recordings from each participant, searching for evidence of alpha peaks in the range of 7--13 Hz.
 Number of channels required to generate cross-channel averages ($cMin$) is set to 3, and can be set to any value between 1 and 6 (with 6 being the most stringent, requiring IAF estimates from all included channels).
 
 For simplicity, the tutorial script implements a 'default' version of `restingIAF`, and does not specify various optional inputs pertaining to the configuration of the Savitzky-Golay filter and the `pwelch` routine.
