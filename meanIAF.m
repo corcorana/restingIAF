@@ -28,21 +28,21 @@ end
 %%
   
 % peaks
-select = [sums.pSel] >= cmin;
-if sum(select) == 0
+nSelect = [sums.pSel] >= cmin;
+if sum(nSelect) == 0
     paf = NaN;
 else
-    paf = sum([sums(select).paf].*([sums(select).pSel]./nchan(select)))...
-        / sum([sums(select).pSel]./nchan(select));
+    paf = sum([sums(nSelect).paf].*([sums(nSelect).pSel]./nchan(nSelect)))...
+        / sum([sums(nSelect).pSel]./nchan(nSelect));
 end
     
 % gravs
-select = [sums.gSel] >= cmin;
-if sum(select) == 0
+nSelect = [sums.gSel] >= cmin;
+if sum(nSelect) == 0
     cog = NaN;
 else
-    cog = sum([sums(select).cog].*([sums(select).gSel]./nchan(select)))...
-        / sum([sums(select).gSel]./nchan(select));
+    cog = sum([sums(nSelect).cog].*([sums(nSelect).gSel]./nchan(nSelect)))...
+        / sum([sums(nSelect).gSel]./nchan(nSelect));
 end
 
 
