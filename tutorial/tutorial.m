@@ -58,7 +58,7 @@ cmin = 3;           % minimum number of channel estimates required for
                     % cross-channel averages (for tutorial data: min == 1, max == 6)
 fRange = [1 40];    % spectral range (set to filter passband)
 w = [7 13];         % alpha peak search window (Hz)
-Fw = 11;            % SGF frame width (11 for ~0.24 Hz resolution)
+Fw = 11;            % SGF frame width (11 corresponding to a frequency span of ~2.69 Hz @ ~.24Hz frequency resolution)
 k = 5;              % SGF polynomial order
 
 % initialise data matrices / structures
